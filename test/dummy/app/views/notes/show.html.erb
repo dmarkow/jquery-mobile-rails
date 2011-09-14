@@ -1,0 +1,17 @@
+<div data-role="header">
+  <h1><%= @note.title %></h1>
+</div>
+
+<div data-role="content">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <%= @note.body %>
+  </p>
+
+</div>
+
+<div data-role="footer">
+  <%= link_to 'Edit', edit_note_path(@note) %>
+  <%= link_to 'Back', notes_path %>
+</div>

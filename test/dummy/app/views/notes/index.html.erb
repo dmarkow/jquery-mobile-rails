@@ -1,0 +1,20 @@
+<div data-role="header">
+  <h1>Listing notes</h1>
+</div>
+
+<div data-role="content">
+  <ul data-role="listview">
+    <% @notes.each do |note| %>
+      <li>
+        <%= link_to note do %>
+          <h1><%= note.title %></h1>
+          <%= truncate note.body, :length => 25 %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div data-role="footer">
+  <%= link_to 'New Note', new_note_path %>
+</div>
