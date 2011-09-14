@@ -1,4 +1,4 @@
-module JqueryMobileRails
-  require 'jquery-mobile-rails/engine.rb'
-  autoload 'Version', 'jquery-mobile-rails/version'
+module JqueryMobile
+  require 'jquery-mobile/engine.rb'
+  autoload 'Version', 'jquery-mobile/version'
 end

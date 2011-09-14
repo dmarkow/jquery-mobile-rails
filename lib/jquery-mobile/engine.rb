@@ -1,4 +1,4 @@
-module JqueryMobileRails
+module JqueryMobile
   class Engine < ::Rails::Engine
 
   end
