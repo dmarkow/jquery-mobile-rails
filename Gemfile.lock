@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jquery-mobile-rails (1.0.0.b3)
+    jquery-mobile (1.0.0.b3)
       rails (~> 3.1.0)
 
 GEM
@@ -94,6 +94,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jquery-mobile-rails!
+  jquery-mobile!
   jquery-rails
   sqlite3

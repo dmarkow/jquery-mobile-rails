@@ -5,7 +5,7 @@ require "jquery-mobile-rails/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "jquery-mobile-rails"
+  s.name        = "jquery-mobile"
   s.version     = JqueryMobileRails::VERSION
   s.authors     = ["Tiago Scolari"]
   s.email       = ["tscolari@gmail.com"]
