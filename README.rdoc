@@ -1,3 +1,45 @@
-= JqueryMobileRails
+= Jquery Mobile for Rails
 
-This project rocks and uses MIT-LICENSE.
+This gem adds the JQuery Mobile files to the rails assets pipeline.
+
+==== Gem's JQuery Mobile Version
+
+1.0 beta 3
+
+=== Instalation
+
+Add this gem to your Gemfile:
+
+    gem 'jquery-mobile-rails', :git => "git://github.com/tscolari/jquery-mobile-rails.git"
+
+This will include to your assets pipeline the jquery mobile's javascripts, stylesheets and images.
+
+Insert into your application.js manifest the jquery.mobile (or jquery.mobile.min)
+
+    //= require jquery
+    //= require jquery_ujs
+    //= require jquery.mobile
+
+And the same to your application.css manifest:
+
+    *= require_self
+    *= require_tree .
+    *= require jquery.mobile
+
+
+=== Use
+
+I built this gem for using with the Mobylette gem, but it will work with your stand alone application, or with any other gem that filters your mobile requests.
+
+For layouting using JQuery Mobile, and using all its features, I suggest your give a look at their documentation: http://jquerymobile.com/test/
+
+
+=== Example
+
+Inside the test/dummy there is a simple application using a very basic jquery mobile templating.
+
+=== References
+
+* JQuery Mobile Page: http://jquerymobile.com/
+* Mobylette Gem: https://github.com/tscolari/mobylette
+* Mobile_fu Gem: https://github.com/brendanlim/mobile-fu
