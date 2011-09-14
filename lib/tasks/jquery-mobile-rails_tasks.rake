@@ -5,11 +5,15 @@ task :"jquery-mobile-rails-image-fix" do
 
   Dir.glob(File.join(STYLESHEETS_PATH, "*.css")).each do |css_file_name|
     file_content = File.read(css_file_name)
-    file_content.gsub!(/url\(images\//, "url(")
+    file_content.gsub! /url\(images\/([A-Za-z0-9_-]*\.png)\)/ do
+      "url(<%= asset_path 'jquery-mobile/#{$1}' %>)"
+    end
 
     File.open(css_file_name, 'w') do |file|
       file << file_content
     end
+
+    File.rename(css_file_name, "#{css_file_name}.erb")
   end
 
 end
