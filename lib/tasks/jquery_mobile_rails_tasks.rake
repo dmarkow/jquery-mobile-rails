@@ -1,5 +1,5 @@
-desc "Fix the images path in the jquery-mobile css files"
-task :"jquery-mobile-rails-image-fix" do
+desc "Fix the images path in the jquery-mobile css files and rename css to erb"
+task :"jquery_mobile_rails_css_fix" do
   STYLESHEETS_PATH  = "vendor/assets/stylesheets"
   IMAGES_PATH       = "assets/"
 

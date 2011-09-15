@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require
-require "jquery-mobile"
+require "jquery_mobile_rails"
 
 module Dummy
   class Application < Rails::Application

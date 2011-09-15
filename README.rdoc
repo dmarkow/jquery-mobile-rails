@@ -10,7 +10,7 @@ This gem adds the JQuery Mobile files to the rails assets pipeline.
 
 Add this gem to your Gemfile:
 
-    gem 'jquery-mobile'
+    gem 'jquery_mobile_rails'
 
 This will include to your assets pipeline the jquery mobile's javascripts, stylesheets and images.
 
