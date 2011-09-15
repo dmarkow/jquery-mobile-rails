@@ -1,3 +1,3 @@
 module JqueryMobile
-  VERSION = "1.0b3"
+  VERSION = "1.0b3.1"
 end
