@@ -20,7 +20,7 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-load "lib/tasks/jquery_mobile_rails_tasks.rake"
+load "lib/development_tasks/jquery_mobile_rails_tasks.rake"
 
 Bundler::GemHelper.install_tasks
 
