@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jquery_mobile_rails (1.0rc1)
+    jquery_mobile_rails (1.0rc2)
       rails (~> 3.1.0)
 
 GEM
@@ -88,7 +88,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.29)
+    tzinfo (0.3.30)
 
 PLATFORMS
   ruby
