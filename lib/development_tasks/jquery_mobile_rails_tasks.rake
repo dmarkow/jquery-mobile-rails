@@ -6,7 +6,7 @@ task :"jquery_mobile_rails_css_fix" do
   Dir.glob(File.join(STYLESHEETS_PATH, "*.css")).each do |css_file_name|
     file_content = File.read(css_file_name)
     file_content.gsub! /url\(images\/([A-Za-z0-9_-]*\.png)\)/ do
-      "image-url(\"#{$1}\")"
+      "image-url(\"jquery-mobile/#{$1}\")"
     end
 
     File.open(css_file_name, 'w') do |file|
