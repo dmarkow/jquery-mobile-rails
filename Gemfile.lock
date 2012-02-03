@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jquery_mobile_rails (1.0.3)
+    jquery_mobile_rails (1.0.4)
       rails (>= 3.1.0)
 
 GEM

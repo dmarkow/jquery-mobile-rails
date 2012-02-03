@@ -4,7 +4,7 @@ This gem adds the JQuery Mobile files to the rails assets pipeline.
 
 ==== Gem's JQuery Mobile Version
 
-1.0
+1.0.1
 
 === Instalation
 
