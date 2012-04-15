@@ -1,10 +1,17 @@
+# encoding: utf-8
+#
+
 desc "Fix the images path in the jquery-mobile css files and rename css to erb"
 task :"jquery_mobile_rails_css_fix" do
   STYLESHEETS_PATH  = "vendor/assets/stylesheets"
   IMAGES_PATH       = "assets/"
 
   Dir.glob(File.join(STYLESHEETS_PATH, "*.css")).each do |css_file_name|
-    file_content = File.read(css_file_name)
+    puts css_file_name
+    file_content = ''
+    File.open(css_file_name, "r:UTF-8") do |file|
+      file_content = file.read
+    end
     file_content.gsub! /url\(images\/([A-Za-z0-9_-]*\.png)\)/ do
       "image-url(\"jquery-mobile/#{$1}\")"
     end

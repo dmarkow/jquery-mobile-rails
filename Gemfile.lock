@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jquery_mobile_rails (1.0.4)
+    jquery_mobile_rails (1.1.0)
       rails (>= 3.1.0)
 
 GEM
@@ -34,7 +34,7 @@ GEM
     activesupport (3.2.1)
       i18n (~> 0.6)
       multi_json (~> 1.0)
-    arel (3.0.0)
+    arel (3.0.2)
     builder (3.0.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -54,11 +54,11 @@ GEM
       thor (~> 0.14)
     json (1.6.5)
     libv8 (3.3.10.4)
-    mail (2.4.1)
+    mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.17.2)
+    mime-types (1.18)
     multi_json (1.0.4)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -103,7 +103,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.31)
+    tzinfo (0.3.33)
     uglifier (1.2.2)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
