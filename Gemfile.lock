@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jquery_mobile_rails (1.1.0)
+    jquery_mobile_rails (1.1.1)
       rails (>= 3.1.0)
 
 GEM
@@ -58,7 +58,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.18)
+    mime-types (1.19)
     multi_json (1.0.4)
     polyglot (0.3.3)
     rack (1.4.1)
