@@ -12,8 +12,8 @@ task :"jquery_mobile_rails_css_fix" do
     File.open(css_file_name, "r:UTF-8") do |file|
       file_content = file.read
     end
-    file_content.gsub! /url\(images\/([A-Za-z0-9_-]*\.png)\)/ do
-      "image-url(\"jquery-mobile/#{$1}\")"
+    file_content.gsub! /url\(images\/([A-Za-z0-9_-]*\.)(png|gif)\)/ do
+      "image-url(\"jquery-mobile/#{$1}#{$2}\")"
     end
 
     File.open(css_file_name, 'w') do |file|
