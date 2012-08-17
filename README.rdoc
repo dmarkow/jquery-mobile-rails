@@ -2,10 +2,6 @@
 
 This gem adds the JQuery Mobile files to the rails assets pipeline.
 
-==== Gem's JQuery Mobile Version
-
-1.1.1
-
 === Instalation
 
 Add this gem to your Gemfile:
@@ -26,13 +22,22 @@ And the same to your application.css manifest:
     *= require_tree .
     *= require jquery.mobile
 
-
 === Use
 
 I built this gem for using with the Mobylette gem, but it will work with your stand alone application, or with any other gem that filters your mobile requests.
 
 For layouting using JQuery Mobile, and using all its features, I suggest your give a look at their documentation: http://jquerymobile.com/test/
 
+== Different versions
+
+By default, jquery_mobile_rails gem will provide latest stable version of JQM.
+Besides that you can switch to other versions by selecting a different branch.
+
+For example, to use 1.2.0-alpha.1, update your Gemfile to:
+
+```
+gem "jquery_mobile_rails", git: "git://github.com/tscolari/jquery-mobile-rails.git", branch: "1.2.0-alpha.1"
+```
 
 === Example
 
