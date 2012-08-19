@@ -45,9 +45,7 @@ Besides that you can switch to other versions by selecting a different branch.
 
 For example, to use 1.2.0-alpha.1, update your Gemfile to:
 
-```
-gem "jquery_mobile_rails", git: "git://github.com/tscolari/jquery-mobile-rails.git", branch: "1.2.0-alpha.1"
-```
+  gem "jquery_mobile_rails", git: "git://github.com/tscolari/jquery-mobile-rails.git", branch: "1.2.0-alpha.1"
 
 == Pull Requests
 
