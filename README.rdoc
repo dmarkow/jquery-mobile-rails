@@ -43,6 +43,26 @@ gem "jquery_mobile_rails", git: "git://github.com/tscolari/jquery-mobile-rails.g
 
 Inside the test/dummy there is a simple application using a very basic jquery mobile templating.
 
+== Different versions
+
+By default, jquery_mobile_rails gem will provide latest stable version of JQM.
+Besides that you can switch to other versions by selecting a different branch.
+
+For example, to use 1.2.0-alpha.1, update your Gemfile to:
+
+  gem "jquery_mobile_rails", git: "git://github.com/tscolari/jquery-mobile-rails.git", branch: "1.2.0-alpha.1"
+
+== Pull Requests
+
+Please, this steps help a lot the merge proccess:
+
+* Copy jquery mobile files to vendor/assets/(javascripts|stylesheets|images)/
+* Remove version number from the file names
+* place images in the sub-directory named 'jquery-mobile' (vendor/assets/images/jquery-mobile)
+* run the rake task `jquery_mobile_rails_css_fix`. This will ensure that the images in the css will be loaded using `image-url()` instead of `url()`, and it will convert the file to scss.
+
+:)
+
 === References
 
 * JQuery Mobile Page: http://jquerymobile.com/
