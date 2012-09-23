@@ -1,9 +1,9 @@
 /*
-* jQuery Mobile Framework Git Build: SHA1: 4db80a84ac443e4037a3b90a6f92dc2c6872f45c <> Date: Wed Aug 1 18:05:42 2012 +0200
+* jQuery Mobile Framework Git Build: SHA1: ce06297f5caebeafa243e0a72efc422700292cca <> Date: Fri Sep 21 09:37:21 2012 -0700
 * http://jquerymobile.com
 *
 * Copyright 2012 jQuery Foundation and other contributors
-* Dual licensed under the MIT or GPL Version 2 licenses.
+* Released under the MIT license.
 * http://jquery.org/license
 *
 */
@@ -282,7 +282,7 @@
 	background-image:         linear-gradient( #6facd5 /*{b-bhover-background-start}*/, #4272a4 /*{b-bhover-background-end}*/);
 }
 .ui-btn-hover-b:visited,
-.ui-btn-hover-a:hover,
+.ui-btn-hover-b:hover,
 .ui-btn-hover-b a.ui-link-inherit {
 	color: 					#fff /*{b-bhover-color}*/;
 }
@@ -901,7 +901,7 @@ a.ui-link-inherit {
 .ui-icon-searchfield:after {
 	background: 						#666 /*{global-icon-color}*/;
 	background: 						rgba(0,0,0,.4) /*{global-icon-disc}*/;
-	background-image: image-url("jquery-mobile/icons-18-white.png") /*{global-icon-set}*/;
+	background-image: url(images/icons-18-white.png) /*{global-icon-set}*/;
 	background-repeat: no-repeat;
 	-moz-border-radius: 				9px;
 	-webkit-border-radius: 				9px;
@@ -915,7 +915,7 @@ a.ui-link-inherit {
 .ui-icon-alt {
 	background: 						#fff;
 	background: 						rgba(255,255,255,.3);
-	background-image: image-url("jquery-mobile/icons-18-black.png");
+	background-image: url(images/icons-18-black.png);
 	background-repeat: no-repeat;
 }
 
@@ -931,14 +931,14 @@ a.ui-link-inherit {
 	.ui-icon-gear, .ui-icon-refresh, .ui-icon-forward, .ui-icon-back,
 	.ui-icon-grid, .ui-icon-star, .ui-icon-alert, .ui-icon-info, .ui-icon-home, .ui-icon-search, .ui-icon-searchfield:after, 
 	.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-radio-off, .ui-icon-radio-on {
-		background-image: image-url("jquery-mobile/icons-36-white.png");
+		background-image: url(images/icons-36-white.png);
 		-moz-background-size: 776px 18px;
 		-o-background-size: 776px 18px;
 		-webkit-background-size: 776px 18px;
 		background-size: 776px 18px;
 	}
 	.ui-icon-alt {
-		background-image: image-url("jquery-mobile/icons-36-black.png");
+		background-image: url(images/icons-36-black.png);
 	}
 }
 
@@ -1036,7 +1036,7 @@ a.ui-link-inherit {
 
 /* loading icon */
 .ui-icon-loading {
-	background: image-url("jquery-mobile/ajax-loader.gif");
+	background: url(images/ajax-loader.gif);
 	background-size: 46px 46px;
 }
 
