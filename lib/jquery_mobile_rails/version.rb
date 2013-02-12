@@ -1,3 +1,3 @@
 module JqueryMobileRails
-  VERSION = "1.3.b1"
+  VERSION = "1.3.rc1"
 end
