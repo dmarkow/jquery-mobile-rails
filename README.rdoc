@@ -1,3 +1,5 @@
+= Looking for new maintainer!! - please send message
+
 = Jquery Mobile for Rails
 
 This gem adds the JQuery Mobile files to the rails assets pipeline.
