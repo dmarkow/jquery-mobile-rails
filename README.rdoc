@@ -14,7 +14,7 @@ Add this gem to your Gemfile:
 
     gem 'jquery_mobile_rails'
 
-This will add jQuery Mobile's javascripts, stylesheets and images available to your app.
+This will add jQuery Mobile's javascripts, stylesheets and images to your app.
 
 Include jquery.mobile (or jquery.mobile.min) in your application.js manifest:
 
