@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.3.2
-* Git HEAD hash: 528cf0e96940644ea644096bfeb913ed920ffaef <> Date: Fri Jul 19 2013 22:17:57 UTC
+* jQuery Mobile 1.4.0-alpha.1
+* Git HEAD hash: d17d2ba7a10af43dac930d1ee65b6b46268bb08d <> Date: Thu Jul 25 2013 22:32:20 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2013 jQuery Foundation, Inc. and other contributors
@@ -10,69 +10,201 @@
 */
 
 
-/* some unsets - more probably needed */
-.ui-mobile, .ui-mobile body { height: 99.9%; }
-.ui-mobile fieldset, .ui-page { padding: 0; margin: 0; }
-.ui-mobile a img, .ui-mobile fieldset { border-width: 0; }
-.ui-mobile fieldset { min-width: 0; }
-/* responsive page widths */
-.ui-mobile-viewport { margin: 0; overflow-x: visible; -webkit-text-size-adjust: 100%; -ms-text-size-adjust:none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+/* Some unsets */
+.ui-mobile,
+.ui-mobile body {
+	height: 99.9%;
+}
+.ui-mobile fieldset,
+.ui-page {
+	padding: 0;
+	margin: 0;
+}
+.ui-mobile a img,
+.ui-mobile fieldset {
+	border-width: 0;
+}
+/* Fixes for fieldset issues on IE10 and FF (see #6077) */
+.ui-mobile fieldset {
+	min-width: 0;
+}
+@-moz-document url-prefix() {
+	.ui-mobile fieldset {
+		display: table-column;
+	}
+}
+/* Viewport */
+.ui-mobile-viewport {
+	margin: 0;
+	overflow-x: visible;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust:none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 /* Issue #2066 */
 body.ui-mobile-viewport,
-div.ui-mobile-viewport { overflow-x: hidden; }
+div.ui-mobile-viewport {
+	overflow-x: hidden;
+}
 /* "page" containers - full-screen views, one should always be in view post-pageload */
-.ui-mobile [data-role=page], .ui-mobile [data-role=dialog], .ui-page { top: 0; left: 0; width: 100%; min-height: 100%; position: absolute; display: none; border: 0; }
-.ui-mobile .ui-page-active { display: block; overflow: visible; }
-/* on ios4, setting focus on the page element causes flashing during transitions when there is an outline, so we turn off outlines */
-.ui-page { outline: none; }
-/*orientations from js are available */
-@media screen and (orientation: portrait){
-.ui-mobile .ui-page { min-height: 420px; }
+.ui-mobile [data-role=page],
+.ui-mobile [data-role=dialog],
+.ui-page {
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 100%;
+	position: absolute;
+	display: none;
+	border: 0;
 }
-@media screen and (orientation: landscape){
-.ui-mobile .ui-page { min-height: 300px; }
+/* On ios4, setting focus on the page element causes flashing during transitions when there is an outline, so we turn off outlines */
+.ui-page {
+	outline: none;
 }
-/* loading screen */
-.ui-loading .ui-loader { display: block; }
-.ui-loader { display: none; z-index: 9999999; position: fixed; top: 50%; left: 50%; border:0; }
-.ui-loader-default { background: none; filter: Alpha(Opacity=18); opacity: .18; width: 46px; height: 46px; margin-left: -23px; margin-top: -23px; }
-.ui-loader-verbose { width: 200px; filter: Alpha(Opacity=88); opacity: .88; box-shadow: 0 1px 1px -1px #fff; height: auto; margin-left: -110px; margin-top: -43px; padding: 10px; }
-.ui-loader-default h1 { font-size: 0; width: 0; height: 0; overflow: hidden; }
-.ui-loader-verbose h1 { font-size: 16px; margin: 0; text-align: center; }
-.ui-loader .ui-icon { background-color: #000; display: block; margin: 0; width: 44px; height: 44px; padding: 1px; -webkit-border-radius: 36px; border-radius: 36px; }
-.ui-loader-verbose .ui-icon { margin: 0 auto 10px; filter: Alpha(Opacity=75); opacity: .75; }
-.ui-loader-textonly { padding: 15px; margin-left: -115px; }
-.ui-loader-textonly .ui-icon { display: none; }
-.ui-loader-fakefix { position: absolute; }
-/*fouc*/
-.ui-mobile-rendering > * { visibility: hidden; }
-/*headers, content panels*/
-.ui-bar, .ui-body { position: relative; padding: .4em 15px; overflow: hidden; display: block; clear:both; }
-.ui-bar { font-size: 16px; margin: 0; }
-.ui-bar h1, .ui-bar h2, .ui-bar h3, .ui-bar h4, .ui-bar h5, .ui-bar h6 { margin: 0; padding: 0; font-size: 16px; display: inline-block; }
-.ui-header, .ui-footer { position: relative; zoom: 1; }
-.ui-mobile .ui-header, .ui-mobile .ui-footer { border-left-width: 0; border-right-width: 0; }
-.ui-header .ui-btn-left,
-.ui-header .ui-btn-right,
-.ui-footer .ui-btn-left,
-.ui-footer .ui-btn-right,
-.ui-header-fixed.ui-fixed-hidden .ui-btn-left,
-.ui-header-fixed.ui-fixed-hidden .ui-btn-right { position: absolute; top: 3px; }
-.ui-header-fixed .ui-btn-left,
-.ui-header-fixed .ui-btn-right { top: 4px;}
-.ui-header .ui-btn-left,
-.ui-footer .ui-btn-left { left: 5px; }
-.ui-header .ui-btn-right,
-.ui-footer .ui-btn-right { right: 5px; }
-.ui-footer > .ui-btn-icon-notext,
-.ui-header > .ui-btn-icon-notext,
-.ui-header-fixed.ui-fixed-hidden > .ui-btn-icon-notext { top: 6px; }
-.ui-header-fixed > .ui-btn-icon-notext { top: 7px;}
-.ui-header .ui-title, .ui-footer .ui-title { min-height: 1.1em; text-align: center; font-size: 16px; display: block; margin: .6em 30% .8em; padding: 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; outline: 0 !important; }
-.ui-footer .ui-title { margin: .6em 15px .8em; }
-/* content area*/
-.ui-content { border-width: 0; overflow: visible; overflow-x: hidden; padding: 15px; }
-/* corner styling for dialogs and popups */
+.ui-mobile .ui-page-active {
+	display: block;
+	overflow: visible;
+	overflow-x: hidden;
+}
+@media screen and (orientation: portrait) {
+	.ui-mobile .ui-page {
+		min-height: 420px;
+	}
+}
+@media screen and (orientation: landscape) {
+	.ui-mobile .ui-page {
+		min-height: 300px;
+	}
+}
+/* Fouc */
+.ui-mobile-rendering > * {
+	visibility: hidden;
+}
+/* Non-js content hiding */
+.ui-nojs {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
+/* Loading screen */
+.ui-loading .ui-loader {
+	display: block;
+}
+.ui-loader {
+	display: none;
+	z-index: 9999999;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	border:0;
+}
+.ui-loader-default {
+	background: none;
+	filter: Alpha(Opacity=18);
+	opacity: .18;
+	width: 2.875em;
+	height: 2.875em;
+	margin-left: -1.4375em;
+	margin-top: -1.4375em;
+}
+.ui-loader-verbose {
+	width: 12.5em;
+	filter: Alpha(Opacity=88);
+	opacity: .88;
+	box-shadow: 0 1px 1px -1px #fff;
+	height: auto;
+	margin-left: -6.875em;
+	margin-top: -2.6875em;
+	padding: .625em;
+}
+.ui-loader-default h1 {
+	font-size: 0;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+.ui-loader-verbose h1 {
+	font-size: 1em;
+	margin: 0;
+	text-align: center;
+}
+.ui-loader .ui-icon-loading {
+	background-color: #000;
+	display: block;
+	margin: 0;
+	width: 2.75em;
+	height: 2.75em;
+	padding: .0625em;
+	-webkit-border-radius: 2.25em;
+	border-radius: 2.25em;
+}
+.ui-loader-verbose .ui-icon-loading {
+	margin: 0 auto .625em;
+	filter: Alpha(Opacity=75);
+	opacity: .75;
+}
+.ui-loader-textonly {
+	padding: .9375em;
+	margin-left: -7.1875em;
+}
+.ui-loader-textonly .ui-icon-loading {
+	display: none;
+}
+.ui-loader-fakefix {
+	position: absolute;
+}
+/* Headers, content panels */
+.ui-bar,
+.ui-body {
+	position: relative;
+	padding: .4em 1em;
+	overflow: hidden;
+	display: block;
+	clear: both;
+}
+.ui-bar h1,
+.ui-bar h2,
+.ui-bar h3,
+.ui-bar h4,
+.ui-bar h5,
+.ui-bar h6 {
+	margin: 0;
+	padding: 0;
+	font-size: 1em;
+	display: inline-block;
+}
+.ui-header,
+.ui-footer {
+	border-width: 1px 0;
+	border-style: solid;
+	position: relative;
+}
+.ui-header .ui-title,
+.ui-footer .ui-title {
+	font-size: 1em;
+	min-height: 1.1em;
+	text-align: center;
+	display: block;
+	margin: 0 30%;
+	padding: .7em 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	outline: 0 !important;
+}
+.ui-footer .ui-title {
+	margin: 0 1em;
+}
+.ui-content {
+	border-width: 0;
+	overflow: visible;
+	overflow-x: hidden;
+	padding: 1em;
+}
+/* Corner styling for dialogs and popups */
 .ui-corner-all > .ui-header:first-child,
 .ui-corner-all > .ui-content:first-child,
 .ui-corner-all > .ui-footer:first-child {
@@ -89,13 +221,176 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 	-webkit-border-bottom-right-radius: inherit;
 	border-bottom-right-radius: inherit;
 }
-/* icons sizing */
-.ui-icon { width: 18px; height: 18px; }
-/* non-js content hiding */
-.ui-nojs { position: absolute; left: -9999px; }
-/* accessible content hiding */
-.ui-hide-label label.ui-input-text, .ui-hide-label label.ui-select, .ui-hide-label label.ui-slider, .ui-hide-label label.ui-submit, .ui-hide-label .ui-controlgroup-label,
-.ui-hidden-accessible { position: absolute !important; left: -9999px; clip: rect(1px 1px 1px 1px); clip: rect(1px,1px,1px,1px); }
+/* Buttons and icons */
+.ui-btn {
+	font-size: 16px;
+	margin: .5em 0;
+	padding: .7em 1em;
+	display: block;
+	position: relative;
+	text-align: center;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.ui-btn-icon-notext {
+	padding: 0;
+	width: 1.75em;
+	height: 1.75em;
+	text-indent: -9999px;
+	white-space: nowrap !important;
+}
+.ui-mini {
+	font-size: 12.5px;
+}
+.ui-mini .ui-btn {
+	font-size: inherit;
+}
+.ui-mini .ui-controlgroup-label {
+	font-size: 16px;
+}
+/* Make buttons in toolbars default to mini and inline. */
+.ui-header .ui-btn,
+.ui-footer .ui-btn {
+	font-size: 12.5px;
+	display: inline-block;
+	vertical-align: middle;
+}
+/* To ensure same top and left/right position when ui-btn-left/right are added to something other than buttons. */
+.ui-header .ui-btn-left,
+.ui-header .ui-btn-right {
+	font-size: 12.5px;
+}
+.ui-mini.ui-btn-icon-notext,
+.ui-mini .ui-btn-icon-notext,
+.ui-header .ui-btn-icon-notext,
+.ui-footer .ui-btn-icon-notext {
+	font-size: 16px;	
+	padding: 0;
+}
+.ui-btn-inline {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: .625em;
+}
+.ui-btn-icon-left {
+	padding-left: 2.5em;
+}
+.ui-btn-icon-right,
+.ui-listview > li > .ui-btn[class*="ui-icon-"] {
+	padding-right: 2.5em;
+}
+.ui-btn-icon-top {
+	padding-top: 2.5em;
+}
+.ui-btn-icon-bottom {
+	padding-bottom: 2.5em;
+}
+.ui-header .ui-btn-icon-top,
+.ui-footer .ui-btn-icon-top,
+.ui-header .ui-btn-icon-bottom,
+.ui-footer .ui-btn-icon-bottom {
+	padding-left: .3125em;
+	padding-right: .3125em;
+}
+.ui-btn[class*="ui-icon-"]:after {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 22px;
+	height: 22px;
+}
+.ui-btn-icon-notext:after,
+.ui-btn-icon-left:after,
+.ui-btn-icon-right:after,
+.ui-listview > li > .ui-btn[class*="ui-icon-"]:after {
+	top: 50%;
+	margin-top: -11px;
+}
+.ui-btn-icon-left:after {
+	left: .5625em;
+}
+.ui-btn-icon-right:after,
+.ui-listview > li > .ui-btn[class*="ui-icon-"]:after {
+	right: .5625em;
+}
+.ui-mini.ui-btn-icon-left:after,
+.ui-mini .ui-btn-icon-left:after,
+.ui-header .ui-btn-icon-left:after,
+.ui-footer .ui-btn-icon-left:after {
+	left: .37em;
+}
+.ui-mini.ui-btn-icon-right:after,
+.ui-mini .ui-btn-icon-right:after,
+.ui-header .ui-btn-icon-right:after,
+.ui-footer .ui-btn-icon-right:after {
+	right: .37em;
+}
+.ui-btn-icon-notext:after,
+.ui-btn-icon-top:after,
+.ui-btn-icon-bottom:after {
+	left: 50%;
+	margin-left: -11px;
+}
+.ui-btn-icon-top:after {
+	top: .5625em;
+}
+.ui-btn-icon-bottom:after {
+	top: auto;
+	bottom: .5625em;
+}
+/* Buttons in header position classes */
+.ui-header .ui-btn-left,
+.ui-header .ui-btn-right,
+.ui-btn-left > [class*="ui-"],
+.ui-btn-right > [class*="ui-"] {
+	margin: 0;
+}
+.ui-btn-left,
+.ui-btn-right {
+	position: absolute;
+	top: .24em;
+}
+.ui-btn-left {
+	left: .4em;
+}
+.ui-btn-right {
+	right: .4em;
+}
+.ui-btn-icon-notext.ui-btn-left {
+	top: .3125em;
+	left: .3125em;
+}
+.ui-btn-icon-notext.ui-btn-right {
+	top: .3125em;
+	right: .3125em;
+}
+/* Form labels */
+.ui-mobile label,
+.ui-controlgroup-label {
+	display: block;
+	margin: 0 0 .4em;
+}
+/* Accessible content hiding */
+.ui-hide-label > label,
+.ui-hide-label .ui-controlgroup-label,
+.ui-hide-label .ui-rangeslider label,
+.ui-hidden-accessible {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
+/* Used for hiding elements by the filterable widget. You can also use this class to hide list items or buttons in controlgroups; this ensures correct corner styling. */
+.ui-screen-hidden {
+	display: none !important;
+}
 /* Transitions originally inspired by those from jQtouch, nice work, folks */
 .ui-mobile-viewport-transitioning,
 .ui-mobile-viewport-transitioning .ui-page {
@@ -851,37 +1146,156 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 	30%, 40% { transform: translateX(0) scale(.7); }
     100% { transform: translateX(0) scale(1); }
 }
+.ui-field-contain,
+.ui-mobile fieldset.ui-field-contain {
+	display: block;
+	position: relative;
+	overflow: visible;
+	clear: both;
+	padding: .8em 0;
+}
+.ui-field-contain > label + [class*="ui-"],
+.ui-field-contain .ui-controlgroup-controls {
+	margin: 0;
+}
+.ui-field-contain:last-child {
+	border-bottom-width: 0;
+}
+@media (min-width: 28em) {
+	.ui-field-contain,
+	.ui-mobile fieldset.ui-field-contain {
+		padding: 0;
+		margin: 1em 0;
+		border-bottom-width: 0;
+	}
+	.ui-field-contain:before,
+	.ui-field-contain:after {
+		content: "";
+		display: table;
+	}
+	.ui-field-contain:after {
+		clear: both;
+	}
+	.ui-field-contain > label,
+	.ui-field-contain .ui-controlgroup-label,
+	.ui-field-contain > .ui-rangeslider > label {
+		float: left;
+		width: 20%;
+		margin: .5em 2% 0 0;
+	}
+	.ui-popup .ui-field-contain > label,
+	.ui-popup .ui-field-contain .ui-controlgroup-label,
+	.ui-popup .ui-field-contain > .ui-rangeslider > label {
+		float: none;
+		width: auto;
+		margin: 0 0 .4em;
+	}
+	.ui-field-contain > label + [class*="ui-"],
+	.ui-field-contain .ui-controlgroup-controls {
+		float: left;
+		width: 78%;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	.ui-hide-label > label + [class*="ui-"],
+	.ui-hide-label .ui-controlgroup-controls,
+	.ui-popup .ui-field-contain > label + [class*="ui-"],
+	.ui-popup .ui-field-contain .ui-controlgroup-controls {
+		float: none;
+		width: 100%;
+	}
+}
 /* content configurations. */
-.ui-grid-a, .ui-grid-b, .ui-grid-c, .ui-grid-d { overflow: hidden; }
-.ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d, .ui-block-e { margin: 0; padding: 0; border: 0; float: left; min-height: 1px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
-/* grid solo: 100 - single item fallback */
-.ui-grid-solo .ui-block-a { display: block; float: none; }
-/* Lower percentages for older browsers (i.e. IE7) to prevent wrapping. -.5px to fix BB5 wrap issue. */
-/* grid a: 50/50 */
-.ui-grid-a .ui-block-a, .ui-grid-a .ui-block-b { width: 49.95%; }
-.ui-grid-a > :nth-child(n) { width: 50%; margin-right: -.5px; }
-.ui-grid-a .ui-block-a { clear: left; }
-/* grid b: 33/33/33 */
-.ui-grid-b .ui-block-a, .ui-grid-b .ui-block-b, .ui-grid-b .ui-block-c { width: 33.25%; }
-.ui-grid-b > :nth-child(n) { width: 33.333%; margin-right: -.5px; }
-.ui-grid-b .ui-block-a { clear: left; }
-/* grid c: 25/25/25/25 */
-.ui-grid-c .ui-block-a, .ui-grid-c .ui-block-b, .ui-grid-c .ui-block-c, .ui-grid-c .ui-block-d { width: 24.925%; }
-.ui-grid-c > :nth-child(n) { width: 25%; margin-right: -.5px; }
-.ui-grid-c .ui-block-a { clear: left; }
-/* grid d: 20/20/20/20/20 */
-.ui-grid-d .ui-block-a, .ui-grid-d .ui-block-b, .ui-grid-d .ui-block-c, .ui-grid-d .ui-block-d, .ui-grid-d .ui-block-e { width: 19.925%; }
-.ui-grid-d > :nth-child(n) { width: 20%; }
-.ui-grid-d .ui-block-a { clear: left; }
+.ui-grid-a,
+.ui-grid-b,
+.ui-grid-c,
+.ui-grid-d,
+.ui-grid-solo {
+	overflow: hidden;
+}
+.ui-block-a,
+.ui-block-b,
+.ui-block-c,
+.ui-block-d,
+.ui-block-e {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	float: left;
+	min-height: 1px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+/* force new row */
+.ui-block-a {
+	clear: left;
+}
+ul.ui-grid-a,
+ul.ui-grid-b,
+ul.ui-grid-c,
+ul.ui-grid-d,
+ul.ui-grid-solo,
+li.ui-block-a,
+li.ui-block-b,
+li.ui-block-c,
+li.ui-block-d,
+li.ui-block-e {
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;
+	list-style: none;
+}
+[class*="ui-grid-"] .ui-btn,
+[class*="ui-grid-"] button.ui-btn-inline,
+[class*="ui-grid-"] button.ui-btn-icon-notext {
+	margin-right: .3125em;
+	margin-left: .3125em;
+}
+.ui-grid-a > .ui-block-a,
+.ui-grid-a > .ui-block-b {
+	/* width: 49.95%; IE7 */
+	/* margin-right: -.5px; BB5 */
+	width: 50%;
+}
+.ui-grid-b > .ui-block-a,
+.ui-grid-b > .ui-block-b,
+.ui-grid-b > .ui-block-c {
+	/* width: 33.25%; IE7 */
+	/* margin-right: -.5px; BB5 */
+	width: 33.333%;
+}
+.ui-grid-c > .ui-block-a,
+.ui-grid-c > .ui-block-b,
+.ui-grid-c > .ui-block-c,
+.ui-grid-c > .ui-block-d {
+	/* width: 24.925%; IE7 */
+	/* margin-right: -.5px; BB5 */
+	width: 25%;
+}
+.ui-grid-d > .ui-block-a,
+.ui-grid-d > .ui-block-b,
+.ui-grid-d > .ui-block-c,
+.ui-grid-d > .ui-block-d,
+.ui-grid-d > .ui-block-e {
+	/* width: 19.925%; IE7 */
+	width: 20%;
+}
+.ui-grid-solo > .ui-block-a {
+	width: 100%;
+	float: none; 
+}
 /* preset breakpoint to switch to stacked grid styles below 35em (560px) */
-@media all and (max-width: 35em) {
-	.ui-responsive .ui-block-a, 
-	.ui-responsive .ui-block-b, 
-	.ui-responsive .ui-block-c,
-	.ui-responsive .ui-block-d,
-	.ui-responsive .ui-block-e { 
+@media (max-width: 35em) {
+	.ui-responsive > .ui-block-a,
+	.ui-responsive > .ui-block-b,
+	.ui-responsive > .ui-block-c,
+	.ui-responsive > .ui-block-d,
+	.ui-responsive > .ui-block-e {
 		width: 100%; 
-		float:none; 
+		float: none; 
 	}
 }
 /* fixed page header & footer configuration */
@@ -900,6 +1314,14 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 .ui-header-fixed.ui-fixed-hidden {
 	top: 0;
 	padding-top: 0;
+}
+.ui-header-fixed .ui-btn-left,
+.ui-header-fixed .ui-btn-right {
+	margin-top: 1px;
+}
+.ui-header-fixed.ui-fixed-hidden .ui-btn-left,
+.ui-header-fixed.ui-fixed-hidden .ui-btn-right {
+	margin-top: 0;
 }
 .ui-footer-fixed {
 	bottom: -1px;
@@ -929,7 +1351,11 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 }
 .ui-page-header-fullscreen .ui-fixed-hidden,
 .ui-page-footer-fullscreen .ui-fixed-hidden {
-	left: -9999px;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
 }
 .ui-header-fixed .ui-btn,
 .ui-footer-fixed .ui-btn { 
@@ -939,153 +1365,205 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 .ui-android-2x-fixed .ui-li-has-thumb {
 	-webkit-transform: translate3d(0,0,0);
 }
-.ui-navbar { max-width: 100%; }
-.ui-navbar.ui-mini { margin: 0; }
-.ui-navbar ul:before, .ui-navbar ul:after { content: " "; display: table; }
-.ui-navbar ul:after { clear: both; }
-.ui-navbar ul { list-style:none; margin: 0; padding: 0; position: relative; display: block; border: 0; max-width: 100%; overflow: visible; zoom: 1; }
-.ui-navbar li .ui-btn { display: block; text-align: center; margin: 0 -1px 0 0; border-right-width: 0; }
-.ui-navbar li .ui-btn-icon-right .ui-icon { right: 6px; }
-/* add border if not in header/footer (full width) */
-.ui-navbar li:last-child .ui-btn,
-.ui-navbar .ui-grid-duo .ui-block-b .ui-btn { margin-right: 0; border-right-width: 1px; }
-.ui-header .ui-navbar li:last-child .ui-btn,
-.ui-footer .ui-navbar li:last-child .ui-btn,
-.ui-header .ui-navbar .ui-grid-duo .ui-block-b .ui-btn,
-.ui-footer .ui-navbar .ui-grid-duo .ui-block-b .ui-btn { margin-right: -1px; border-right-width: 0; }
-.ui-navbar .ui-grid-duo li.ui-block-a:last-child .ui-btn { margin-right: -1px; border-right-width: 1px; }
-.ui-header .ui-navbar li .ui-btn,
-.ui-footer .ui-navbar li .ui-btn { border-top-width: 0; border-bottom-width: 0; }
-/* fixing gaps caused by subpixel problem */
-.ui-header .ui-navbar .ui-grid-b li.ui-block-c .ui-btn,
-.ui-footer .ui-navbar .ui-grid-b li.ui-block-c .ui-btn { margin-right: -5px; }
-.ui-header .ui-navbar .ui-grid-c li.ui-block-d .ui-btn,
-.ui-footer .ui-navbar .ui-grid-c li.ui-block-d .ui-btn,
-.ui-header .ui-navbar .ui-grid-d li.ui-block-e .ui-btn,
-.ui-footer .ui-navbar .ui-grid-d li.ui-block-e .ui-btn { margin-right: -4px; }
-.ui-header .ui-navbar .ui-grid-b li.ui-block-c .ui-btn-icon-right .ui-icon,
-.ui-footer .ui-navbar .ui-grid-b li.ui-block-c .ui-btn-icon-right .ui-icon,
-.ui-header .ui-navbar .ui-grid-c li.ui-block-d .ui-btn-icon-right .ui-icon,
-.ui-footer .ui-navbar .ui-grid-c li.ui-block-d .ui-btn-icon-right .ui-icon,
-.ui-header .ui-navbar .ui-grid-d li.ui-block-e .ui-btn-icon-right .ui-icon,
-.ui-footer .ui-navbar .ui-grid-d li.ui-block-e .ui-btn-icon-right .ui-icon { right: 8px; }
-.ui-navbar li .ui-btn .ui-btn-inner { padding-top: .7em; padding-bottom: .8em }
-.ui-navbar li .ui-btn-icon-top .ui-btn-inner { padding-top: 30px; }
-.ui-navbar li .ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 30px; }
-.ui-btn { display: block; text-align: center; cursor:pointer; position: relative; margin: .5em 0; padding: 0; }
-.ui-mini { margin-top: .25em; margin-bottom: .25em; }
-.ui-btn-left, .ui-btn-right, .ui-input-clear, .ui-btn-inline,
-.ui-grid-a .ui-btn, .ui-grid-b .ui-btn, .ui-grid-c .ui-btn, .ui-grid-d .ui-btn, .ui-grid-e .ui-btn, .ui-grid-solo .ui-btn { margin-right: 5px; margin-left: 5px; }
-.ui-btn-inner { font-size: 16px; padding: .6em 20px; min-width: .75em; display: block; position: relative; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; zoom: 1; }
-.ui-btn input, .ui-btn button { z-index: 2; }
-.ui-btn-left, .ui-btn-right, .ui-btn-inline { display: inline-block; vertical-align: middle; }
-.ui-mobile .ui-btn-left, .ui-mobile .ui-btn-right, .ui-btn-left > .ui-btn, .ui-btn-right > .ui-btn { margin: 0; } /* .ui-mobile to increase specificity level */
-.ui-btn-block { display: block; }
-.ui-header > .ui-btn,
-.ui-footer > .ui-btn { display: inline-block; margin: 0; }
-.ui-header .ui-btn-block,
-.ui-footer .ui-btn-block { display: block; }
-.ui-header .ui-btn-inner,
-.ui-footer .ui-btn-inner,
-.ui-mini .ui-btn-inner { font-size: 12.5px; padding: .55em 11px .5em; }
-.ui-fullsize .ui-btn-inner,
-.ui-fullsize .ui-btn-inner { font-size: 16px; padding: .6em 20px; }
-.ui-btn-icon-notext { width: 24px; height: 24px; }
-.ui-btn-icon-notext .ui-btn-inner { padding: 0; height: 100%; }
-.ui-btn-icon-notext .ui-btn-inner .ui-icon { margin: 2px 1px 2px 3px; float: left; }
-.ui-btn-text { position: relative; z-index: 1; width: 100%; -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none; }
-div.ui-btn-text { width: auto; }
-.ui-btn-icon-notext .ui-btn-text { position: absolute; left: -9999px; }
-.ui-btn-icon-left .ui-btn-inner { padding-left: 40px; }
-.ui-btn-icon-right .ui-btn-inner { padding-right: 40px; }
-.ui-btn-icon-top .ui-btn-inner { padding-top: 40px; }
-.ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 40px; }
-.ui-header .ui-btn-icon-left .ui-btn-inner,
-.ui-footer .ui-btn-icon-left .ui-btn-inner,
-.ui-mini.ui-btn-icon-left .ui-btn-inner,
-.ui-mini .ui-btn-icon-left .ui-btn-inner { padding-left: 30px; }
-.ui-header .ui-btn-icon-right .ui-btn-inner,
-.ui-footer .ui-btn-icon-right .ui-btn-inner,
-.ui-mini.ui-btn-icon-right .ui-btn-inner,
-.ui-mini .ui-btn-icon-right .ui-btn-inner { padding-right: 30px; }
-.ui-header .ui-btn-icon-top .ui-btn-inner,
-.ui-footer .ui-btn-icon-top .ui-btn-inner { padding: 30px 3px .5em 3px; }
-.ui-mini.ui-btn-icon-top .ui-btn-inner,
-.ui-mini .ui-btn-icon-top .ui-btn-inner { padding-top: 30px; }
-.ui-header .ui-btn-icon-bottom .ui-btn-inner,
-.ui-footer .ui-btn-icon-bottom .ui-btn-inner { padding: .55em 3px 30px 3px; }
-.ui-mini.ui-btn-icon-bottom .ui-btn-inner,
-.ui-mini .ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 30px; }
-/* Corner styling inheritance */
-.ui-btn-inner {
-	-webkit-border-radius: inherit;	
-	border-radius: inherit;
+.ui-navbar {
+	max-width: 100%;
 }
-/*btn icon positioning*/
-.ui-btn-icon-notext .ui-icon { display: block; z-index: 0;}
-.ui-btn-icon-left > .ui-btn-inner > .ui-icon, .ui-btn-icon-right > .ui-btn-inner > .ui-icon { position: absolute; top: 50%; margin-top: -9px; }
-.ui-btn-icon-top .ui-btn-inner .ui-icon, .ui-btn-icon-bottom .ui-btn-inner .ui-icon { position: absolute; left: 50%; margin-left: -9px; }
-.ui-btn-icon-left .ui-icon { left: 10px; }
-.ui-btn-icon-right .ui-icon { right: 10px; }
-.ui-btn-icon-top .ui-icon { top: 10px; }
-.ui-btn-icon-bottom .ui-icon { top: auto; bottom: 10px; }
-.ui-header .ui-btn-icon-left .ui-icon,
-.ui-footer .ui-btn-icon-left .ui-icon,
-.ui-mini.ui-btn-icon-left .ui-icon,
-.ui-mini .ui-btn-icon-left .ui-icon { left: 5px; }
-.ui-header .ui-btn-icon-right .ui-icon,
-.ui-footer .ui-btn-icon-right .ui-icon,
-.ui-mini.ui-btn-icon-right .ui-icon,
-.ui-mini .ui-btn-icon-right .ui-icon { right: 5px; }
-.ui-header .ui-btn-icon-top .ui-icon,
-.ui-footer .ui-btn-icon-top .ui-icon,
-.ui-mini.ui-btn-icon-top .ui-icon,
-.ui-mini .ui-btn-icon-top .ui-icon { top: 5px; }
-.ui-header .ui-btn-icon-bottom .ui-icon,
-.ui-footer .ui-btn-icon-bottom .ui-icon,
-.ui-mini.ui-btn-icon-bottom .ui-icon,
-.ui-mini .ui-btn-icon-bottom .ui-icon { bottom: 5px; }
-/*hiding native button,inputs */
-.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: none; cursor: pointer; background: #fff; background: rgba(255,255,255,0); filter: Alpha(Opacity=0); opacity: .1; font-size: 1px; border: none; text-indent: -9999px; }
-/* Fixes IE/WP filter alpha opacity bugs */
-.ui-disabled .ui-btn-hidden { display: none; }
-.ui-disabled { z-index: 1; }
-.ui-field-contain .ui-btn.ui-submit { margin: 0; }
-label.ui-submit { font-size: 16px; line-height: 1.4; font-weight: normal; margin: 0 0 .3em; display: block; }
-@media all and (min-width: 28em){
-	.ui-field-contain label.ui-submit { vertical-align: top; display: inline-block; width: 20%; margin: 0 2% 0 0; }
-	.ui-field-contain .ui-btn.ui-submit { width: 78%; display: inline-block; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
-	.ui-hide-label .ui-btn.ui-submit { width: auto; display: block; }
+.ui-navbar ul:before,
+.ui-navbar ul:after {
+	content: "";
+	display: table;
 }
-.ui-collapsible-inset { margin: .5em 0; }
-.ui-collapsible-heading { font-size: 16px; display: block; margin: 0 -15px; padding: 0; position: relative; }
-.ui-collapsible-inset .ui-collapsible-heading { margin: 0; }
-.ui-collapsible-heading .ui-btn { text-align: left; margin: 0; border-left-width: 0; border-right-width: 0; }
-.ui-collapsible-inset .ui-collapsible-heading .ui-btn { border-right-width: 1px; border-left-width: 1px; }
-.ui-collapsible-collapsed + .ui-collapsible:not(.ui-collapsible-inset) .ui-collapsible-heading .ui-btn { border-top-width: 0; }
-.ui-collapsible-set .ui-collapsible:not(.ui-collapsible-inset) .ui-collapsible-heading .ui-btn { border-top-width: 1px; }
-.ui-collapsible-heading .ui-btn-inner { padding-left: 12px; padding-right: 12px; }
-.ui-collapsible-heading .ui-btn-icon-left .ui-btn-inner { padding-left: 40px; }
-.ui-collapsible-heading .ui-btn-icon-right .ui-btn-inner { padding-right: 40px; }
-.ui-collapsible-heading .ui-btn-icon-top .ui-btn-inner,
-.ui-collapsible-heading .ui-btn-icon-bottom .ui-btn-inner { text-align: center; }
-.ui-collapsible-heading .ui-btn-icon-left.ui-mini .ui-btn-inner { padding-left: 30px; }
-.ui-collapsible-heading .ui-btn-icon-right.ui-mini .ui-btn-inner { padding-right: 30px; }
-.ui-collapsible-heading .ui-btn span.ui-btn { position: absolute; left: 6px; top: 50%; margin: -12px 0 0 0; width: 20px; height: 20px; padding: 1px 0 1px 2px; text-indent: -9999px; }
-.ui-collapsible-heading .ui-btn span.ui-btn .ui-btn-inner { padding: 10px 0; }
-.ui-collapsible-heading .ui-btn span.ui-btn .ui-icon { left: 0; margin-top: -10px; }
-.ui-collapsible-heading-status { position: absolute; top: -9999px; left: 0; }
-.ui-collapsible-content {
+.ui-navbar ul:after {
+	clear: both;
+}
+.ui-navbar ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
 	display: block;
-	margin: 0 -15px;	
-	padding: 10px 15px;
+	border: 0;
+	max-width: 100%;
+	overflow: visible;
+}
+.ui-navbar li .ui-btn {
+	font-size: 12.5px;
+	display: block;
+	margin: 0;
+	border-right-width: 0;
+}
+.ui-navbar .ui-btn:focus {
+	z-index: 1;
+}
+/* fixes gaps caused by subpixel problem */
+.ui-navbar li:last-child .ui-btn {
+	margin-right: -4px;
+}
+.ui-navbar li:last-child .ui-btn:after {
+	margin-right: 4px;
+}
+.ui-content .ui-navbar li:last-child .ui-btn,
+.ui-content .ui-navbar .ui-grid-duo .ui-block-b .ui-btn {
+	border-right-width: 1px;
+	margin-right: 0;
+}
+.ui-content .ui-navbar li:last-child .ui-btn:after,
+.ui-content .ui-navbar .ui-grid-duo .ui-block-b .ui-btn:after {
+	margin-right: 0;
+}
+.ui-navbar .ui-grid-duo .ui-block-a:last-child .ui-btn {
+	border-right-width: 1px;
+	margin-right: -1px;
+}
+.ui-navbar .ui-grid-duo .ui-block-a:last-child .ui-btn:after {
+	margin-right: 1px;
+}
+.ui-navbar .ui-grid-duo .ui-btn {
+	border-top-width: 0;
+}
+.ui-navbar .ui-grid-duo .ui-block-a:first-child .ui-btn,
+.ui-navbar .ui-grid-duo .ui-block-a:first-child + .ui-block-b .ui-btn {
+	border-top-width: 1px;
+}
+.ui-header .ui-navbar .ui-btn,
+.ui-footer .ui-navbar .ui-btn {
+	border-top-width: 0;
+	border-bottom-width: 0;
+}
+.ui-header .ui-navbar .ui-grid-duo .ui-block-a:first-child .ui-btn,
+.ui-footer .ui-navbar .ui-grid-duo .ui-block-a:first-child .ui-btn,
+.ui-header .ui-navbar .ui-grid-duo .ui-block-a:first-child + .ui-block-b .ui-btn,
+.ui-footer .ui-navbar .ui-grid-duo .ui-block-a:first-child + .ui-block-b .ui-btn {
+	border-top-width: 0;
+}
+.ui-header .ui-title ~ .ui-navbar .ui-btn,
+.ui-footer .ui-title ~ .ui-navbar .ui-btn,
+.ui-header .ui-navbar .ui-grid-duo .ui-btn,
+.ui-footer .ui-navbar .ui-grid-duo .ui-btn,
+.ui-header .ui-title ~ .ui-navbar .ui-grid-duo .ui-block-a:first-child .ui-btn,
+.ui-footer .ui-title ~ .ui-navbar .ui-grid-duo .ui-block-a:first-child .ui-btn,
+.ui-header .ui-title ~ .ui-navbar .ui-grid-duo .ui-block-a:first-child + .ui-block-b .ui-btn,
+.ui-footer .ui-title ~ .ui-navbar .ui-grid-duo .ui-block-a:first-child + .ui-block-b .ui-btn {
+	border-top-width: 1px;
+}
+/* TODO: This file only contains CSS for the button widget and should be renamed to jquery.mobile.forms.button.css */
+button.ui-btn {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	width: 100%;
+}
+/* Firefox adds a 1px border in a button element. We negate this to make sure they have the same height as other buttons in controlgroups. */
+button.ui-btn::-moz-focus-inner {
+	border: 0;
+}
+button.ui-btn-inline {
+	width: auto;
+}
+button.ui-btn-icon-notext {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	width: 1.75em;
+}
+/* No margin in grids for 100% width button elements until we can use max-width: fill-available; */
+[class*="ui-grid-"] button.ui-btn {
+	margin-right: 0;
+	margin-left: 0;
+}
+/* Hide the native input element */
+.ui-input-btn input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	-webkit-border-radius: inherit;
+	border-bottom-radius: inherit;	
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	cursor: pointer;
+	background: #fff;
+	background: rgba(255,255,255,0);
+	filter: Alpha(Opacity=0);
+	opacity: .1;
+	font-size: 1px;
+	text-indent: -9999px;
+	z-index: 2;
+}
+/* Fixes IE/WP filter alpha opacity bugs */
+.ui-input-btn.ui-state-disabled input {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
+.ui-collapsible {
+	margin: .5em -1em;
+}
+.ui-collapsible-inset,
+.ui-collapsible-set {
+	margin: .5em 0;
+}
+.ui-collapsible + .ui-collapsible {
+	margin-top: -.5em;
+}
+.ui-collapsible-heading {
+	display: block;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+.ui-collapsible-heading .ui-btn {
+	text-align: left;
+	margin: 0;
 	border-left-width: 0;
 	border-right-width: 0;
-	border-top: none;      /* Overrides ui-body-* */
-	background-image: none; /* Overrides ui-body-* */
 }
-.ui-collapsible-inset .ui-collapsible-content { margin: 0; border-right-width: 1px; border-left-width: 1px; }
-.ui-collapsible-content-collapsed { display: none; }
+.ui-collapsible-heading .ui-btn-icon-top,
+.ui-collapsible-heading .ui-btn-icon-bottom {
+	text-align: center;
+}
+.ui-collapsible-inset .ui-collapsible-heading .ui-btn {
+	border-right-width: 1px;
+	border-left-width: 1px;
+}
+.ui-collapsible-collapsed + .ui-collapsible:not(.ui-collapsible-inset) > .ui-collapsible-heading .ui-btn {
+	border-top-width: 0;
+}
+.ui-collapsible-set .ui-collapsible:not(.ui-collapsible-inset) .ui-collapsible-heading .ui-btn {
+	border-top-width: 1px;
+}
+.ui-collapsible-heading-status {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
+.ui-collapsible-content {
+	display: block;
+	margin: 0;	
+	padding: .625em 1em;
+	border-left-width: 0;
+	border-right-width: 0;
+	border-top-width: 0;
+	background-image: none;
+}
+.ui-collapsible-inset .ui-collapsible-content {
+	margin: 0;
+	border-right-width: 1px;
+	border-left-width: 1px;
+}
+.ui-collapsible-content-collapsed {
+	display: none;
+}
 .ui-collapsible-set > .ui-collapsible.ui-corner-all {
 	-webkit-border-radius: 0;
 	border-radius: 0;
@@ -1114,52 +1592,91 @@ label.ui-submit { font-size: 16px; line-height: 1.4; font-weight: normal; margin
 	-webkit-border-bottom-left-radius: 0;	
 	border-bottom-left-radius: 0;		
 }
-.ui-collapsible-set { margin: .5em 0; }
-.ui-collapsible-set .ui-collapsible { margin: -1px 0 0; }
-.ui-collapsible-set .ui-collapsible.ui-first-child { margin-top: 0; }
-.ui-controlgroup, fieldset.ui-controlgroup { padding: 0; margin: .5em 0; zoom: 1; }
-.ui-controlgroup.ui-mini, fieldset.ui-controlgroup.ui-mini { margin: .25em 0; }
-.ui-field-contain .ui-controlgroup, .ui-field-contain fieldset.ui-controlgroup { margin: 0; }
-.ui-bar .ui-controlgroup { margin: 0 5px; }
-.ui-controlgroup-label { font-size: 16px; line-height: 1.4; font-weight: normal; margin: 0 0 .4em; }
-/* Fixes legend not wrapping on IE10 */
-.ui-controlgroup-label legend {	max-width: 100%; }
-.ui-controlgroup-controls label.ui-select,
-.ui-controlgroup-controls label.ui-submit { position: absolute; left: -9999px; }
-.ui-controlgroup li { list-style: none; }
-.ui-controlgroup .ui-btn { margin: 0; }
-.ui-controlgroup .ui-btn-icon-notext { width: auto; height: auto; top: auto; }
-.ui-controlgroup .ui-btn-icon-notext .ui-btn-inner { height: 20px; padding: .6em 20px .6em 20px }
-.ui-controlgroup-horizontal .ui-btn-icon-notext .ui-btn-inner { width: 18px; }
-.ui-controlgroup.ui-mini .ui-btn-icon-notext .ui-btn-inner,
-.ui-header .ui-controlgroup .ui-btn-icon-notext .ui-btn-inner,
-.ui-footer .ui-controlgroup .ui-btn-icon-notext .ui-btn-inner { height: 16px; padding: .55em 11px .5em 11px; }
-.ui-controlgroup .ui-btn-icon-notext .ui-btn-inner .ui-icon { position: absolute; top: 50%; right: 50%; margin: -9px -9px 0 0; }
-.ui-controlgroup-horizontal .ui-btn-inner { text-align: center; }
-.ui-controlgroup-horizontal.ui-mini .ui-btn-inner { height: 16px; line-height: 16px; }
-.ui-controlgroup .ui-checkbox label, .ui-controlgroup .ui-radio label { font-size: 16px; }
+.ui-collapsible-set .ui-collapsible {
+	margin: -1px -1em 0;
+}
+.ui-collapsible-set .ui-collapsible-inset {
+	margin: -1px 0 0;
+}
+.ui-collapsible-set .ui-collapsible.ui-first-child {
+	margin-top: 0;
+}
+.ui-controlgroup,
+fieldset.ui-controlgroup {
+	padding: 0;
+	margin: .5em 0;
+}
+.ui-field-contain .ui-controlgroup,
+.ui-field-contain fieldset.ui-controlgroup {
+	margin: 0;
+}
+.ui-controlgroup-controls .ui-btn,
+.ui-controlgroup-controls .ui-checkbox,
+.ui-controlgroup-controls .ui-radio,
+.ui-controlgroup-controls .ui-select {
+	margin: 0;
+}
+.ui-controlgroup-controls .ui-btn:focus,
+.ui-controlgroup-controls .ui-btn.ui-focus {
+	z-index: 1;
+}
+.ui-controlgroup-controls li {
+	list-style: none;
+}
+.ui-controlgroup-horizontal .ui-controlgroup-controls {
+	display: inline-block;
+	vertical-align: middle;
+}
 .ui-controlgroup-horizontal .ui-controlgroup-controls:before,
-.ui-controlgroup-horizontal .ui-controlgroup-controls:after { content: ""; display: table; }
-.ui-controlgroup-horizontal .ui-controlgroup-controls:after { clear: both; }
-.ui-controlgroup-horizontal .ui-controlgroup-controls { display: inline-block; vertical-align: middle; zoom: 1; }
-.ui-controlgroup-horizontal .ui-controlgroup-controls > .ui-btn, .ui-controlgroup-horizontal .ui-controlgroup-controls li > .ui-btn,
-.ui-controlgroup-horizontal .ui-checkbox, .ui-controlgroup-horizontal .ui-radio,
-.ui-controlgroup-horizontal .ui-select { float: left; clear: none; margin: 0; }
-/* On IE7 the floating selects will be displayed as block if .ui-btn-text has width 100% */
-.ui-controlgroup-horizontal .ui-select .ui-btn-text { width: auto; }
-.ui-controlgroup-vertical .ui-btn {	border-bottom-width: 0; }
-.ui-controlgroup-vertical .ui-btn.ui-last-child { border-bottom-width: 1px; }
-.ui-controlgroup-horizontal .ui-btn { border-right-width: 0; }
-.ui-controlgroup-horizontal .ui-btn.ui-last-child {	border-right-width: 1px; }
-.ui-controlgroup .ui-btn-corner-all {
+.ui-controlgroup-horizontal .ui-controlgroup-controls:after {
+	content: "";
+	display: table;
+}
+.ui-controlgroup-horizontal .ui-controlgroup-controls:after {
+	clear: both;
+}
+.ui-controlgroup-horizontal .ui-controlgroup-controls > .ui-btn,
+.ui-controlgroup-horizontal .ui-controlgroup-controls li > .ui-btn,
+.ui-controlgroup-horizontal .ui-controlgroup-controls .ui-checkbox,
+.ui-controlgroup-horizontal .ui-controlgroup-controls .ui-radio,
+.ui-controlgroup-horizontal .ui-controlgroup-controls .ui-select {
+	float: left;
+	clear: none;
+}
+.ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn,
+.ui-controlgroup-controls .ui-btn-icon-notext {
+	width: auto;
+}
+.ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn-icon-notext,
+.ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn-icon-notext {
+	width: 1.5em;
+}
+ .ui-controlgroup-controls .ui-btn-icon-notext {
+	height: auto;
+	padding: .7em 1em;
+}
+.ui-controlgroup-vertical .ui-controlgroup-controls .ui-btn {
+	border-bottom-width: 0;
+}
+.ui-controlgroup-vertical .ui-controlgroup-controls .ui-btn.ui-last-child {
+	border-bottom-width: 1px;
+}
+.ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn {
+	border-right-width: 0;
+}
+.ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn.ui-last-child {
+	border-right-width: 1px;
+}
+.ui-controlgroup-controls .ui-btn-corner-all,
+.ui-controlgroup-controls .ui-btn.ui-corner-all {
 	-webkit-border-radius: 0;
 	border-radius: 0;
 }
-.ui-controlgroup .ui-controlgroup-controls,
-.ui-controlgroup .ui-radio,
-.ui-controlgroup .ui-checkbox,
-.ui-controlgroup .ui-select,
-.ui-controlgroup li {
+.ui-controlgroup-controls,
+.ui-controlgroup-controls .ui-radio,
+.ui-controlgroup-controls .ui-checkbox,
+.ui-controlgroup-controls .ui-select,
+.ui-controlgroup-controls li {
 	-webkit-border-radius: inherit;
 	border-radius: inherit;
 }
@@ -1187,28 +1704,34 @@ label.ui-submit { font-size: 16px; line-height: 1.4; font-weight: normal; margin
 	-webkit-border-bottom-right-radius: inherit;
 	border-bottom-right-radius: inherit;
 }
-.ui-controlgroup .ui-shadow:not(.ui-focus) {
+.ui-controlgroup-controls a.ui-shadow:not(:focus),
+.ui-controlgroup-controls button.ui-shadow:not(:focus),
+.ui-controlgroup-controls div.ui-shadow:not(.ui-focus) {
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
-@media all and (min-width: 28em){
-	.ui-field-contain .ui-controlgroup-label { vertical-align: top; display: inline-block; width: 20%; margin: 0 2% 0 0; }
-	.ui-field-contain .ui-controlgroup-controls { width: 78%; display: inline-block; }
-	.ui-field-contain .ui-controlgroup .ui-select { width: 100%; display: block; } 
-	.ui-field-contain .ui-controlgroup-horizontal .ui-select { width: auto; }
-	.ui-hide-label .ui-controlgroup-controls { width: 100%; }
-}	
+/* Fixes legend not wrapping on IE10 */
+.ui-controlgroup-label legend {
+	max-width: 100%;
+}
+.ui-controlgroup-controls > label {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
 .ui-dialog {
 	 background: none !important; /* this is to ensure that dialog theming does not apply (by default at least) on the page div */
 }
 .ui-dialog-contain {
 	width: 92.5%;
 	max-width: 500px;
-	margin: 10% auto 15px auto;
+	margin: 10% auto 1em auto;
 	padding: 0;
 	position: relative;
-	top: -15px;
+	top: -1em;
 }
 .ui-dialog-contain > .ui-header, 
 .ui-dialog-contain > .ui-content, 
@@ -1219,21 +1742,19 @@ label.ui-submit { font-size: 16px; line-height: 1.4; font-weight: normal; margin
 	margin: 0;
 }
 .ui-dialog-contain > .ui-header {
-	border: none;
 	overflow: hidden;
 	z-index: 10; 
 	padding: 0;
-}
-.ui-dialog-contain > .ui-content { 
-	padding: 15px; 
+	border-top-width: 0;
 }
 .ui-dialog-contain > .ui-footer {
 	z-index: 10; 
-	padding: 0 15px; 
+	padding: 0 1em; 
+	border-bottom-width: 0;
 }
 .ui-popup-open .ui-header-fixed,
 .ui-popup-open .ui-footer-fixed {
-	position: absolute !important; 	/* See line #553 of popup.js */
+	position: absolute !important; /* See issues #4816, #4844 and #4874 and popup.js */
 }
 .ui-popup-screen {
 	background-image: url(data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==); /* Necessary to set some form of background to ensure element is clickable in IE6/7. While legacy IE won't understand the data-URI'd image, it ensures no additional requests occur in all other browsers with little overhead. */
@@ -1264,9 +1785,32 @@ label.ui-submit { font-size: 16px; line-height: 1.4; font-weight: normal; margin
 .ui-popup {
 	position: relative;
 }
+.ui-popup.ui-body-inherit {
+	border-width: 1px;
+	border-style: solid;
+}
+.ui-popup-hidden {
+	left: 0;
+	top: 0;
+	position: absolute !important;
+	visibility: hidden;
+}
+.ui-popup-truncate {
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
 .ui-popup.ui-content,
 .ui-popup .ui-content {
 	overflow: visible;
+}
+.ui-popup > .ui-header {
+	border-top-width: 0;
+}
+.ui-popup > .ui-footer {
+	border-bottom-width: 0;
 }
 .ui-popup > p,
 .ui-popup > h1,
@@ -1275,17 +1819,11 @@ label.ui-submit { font-size: 16px; line-height: 1.4; font-weight: normal; margin
 .ui-popup > h4,
 .ui-popup > h5,
 .ui-popup > h6 {
-	margin: .5em 7px;
+	margin: .5em .4375em;
 }
 .ui-popup > span {
 	display: block;
-	margin: .5em 7px;
-}
-.ui-popup .ui-title {
-	font-size: 16px;
-	font-weight: bold;
-	margin-top: .5em;
-	margin-bottom: .5em;
+	margin: .5em .4375em;
 }
 .ui-popup-container .ui-content > p,
 .ui-popup-container .ui-content > h1,
@@ -1318,8 +1856,6 @@ label.ui-submit { font-size: 16px; line-height: 1.4; font-weight: normal; margin
 	margin-bottom: 0;
 }
 .ui-popup > img {
-	width: auto;
-	height: auto;
 	max-width: 100%;
 	max-height: 100%;
 	vertical-align: middle;
@@ -1333,153 +1869,861 @@ label.ui-submit { font-size: 16px; line-height: 1.4; font-weight: normal; margin
 .ui-popup iframe {
 	vertical-align: middle;
 }
-@media all and (min-width: 28em){
-	.ui-popup .ui-field-contain label.ui-submit,
-	.ui-popup .ui-field-contain .ui-controlgroup-label,
-	.ui-popup .ui-field-contain label.ui-select,
-	.ui-popup .ui-field-contain label.ui-input-text {
-		font-size: 16px; line-height: 1.4; display: block; font-weight: normal; margin: 0 0 .3em;
-	}
-	.ui-popup .ui-field-contain .ui-btn.ui-submit,
-	.ui-popup .ui-field-contain .ui-controlgroup-controls,
-	.ui-popup .ui-field-contain .ui-select,
-	.ui-popup .ui-field-contain input.ui-input-text,
-	.ui-popup .ui-field-contain textarea.ui-input-text,
-	.ui-popup .ui-field-contain .ui-input-search {
-		width: 100%; display: block;
-	}
-}
 .ui-popup > .ui-btn-left,
 .ui-popup > .ui-btn-right {
 	position: absolute; 
-	top: -9px;
+	top: -11px;
 	margin: 0;
 	z-index: 1101;
 }
-.ui-popup > .ui-btn-left { left: -9px; }
-.ui-popup > .ui-btn-right { right: -9px; }
-.ui-popup-hidden { top: -99999px; left: -9999px; visibility: hidden; }
-.ui-checkbox, .ui-radio { position: relative; clear: both; margin: 0; z-index: 1; }
-.ui-checkbox .ui-btn, .ui-radio .ui-btn { text-align: left; z-index: 2; }
-.ui-controlgroup .ui-checkbox .ui-btn, .ui-controlgroup .ui-radio .ui-btn { margin: 0; }
-.ui-checkbox .ui-btn-inner, .ui-radio .ui-btn-inner { white-space: normal; }
-.ui-checkbox .ui-btn-icon-left .ui-btn-inner,.ui-radio .ui-btn-icon-left .ui-btn-inner { padding-left: 45px; }
-.ui-checkbox .ui-mini.ui-btn-icon-left .ui-btn-inner,.ui-radio .ui-mini.ui-btn-icon-left .ui-btn-inner { padding-left: 36px; }
-.ui-checkbox .ui-btn-icon-right .ui-btn-inner, .ui-radio .ui-btn-icon-right .ui-btn-inner { padding-right: 45px; }
-.ui-checkbox .ui-mini.ui-btn-icon-right .ui-btn-inner, .ui-radio .ui-mini.ui-btn-icon-right .ui-btn-inner { padding-right: 36px; }
-.ui-checkbox .ui-btn-icon-top .ui-btn-inner, .ui-radio .ui-btn-icon-top .ui-btn-inner { padding-right: 0; padding-left: 0; text-align: center; }
-.ui-checkbox .ui-btn-icon-bottom .ui-btn-inner, .ui-radio .ui-btn-icon-bottom .ui-btn-inner { padding-right: 0; padding-left: 0; text-align: center; }
-.ui-checkbox .ui-icon, .ui-radio .ui-icon { top: 1.1em; }
-.ui-checkbox .ui-btn-icon-left .ui-icon, .ui-radio .ui-btn-icon-left .ui-icon { left: 15px; }
-.ui-checkbox .ui-mini.ui-btn-icon-left .ui-icon, .ui-radio .ui-mini.ui-btn-icon-left .ui-icon { left: 9px; }
-.ui-checkbox .ui-btn-icon-right .ui-icon, .ui-radio .ui-btn-icon-right .ui-icon { right: 15px; }
-.ui-checkbox .ui-mini.ui-btn-icon-right .ui-icon, .ui-radio .ui-mini.ui-btn-icon-right .ui-icon { right: 9px; }
-.ui-checkbox .ui-btn-icon-top .ui-icon, .ui-radio .ui-btn-icon-top .ui-icon { top: 10px; }
-.ui-checkbox .ui-btn-icon-bottom .ui-icon, .ui-radio .ui-btn-icon-bottom .ui-icon { top: auto; bottom: 10px; }
-.ui-checkbox .ui-btn-icon-right .ui-icon, .ui-radio .ui-btn-icon-right .ui-icon { right: 15px; }
-.ui-checkbox .ui-mini.ui-btn-icon-right .ui-icon, .ui-radio .ui-mini.ui-btn-icon-right .ui-icon { right: 9px; }
-.ui-controlgroup-horizontal .ui-checkbox .ui-icon,
-.ui-controlgroup-horizontal .ui-radio .ui-icon { display: none; }
-.ui-controlgroup-horizontal .ui-checkbox .ui-btn-inner,
-.ui-controlgroup-horizontal .ui-radio .ui-btn-inner { padding: .6em 20px; }
-.ui-controlgroup-horizontal .ui-checkbox .ui-mini .ui-btn-inner,
-.ui-controlgroup-horizontal .ui-radio .ui-mini .ui-btn-inner { padding: .55em 11px .5em; }
-/* input, label positioning */
-.ui-checkbox input,.ui-radio input { position:absolute; left:20px; top:50%; width: 10px; height: 10px; margin:-5px 0 0 0; outline: 0 !important; z-index: 1; }
-.ui-field-contain, fieldset.ui-field-contain { padding: .8em 0; margin: 0; border-width: 0 0 1px 0; overflow: visible; }
-.ui-field-contain:last-child { border-bottom-width: 0; }
-.ui-field-contain { max-width: 100%; } /* This prevents horizontal scrollbar in IE7 */
-@media all and (min-width: 28em){
-	.ui-field-contain, .ui-mobile fieldset.ui-field-contain { border-width: 0; padding: 0; margin: 1em 0; }
+.ui-popup > .ui-btn-left {
+	left: -11px;
 }
-.ui-select { display: block; position: relative; }
-.ui-select select { position: absolute; left: -9999px; top: -9999px; }
-.ui-select .ui-btn { opacity: 1; }
-.ui-field-contain .ui-select .ui-btn { margin: 0; }
-/* Fixes #2588: When Windows Phone 7.5 (Mango) tries to calculate a numeric opacity for a select (including "inherit") without explicitly specifying an opacity on the parent to give it context, a bug appears where clicking elsewhere on the page after opening the select will open the select again. */
-.ui-select .ui-btn select { cursor: pointer; -webkit-appearance: none; left: 0; top:0; width: 100%; min-height: 1.5em; min-height: 100%; height: 3em; max-height: 100%; filter: Alpha(Opacity=0); opacity: 0; z-index: 2; }
-.ui-select .ui-disabled { opacity: .3; }
+.ui-popup > .ui-btn-right {
+	right: -11px;
+}
+/* Dimensions related to the popup arrow
+-----------------------------------------------------------------------------------------------------------*/
+/* desired triangle height: 10px */
+/**
+ * guide for the arrow - its width, height, and offset are theme-dependent and
+ * should be expessed as left, right, top, bottom, so that the element bearing
+ * such a class becomes stretched inside its parent position: relative element.
+ * The left/top/right/bottom specified below should reflect the corresponding
+ * border radii and so it leaves room for the shadow:
+ *     ..--------------------..
+ *   ."        ^ top           ".
+ *  /          v                 \
+ * |     +------------------+     |
+ * |     |                  |     |
+ * | left|                  |right|
+ * |<--->|                  |<--->|
+ * |     +------------------+     |
+ *  \          ^                 /
+ *   `.        v bottom        .'
+ *     ""--------------------""
+ * The idea is that the top/left of the arrow container box does not move to a
+ * coordinate smaller than the top/left of the guide and the right/bottom of
+ * the arrow container box does not move to a coordinate larger than the
+ * bottom/right of the guide. This will help us avoid the following situation:
+ *        ..--------------------..
+ *      ."        ^ top           ".
+ *   /|/          v                 \
+ *  / |     +------------------+     |
+ *  \ |     |                  |     |
+ *   \| left|                  |right|
+ *    |<--->|                  |<--->|
+ *    |     +------------------+     |
+ *     \          ^                 /
+ *      `.        v bottom        .'
+ *        ""--------------------""
+ * The arrow should not receive a top/left coordinate such that it is too close
+ * to one of the corners, because then at first the shadow of the arrow and,
+ * given a coordinate even closer to the corner, even the body of the arrow will
+ * "stick out" of the corner of the popup. The guide provides a hint to the
+ * arrow positioning code as to which range of values is acceptable for the
+ * arrow container's top/left coordinate.
+ **/
+.ui-popup.ui-corner-all > .arrow-guide {
+	left: .6em /*{global-radii-blocks}*/;
+	right: .6em /*{global-radii-blocks}*/;
+	top: .6em /*{global-radii-blocks}*/;
+	bottom: .6em /*{global-radii-blocks}*/;
+}
+.arrow-container {
+	width: 20px;
+	height: 20px;
+}
+/* aside from the "infinities" (-1000,2000), triangle height is used */
+.arrow-container.l {
+	left: -10px;
+	clip: rect(-1000px,10px,2000px,-1000px);
+}
+.arrow-container.ie.l {
+	clip: rect(-1000px 10px 2000px -1000px);
+}
+.arrow-container.t {
+	top: -10px;
+	clip: rect(-1000px,2000px,10px,-1000px);
+}
+.arrow-container.ie.t {
+	clip: rect(-1000px 2000px 10px -1000px);
+}
+.arrow-container.r {
+	right: -10px;
+	clip: rect(-1000px,2000px,2000px,10px);
+}
+.arrow-container.ie.r {
+	clip: rect(-1000px 2000px 2000px 10px);
+}
+.arrow-container.b {
+	bottom: -10px;
+	clip: rect(10px,2000px,1000px,-1000px);
+}
+.arrow-container.ie.b {
+	clip: rect(10px 2000px 1000px -1000px);
+}
+/**
+ * The arrow needs to be centred inside the arrow container such that, when
+ * rotated 45 degrees, its corners touch, but do not break through, the sides
+ * of the arrow container:
+ *
+ * +----------+
+ * |    /\    |
+ * |   /  \  <------ arrow container
+ * |  /    \  |
+ * | /      \ |
+ * |/  arrow \|
+ * |\        /|
+ * | \      / |
+ * |  \    /  |
+ * |   \  /   |
+ * |    \/    |
+ * +----------+
+ **/
+.arrow {
+	/* (2*desired triangle height)/sqrt(2) - does not account for border - centred within the outer rectangle */
+	width: 14.142135624px;
+	height: 14.142135624px;
+	/* ( (2*desired triangle height) - (above width/height) ) / 2 */
+	left: 2.928932188px;
+	top: 2.928932188px;
+}
+.arrow-container.ie .arrow {
+	/* Fix rotation center  - see http://www.useragentman.com/IETransformsTranslator/ */
+	margin-left: -3px;
+	margin-top: -3px;
+}
+.arrow-background {
+	/* desired triangle height is used here */
+	width: 20px;
+	height: 20px;
+}
+.arrow-container.t .arrow-background {
+	/* 0px triangle height */
+	background-position: 0 10px;
+}
+.arrow-container.l .arrow-background {
+	/* triangle height 0px */
+	background-position: 10px 0;
+}
+/* For some reason (probably because of all the decimal places) there's a
+   rounding error in the background position, so push it over by one */
+.arrow-container.b .arrow-background {
+	background-position: 0 11px;
+}
+.arrow-container.r .arrow-background {
+	background-position: 11px 0;
+}
+.ui-popup > .arrow-guide {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	pointer-events: none;
+}
+.arrow-container {
+	position: absolute;
+}
+.arrow {
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	position: absolute;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.arrow-container.ie .arrow {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865474, M12=-0.7071067811865477, M21=0.7071067811865477, M22=0.7071067811865474, SizingMethod='auto expand')";
+	filter: progid:DXImageTransform.Microsoft.Matrix(
+	      	M11=0.7071067811865474,
+        	M12=-0.7071067811865477,
+        	M21=0.7071067811865477,
+        	M22=0.7071067811865474,
+        	SizingMethod='auto expand');
+}
+.arrow-background {
+	position: absolute;
+	border: 0;
+}
+.arrow-container.ie .arrow-background {
+	background: none;
+}
+.arrow-container.t .arrow-background,
+.arrow-container.b .arrow-background {
+	/* Undo rotation and reflect in x axis */
+	-webkit-transform: rotate(-45deg) scale(1, -1);
+	-moz-transform: rotate(-45deg) scale(1, -1);
+	-ms-transform: rotate(-45deg) scale(1, -1);
+	transform: rotate(-45deg) scale(1, -1);
+}
+.arrow-container.t.ie .arrow-background,
+.arrow-container.b.ie .arrow-background {
+   -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865483, M12=-0.7071067811865467, M21=-0.7071067811865467, M22=-0.7071067811865483, SizingMethod='auto expand')";
+   filter: progid:DXImageTransform.Microsoft.Matrix(
+            M11=0.7071067811865483,
+            M12=-0.7071067811865467,
+            M21=-0.7071067811865467,
+            M22=-0.7071067811865483,
+            SizingMethod='auto expand');
+}
+.arrow-container.l .arrow-background,
+.arrow-container.r .arrow-background {
+	/* Undo rotation and reflect in y axis */
+	-webkit-transform: rotate(-45deg) scale(-1, 1);
+	-moz-transform: rotate(-45deg) scale(-1, 1);
+	-ms-transform: rotate(-45deg) scale(-1, 1);
+	transform: rotate(-45deg) scale(-1, 1);
+}
+.arrow-container.l.ie .arrow-background,
+.arrow-container.r.ie .arrow-background {
+   -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.7071067811865483, M12=0.7071067811865467, M21=0.7071067811865467, M22=0.7071067811865483, SizingMethod='auto expand')";
+   filter: progid:DXImageTransform.Microsoft.Matrix(
+            M11=-0.7071067811865483,
+            M12=0.7071067811865467,
+            M21=0.7071067811865467,
+            M22=0.7071067811865483,
+            SizingMethod='auto expand');
+}
+.ui-checkbox,
+.ui-radio {
+	margin: .5em 0;
+	position: relative;
+}
+.ui-checkbox .ui-btn,
+.ui-radio .ui-btn {
+	margin: 0;
+	text-align: left;
+	white-space: normal; /* Nowrap + ellipsis doesn't work on label. Issue #1419. */
+	z-index: 2;
+}
+.ui-controlgroup .ui-checkbox .ui-btn.ui-focus,
+.ui-controlgroup .ui-radio .ui-btn.ui-focus {
+	z-index: 3;
+}
+.ui-checkbox .ui-btn-icon-top,
+.ui-radio .ui-btn-icon-top,
+.ui-checkbox .ui-btn-icon-bottom,
+.ui-radio .ui-btn-icon-bottom {
+	text-align: center;
+}
+.ui-controlgroup-horizontal .ui-checkbox .ui-btn:after,
+.ui-controlgroup-horizontal .ui-radio .ui-btn:after {
+	content: none;
+	display: none;
+}
+/* Native input positioning */
+.ui-checkbox input,
+.ui-radio input {
+	position: absolute;
+	left: .466em;
+	top: 50%;
+	width: 22px;
+	height: 22px;
+	margin: -11px 0 0 0;
+	outline: 0 !important;
+	z-index: 1;
+}
+.ui-controlgroup-horizontal .ui-checkbox input,
+.ui-controlgroup-horizontal .ui-radio input {
+	left: 50%;
+	margin-left: -9px;
+}
+.ui-checkbox input:disabled,
+.ui-radio input:disabled {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
+.ui-select {
+	margin-top: .5em;
+	margin-bottom: .5em; /* no shorthand for margin because it would override margin-right for inline selects */
+	position: relative;
+}
+.ui-select > select {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
+.ui-select .ui-btn {
+	margin: 0;
+	opacity: 1; /* Fixes #2588: When Windows Phone 7.5 (Mango) tries to calculate a numeric opacity for a select (including "inherit") without explicitly specifying an opacity on the parent to give it context, a bug appears where clicking elsewhere on the page after opening the select will open the select again. */
+}
+.ui-select .ui-btn select {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 1.5em;
+	min-height: 100%;
+	height: 3em;
+	max-height: 100%;
+	outline: 0;
+	-webkit-border-radius: inherit;
+	border-radius: inherit;	
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	cursor: pointer;
+	filter: Alpha(Opacity=0);
+	opacity: 0;
+	z-index: 2;
+}
+@-moz-document url-prefix() {
+	.ui-select .ui-btn select {
+		opacity: 0.0001;
+	}
+}
 /* Display none because of issues with IE/WP's filter alpha opacity */
-.ui-select .ui-disabled select { display: none; }
-@-moz-document url-prefix() { .ui-select .ui-btn select { opacity: 0.0001; }}
-.ui-select .ui-btn.ui-select-nativeonly { border-radius: 0; border: 0; }
-.ui-select .ui-btn.ui-select-nativeonly select { opacity: 1; text-indent: 0; display: block; }
-.ui-select .ui-disabled.ui-select-nativeonly .ui-btn-inner { opacity: 0; }
-.ui-select .ui-btn-icon-right .ui-btn-inner, .ui-select .ui-li-has-count .ui-btn-inner { padding-right: 45px; }
-.ui-select .ui-mini.ui-btn-icon-right .ui-btn-inner { padding-right: 32px; }
-.ui-select .ui-btn-icon-right.ui-li-has-count .ui-btn-inner { padding-right: 80px; }
-.ui-select .ui-mini.ui-btn-icon-right.ui-li-has-count .ui-btn-inner { padding-right: 67px; }
-.ui-select .ui-btn-icon-right .ui-icon { right: 15px; }
-.ui-select .ui-mini.ui-btn-icon-right .ui-icon { right: 7px; }
-.ui-select .ui-btn-icon-right.ui-li-has-count .ui-li-count { right: 45px; }
-.ui-select .ui-mini.ui-btn-icon-right.ui-li-has-count .ui-li-count { right: 32px; }
-/* labels */
-label.ui-select { font-size: 16px; line-height: 1.4; font-weight: normal; margin: 0 0 .3em; display: block; }
-/*listbox*/
-.ui-select .ui-btn-text, .ui-selectmenu .ui-btn-text { display: block; min-height: 1em; overflow: hidden !important;
-/* This !important is required for iPad Safari specifically. See https://github.com/jquery/jquery-mobile/issues/2647 */ }
-.ui-select .ui-btn-text { text-overflow: ellipsis; }
-.ui-selectmenu { padding: 6px; min-width: 160px; }
-.ui-selectmenu .ui-listview { margin: 0; }
-.ui-selectmenu .ui-btn.ui-li-divider { cursor: default; }
-.ui-screen-hidden, .ui-selectmenu-list .ui-li .ui-icon { display: none; }
-.ui-selectmenu-list .ui-li .ui-icon { display: block; }
-.ui-li.ui-selectmenu-placeholder { display: none; }
-.ui-selectmenu .ui-header { margin: 0; padding: 0; }
-.ui-selectmenu.ui-popup .ui-header { -webkit-border-top-left-radius: 0; border-top-left-radius: 0; -webkit-border-top-right-radius: 0; border-top-right-radius: 0; }
-.ui-selectmenu .ui-header .ui-title { margin: 0.6em 46px 0.8em; }
-@media all and (min-width: 28em){
-	.ui-field-contain label.ui-select { vertical-align: top; display: inline-block; width: 20%; margin: 0 2% 0 0; }
-	.ui-field-contain .ui-select { width: 78%; display: inline-block; }
-	.ui-hide-label .ui-select { width: 100%; } 
+.ui-select .ui-state-disabled select {
+	display: none;
+}
+/* Because we add all classes of the select and option elements to the span... */ 
+.ui-select span.ui-state-disabled {
+	filter: Alpha(Opacity=100);
+	opacity: 1;
+}
+.ui-select .ui-btn.ui-select-nativeonly {
+	border-radius: 0;
+	border: 0;
+}
+.ui-select .ui-btn.ui-select-nativeonly select {
+	opacity: 1;
+	text-indent: 0;
+	display: block;
+}
+/* ui-li-count is styled in the listview CSS. We set padding and offset here because select supports icon position while listview doesn't. */
+.ui-select .ui-li-has-count.ui-btn {
+	padding-right: 2.8125em;
+}
+.ui-select .ui-li-has-count.ui-btn-icon-right {
+	padding-right: 4.6875em;
+}
+.ui-select .ui-btn-icon-right .ui-li-count {
+	right: 3.636em;
+}
+/* We set the rules for the span as well to fix an issue on Chrome with text-overflow ellipsis for the button in combination with text-align center. */
+.ui-select .ui-btn > span:not(.ui-li-count) {
+	display: block;
+	text-overflow: ellipsis;
+	overflow: hidden !important;
+	white-space: nowrap;
+}
+.ui-selectmenu.ui-popup {
+	min-width: 11em;
+}
+.ui-selectmenu .ui-dialog-contain {
+	overflow: hidden;
+}
+.ui-selectmenu .ui-header {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+.ui-selectmenu.ui-dialog .ui-header {
+	z-index: 1;
+	position: relative;
+}
+.ui-selectmenu.ui-popup .ui-header {
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-right-radius: 0;
+	-webkit-border-bottom-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
 /* when no placeholder is defined in a multiple select, the header height doesn't even extend past the close button.  this shim's content in there */
-.ui-selectmenu .ui-header h1:after { content: '.'; visibility: hidden; }
-label.ui-input-text { font-size: 16px; line-height: 1.4; display: block; font-weight: normal; margin: 0 0 .3em; }
-input.ui-input-text, textarea.ui-input-text { background-image: none; padding: .4em; margin: .5em 0; min-height: 1.4em; line-height: 1.4em; font-size: 16px; display: block; width: 100%; outline: 0; }
-input.ui-mini, .ui-mini input, textarea.ui-mini { font-size: 14px; }
-div.ui-input-text input.ui-input-text, div.ui-input-text textarea.ui-input-text,
-.ui-input-search input.ui-input-text { border: none; width: 100%; padding: .4em 0; margin: 0; display: block; background: transparent none; outline: 0 !important; }
-.ui-input-search, div.ui-input-text { margin: .5em 0; background-image: none; position: relative; }
-.ui-input-search { padding: 0 30px; }
-div.ui-input-text { padding: 0 .4em; }
-div.ui-input-has-clear { padding: 0 30px 0 .4em; }
-input.ui-input-text.ui-mini, textarea.ui-input-text.ui-mini,
-.ui-input-search.ui-mini, div.ui-input-text.ui-mini { margin: .25em 0; }
-.ui-field-contain input.ui-input-text, .ui-field-contain textarea.ui-input-text,
-.ui-field-contain .ui-input-search, .ui-field-contain div.ui-input-text { margin: 0; }
-textarea.ui-input-text { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
-input.ui-input-text { -webkit-appearance: none; }
-textarea.ui-input-text { height: 50px; -webkit-transition: height 200ms linear; -moz-transition: height 200ms linear; -o-transition: height 200ms linear; transition: height 200ms linear; }
-textarea.ui-mini { height: 45px; }
-.ui-icon-searchfield:after { position: absolute; left: 7px; top: 50%; margin-top: -9px; content: ""; width: 18px; height: 18px; opacity: .5; }
-.ui-input-search .ui-input-clear, .ui-input-text .ui-input-clear { position: absolute; right: 0; top: 50%; margin-top: -13px; }
-.ui-mini .ui-input-clear { right: -3px; }
-.ui-input-search .ui-input-clear-hidden, .ui-input-text .ui-input-clear-hidden { display: none; }
-/* Resolves issue #5166: Added to support issue introduced in Firefox 15. We can likely remove this in the future. */
-input::-moz-placeholder, textarea::-moz-placeholder { color: #aaa; }
-/* For IE10 */
-:-ms-input-placeholder { color: #aaa; }
-/* Resolves issue #5131: Width of textinput depends on its type, for Android 4.1 */
-input[type=number]::-webkit-outer-spin-button { margin: 0; }
-@media all and (min-width: 28em){
-	.ui-field-contain label.ui-input-text { vertical-align: top; display: inline-block; width: 20%; margin: 0 2% 0 0 }
-	.ui-field-contain input.ui-input-text,
-	.ui-field-contain textarea.ui-input-text,
-	.ui-field-contain .ui-input-search,
-	.ui-field-contain div.ui-input-text { width: 78%; display: inline-block; }
-	.ui-field-contain .ui-input-search,
-	.ui-field-contain div.ui-input-text { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
-	.ui-hide-label input.ui-input-text,
-	.ui-hide-label textarea.ui-input-text,
-	.ui-hide-label .ui-input-search,
-	.ui-hide-label div.ui-input-text,
-	.ui-input-search input.ui-input-text,
-	div.ui-input-text input.ui-input-text { width: 100%; }
+.ui-selectmenu.ui-popup .ui-header h1:after {
+	content: '.';
+	visibility: hidden;
+}
+.ui-selectmenu .ui-header .ui-title {
+	margin: 0 2.875em;
+}
+.ui-selectmenu.ui-dialog .ui-content {
+	overflow: visible;
+	z-index: 1;
+}
+.ui-selectmenu .ui-selectmenu-list {
+	margin: 0;
+	-webkit-border-radius: inherit;
+	border-radius: inherit;	
+}
+.ui-header:not(.ui-screen-hidden) + .ui-selectmenu-list {
+	-webkit-border-top-right-radius: 0;
+	border-top-right-radius: 0;
+	-webkit-border-top-left-radius: 0;
+	border-top-left-radius: 0;
+}
+.ui-header.ui-screen-hidden + .ui-selectmenu-list li.ui-first-child .ui-btn {
+	border-top-width: 0;
+}
+.ui-selectmenu .ui-selectmenu-list li.ui-last-child .ui-btn {
+	border-bottom-width: 0;
+}
+.ui-selectmenu .ui-btn.ui-li-divider {
+	cursor: default;
+}
+.ui-selectmenu .ui-selectmenu-placeholder {
+	display: none;
+}
+.ui-listview,
+.ui-listview > li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.ui-content .ui-listview,
+.ui-panel-inner > .ui-listview {
+	margin: -1em;
+}
+.ui-collapsible-content > .ui-listview {
+	margin: -.625em -1em;
+}
+.ui-content .ui-listview-inset,
+.ui-panel-inner > .ui-listview-inset,
+.ui-collapsible-content > .ui-listview-inset {
+	margin: 1em 0;
+}
+.ui-listview > li {
+	display: block;
+	position: relative;
+	overflow: visible;
+}
+.ui-listview .ui-li-static,
+.ui-listview .ui-li-divider,
+.ui-listview > li > a.ui-btn {
+	margin: 0;
+	display: block;
+	position: relative;
+	text-align: left;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.ui-listview > li > .ui-btn:focus {
+	z-index: 1;
+}
+.ui-listview .ui-li-static,
+.ui-listview .ui-li-divider,
+.ui-listview > li > a.ui-btn {
+	border-width: 1px 0 0 0;
+	border-style: solid;
+}
+.ui-listview-inset .ui-li-static,
+.ui-listview-inset .ui-li-divider,
+.ui-listview-inset > li > a.ui-btn {
+	border-right-width: 1px;
+	border-left-width: 1px;
+}
+.ui-listview .ui-li-static.ui-last-child,
+.ui-listview .ui-li-divider.ui-last-child,
+.ui-listview > li.ui-last-child > a.ui-btn {
+	border-bottom-width: 1px;
+}
+.ui-collapsible-content > .ui-listview:not(.ui-listview-inset) > li.ui-first-child,
+.ui-collapsible-content > .ui-listview:not(.ui-listview-inset) > li.ui-first-child > a.ui-btn {
+	border-top-width: 0;
+}
+.ui-collapsible-themed-content .ui-listview:not(.ui-listview-inset) > li.ui-last-child,
+.ui-collapsible-themed-content .ui-listview:not(.ui-listview-inset) > li.ui-last-child > a.ui-btn {
+	border-bottom-width: 0;
+}
+.ui-listview > li.ui-first-child,
+.ui-listview > li.ui-first-child > a.ui-btn {
+	-webkit-border-top-right-radius: inherit;	
+	border-top-right-radius: inherit;
+	-webkit-border-top-left-radius: inherit;
+	border-top-left-radius: inherit;
+}
+.ui-listview > li.ui-last-child,
+.ui-listview > li.ui-last-child > a.ui-btn {
+	-webkit-border-bottom-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+	-webkit-border-bottom-left-radius: inherit;
+	border-bottom-left-radius: inherit;
+}
+.ui-listview > li.ui-li-has-alt > a.ui-btn {
+	-webkit-border-top-right-radius: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.ui-listview > li.ui-first-child > a.ui-btn + a.ui-btn {
+	-webkit-border-top-left-radius: 0;	
+	border-top-left-radius: 0;
+	-webkit-border-top-right-radius: inherit;
+	border-top-right-radius: inherit;
+}
+.ui-listview > li.ui-last-child > a.ui-btn + a.ui-btn {
+	-webkit-border-bottom-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-webkit-border-bottom-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+}
+.ui-listview > li.ui-first-child img:first-child:not(.ui-li-icon) {
+	-webkit-border-top-left-radius: inherit;
+	border-top-left-radius: inherit;	
+}
+.ui-listview > li.ui-last-child img:first-child:not(.ui-li-icon) {
+	-webkit-border-bottom-left-radius: inherit;
+	border-bottom-left-radius: inherit;	
+}
+.ui-collapsible-content > .ui-listview:not(.ui-listview-inset) {
+	-webkit-border-radius: inherit;
+	border-bottom-radius: inherit;	
+}
+.ui-listview .ui-li-static {
+	padding: .7em 1em;
+}
+.ui-listview .ui-li-divider {
+	padding: .5em 1.143em;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: default;
+	outline: 0; /* Dividers in custom selectmenus have tabindex */
+}
+.ui-listview .ui-li-has-count > .ui-btn,
+.ui-listview .ui-li-static.ui-li-has-count,
+.ui-listview .ui-li-divider.ui-li-has-count {
+	padding-right: 2.8125em;
+}
+.ui-listview .ui-li-has-count > .ui-btn[class*="ui-icon-"] {
+	padding-right: 4.6875em;
+}
+.ui-listview .ui-li-has-thumb > .ui-btn,
+.ui-listview .ui-li-static.ui-li-has-thumb {
+	min-height: 3.625em;
+	padding-left: 6.25em;
+}
+.ui-listview .ui-li-has-icon > .ui-btn,
+.ui-listview .ui-li-static.ui-li-has-icon {
+	min-height: 1.25em;
+	padding-left: 2.5em;
+}
+/* Used by both listview and custom multiple select button */
+.ui-li-count {
+	position: absolute;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	border-width: 1px;
+	border-style: solid;
+	padding: 0 .5em;
+	line-height: 1.666em;
+	min-height: 1.666em;
+	min-width: .666em;
+	right: .833em;
+	top: 50%;
+	margin-top: -.916em;
+}
+.ui-listview .ui-btn[class*="ui-icon-"] .ui-li-count {
+	right: 3.636em;
+}
+.ui-listview .ui-li-has-thumb > img:first-child,
+.ui-listview .ui-li-has-thumb > .ui-btn > img:first-child {
+	position: absolute;
+	left: 0;
+	top: 0;
+	max-height: 5em;
+	max-width: 5em;
+}
+.ui-listview .ui-li-has-icon > img:first-child,
+.ui-listview .ui-li-has-icon > .ui-btn > img:first-child {
+	position: absolute;
+	left: .625em;
+	top: .9em;
+	max-height: 1em;
+	max-width: 1em;
+}
+.ui-listview > li h1,
+.ui-listview > li h2,
+.ui-listview > li h3,
+.ui-listview > li h4,
+.ui-listview > li h5,
+.ui-listview > li h6 {
+	font-size: 1em;
+	font-weight: bold;
+	display: block;
+	margin: .45em 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.ui-listview > li p {
+	font-size: .75em;
+	font-weight: normal;
+	display: block;
+	margin: .6em 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.ui-listview .ui-li-aside {
+	position: absolute;
+	top: 1em;
+	right: 3.333em;
+	margin: 0;
+	text-align: right;
+}
+.ui-listview > li.ui-li-has-alt > .ui-btn {
+	margin-right: 2.5em;
+	border-right-width: 0;
+}
+.ui-listview > li.ui-li-has-alt > .ui-btn + .ui-btn {
+	position: absolute;
+	width: 2.5em;
+	height: 100%;
+	min-height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border-left-width: 1px;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 2;
+}
+.ui-listview-inset > li.ui-li-has-alt > .ui-btn + .ui-btn {
+	border-right-width: 1px;
+}
+.ui-listview > li.ui-li-has-alt > .ui-btn + .ui-btn:focus {
+	z-index: 3;
+}
+ol.ui-listview,
+ol.ui-listview .ui-li-divider {
+	counter-reset: listnumbering;
+}
+ol.ui-listview > li > .ui-btn,
+ol.ui-listview > li.ui-li-static {
+	vertical-align: middle;
+}
+ol.ui-listview > li > .ui-btn:before,
+ol.ui-listview > li.ui-li-static:before,
+ol.ui-listview > li.ui-field-contain > label:before,
+ol.ui-listview > li.ui-field-contain > .ui-controlgroup-label:before {
+	display: inline-block;
+	font-size: .9em;
+	font-weight: normal;
+	padding-right: .3em;
+	min-width: 1.4em;
+	line-height: 1.5;
+	vertical-align: middle;
+	counter-increment: listnumbering;
+	content: counter(listnumbering) ".";
+}
+ol.ui-listview > li.ui-field-contain:before {
+	content: none;
+	display: none;
+}
+ol.ui-listview > li h1:first-child,
+ol.ui-listview > li h2:first-child,
+ol.ui-listview > li h3:first-child,
+ol.ui-listview > li h4:first-child,
+ol.ui-listview > li h5:first-child,
+ol.ui-listview > li h6:first-child,
+ol.ui-listview > li p:first-child,
+ol.ui-listview > li img:first-child + * {
+	display: inline-block;
+	vertical-align: middle;
+}
+ol.ui-listview > li h1:first-child ~ *,
+ol.ui-listview > li h2:first-child ~ *,
+ol.ui-listview > li h3:first-child ~ *,
+ol.ui-listview > li h4:first-child ~ *,
+ol.ui-listview > li h5:first-child ~ *,
+ol.ui-listview > li h6:first-child ~ *,
+ol.ui-listview > li p:first-child ~ *,
+ol.ui-listview > li img:first-child + * ~ * {
+	margin-top: 0;
+	text-indent: 2.04em; /* (1.4em + .3em) * .9em / .75em */
+}
+div.ui-slider {
+	height: 30px;
+	margin: .5em 0;
+	padding: 0;
+	-ms-touch-action: pan-y pinch-zoom double-tap-zoom;
+}
+div.ui-slider:before,
+div.ui-slider:after {
+	content: "";
+	display: table;
+}
+div.ui-slider:after {
+	clear: both;
+}
+input.ui-slider-input {
+	display: block;
+	float: left;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0;
+	padding: 4px;
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	background-image: none;
+	border-width: 1px;
+	border-style: solid;
+	outline: 0;
+	text-align: center;
+	vertical-align: text-bottom;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	-ms-box-sizing: content-box;
+	box-sizing: content-box;
+}
+.ui-slider-input::-webkit-outer-spin-button,
+.ui-slider-input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+.ui-slider-track {
+	position: relative;
+	overflow: visible;
+	border-width: 1px;
+	border-style: solid;
+	height: 15px;
+	margin: 0 15px 0 68px;
+	top: 6px;
+}
+.ui-slider-track.ui-mini {
+	height: 12px;
+	top: 8px;
+}
+.ui-slider-track .ui-slider-bg {
+	height: 100%;
+}
+/* High level of specificity to override button margins in grids */
+.ui-slider-track .ui-btn.ui-slider-handle {
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	width: 28px;
+	height: 28px;
+	margin: -15px 0 0 -15px;
+	outline: 0;
+	padding: 0;
+}
+.ui-slider-track.ui-mini .ui-slider-handle {
+	height: 14px;
+	width: 14px;
+	margin: -8px 0 0 -8px;
+}
+select.ui-slider-switch {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+}
+div.ui-slider-switch {
+	display: inline-block;
+	height: 32px;
+	width: 5.8em;
+	top: 0;
+}
+/* reset the clearfix */
+div.ui-slider-switch:before,
+div.ui-slider-switch:after {
+	display: none;
+	clear: none;
+}
+div.ui-slider-switch.ui-mini {
+	height: 29px;
+	top: 0;
+}
+.ui-slider-inneroffset {
+	margin: 0 16px;
+	position: relative;
+	z-index: 1;
+}
+.ui-slider-switch.ui-mini .ui-slider-inneroffset {
+	margin: 0 15px 0 14px;
+}
+.ui-slider-switch .ui-btn.ui-slider-handle {
+	margin: 1px 0 0 -15px;
+}
+.ui-slider-switch.ui-mini .ui-slider-handle {
+	width: 25px;
+	height: 25px;
+	margin: 1px 0 0 -13px;
+	padding: 0;
+}
+.ui-slider-handle-snapping {
+	-webkit-transition: left 70ms linear;
+	-moz-transition: left 70ms linear;
+}
+.ui-slider-switch .ui-slider-label {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	overflow: hidden;
+	font-size: 16px;
+	top: 0;
+	line-height: 2;
+	min-height: 100%;
+	white-space: nowrap;
+	cursor: pointer;
+}
+.ui-slider-switch.ui-mini .ui-slider-label {
+	font-size: 14px;
+}
+.ui-slider-switch .ui-slider-label-a {
+	z-index: 1;
+	left: 0;
+	text-indent: -1.5em;
+}
+.ui-slider-switch .ui-slider-label-b {
+	z-index: 0;
+	right: 0;
+	text-indent: 1.5em;
+}
+/* The corner radii for ui-slider-switch/track can be specified in theme CSS. The bg and handle inherits. */
+.ui-slider-track .ui-slider-bg,
+.ui-slider-switch .ui-slider-label,
+.ui-slider-switch .ui-slider-inneroffset,
+.ui-slider-handle {
+	-webkit-border-radius: inherit;
+	border-radius: inherit;
+}
+.ui-field-contain div.ui-slider-switch {
+	margin: 0;
+}
+@media (min-width: 28em) {
+	.ui-field-contain div.ui-slider-switch,
+	.ui-field-contain.ui-hide-label div.ui-slider-switch {
+		display: inline-block;
+		width: 5.8em;
+	}
+}	
+/* slider tooltip
+-----------------------------------------------------------------------------------------------------------*/
+.ui-slider-popup {
+	width: 64px;
+	height: 64px;
+	font-size: 36px;
+	padding-top: 14px;
+	opacity: 0.8;
+}
+.ui-slider-popup {
+	position: absolute !important;
+	text-align: center;
+	z-index: 100;
+}
+.ui-slider-track .ui-btn.ui-slider-handle {
+	font-size: .9em;
+	line-height: 30px;
 }
 .ui-rangeslider {
-	zoom: 1;
-	margin: 0;
+	margin: .5em 0;
 }
 .ui-rangeslider:before,
 .ui-rangeslider:after {
@@ -1489,31 +2733,14 @@ input[type=number]::-webkit-outer-spin-button { margin: 0; }
 .ui-rangeslider:after {
 	clear: both;
 }
-/* Margin-top/bottom: .5em * 16px/14px to make it equal to ui-rangeslider-sliders margin (input font-size is 14px) */
-.ui-rangeslider input.ui-input-text.ui-slider-input {
-	margin: .57143em 0;
-}
-.ui-rangeslider.ui-mini input.ui-slider-input {
-	margin: .28571em 0;
-}
-.ui-rangeslider input.ui-slider-input.ui-rangeslider-last {
+.ui-rangeslider .ui-slider-input.ui-rangeslider-last {
 	float: right;
 }
 .ui-rangeslider .ui-rangeslider-sliders {
 	position: relative;
 	overflow: visible;
 	height: 30px;
-	margin: .5em 68px;
-}
-.ui-rangeslider.ui-mini .ui-rangeslider-sliders {
-	margin: .25em 68px;
-}
-.ui-field-contain .ui-rangeslider input.ui-slider-input,
-.ui-field-contain .ui-rangeslider.ui-mini input.ui-slider-input,
-.ui-field-contain .ui-rangeslider .ui-rangeslider-sliders,
-.ui-field-contain .ui-rangeslider.ui-mini .ui-rangeslider-sliders {
-	margin-top: 0;
-	margin-bottom: 0;
+	margin: 0 68px;
 }
 .ui-rangeslider .ui-rangeslider-sliders .ui-slider-track {
 	position: absolute;
@@ -1542,374 +2769,262 @@ html >/**/body .ui-rangeslider .ui-rangeslider-sliders .ui-slider-track:first-ch
 html >/**/body .ui-rangeslider.ui-mini .ui-rangeslider-sliders .ui-slider-track:first-child {
 	height: 12px;
 }
-@media all and (min-width: 28em){
-	.ui-field-contain .ui-rangeslider label.ui-slider {
-		float: left;
-	}
-	.ui-field-contain .ui-rangeslider input.ui-slider-input {
-		position: relative;
-		z-index: 1;
-	}
-	.ui-field-contain .ui-rangeslider input.ui-slider-input.ui-rangeslider-first,
-	.ui-field-contain .ui-rangeslider.ui-mini input.ui-slider-input.ui-rangeslider-first {
-		margin-right: 17px;
-	}
-	.ui-field-contain .ui-rangeslider .ui-rangeslider-sliders,
-	.ui-field-contain .ui-rangeslider.ui-mini .ui-rangeslider-sliders {
-		float: left;
-		width: 78%;
-		margin: 0 -68px;
-	}
-	.ui-field-contain .ui-rangeslider .ui-slider-track,
-	.ui-field-contain .ui-rangeslider.ui-mini .ui-slider-track {
-		right: 68px;
-		left: 68px;
-	}
-	.ui-field-contain.ui-hide-label .ui-rangeslider input.ui-slider-input.ui-rangeslider-first {
-		margin: 0;
-	}
-	.ui-field-contain.ui-hide-label .ui-rangeslider .ui-rangeslider-sliders,
-	.ui-field-contain.ui-hide-label .ui-rangeslider.ui-mini .ui-rangeslider-sliders {
-		width: auto;
-		float: none;
-		margin: 0 68px;
-	}
-	.ui-field-contain.ui-hide-label .ui-rangeslider .ui-slider-track,
-	.ui-field-contain.ui-hide-label .ui-rangeslider.ui-mini .ui-slider-track {
-		right: 0;
-		left: 0;
-	}
+/* Hide the second label (the first is moved outside the div) */
+div.ui-rangeslider label {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
 }
-.ui-listview { margin: 0; }
-ol.ui-listview, ol.ui-listview .ui-li-divider { counter-reset: listnumbering; }
-.ui-content .ui-listview, .ui-panel-inner > .ui-listview { margin: -15px; }
-.ui-collapsible-content > .ui-listview { margin: -10px -15px; }
-.ui-content .ui-listview-inset, .ui-panel-inner .ui-listview-inset { margin: 1em 0; }
-.ui-collapsible-content .ui-listview-inset { margin: .5em 0; }
-.ui-listview, .ui-li { list-style: none; padding: 0; }
-.ui-li, .ui-li.ui-field-contain { display: block; margin: 0; position: relative; overflow: visible; text-align: left; border-width: 0; border-top-width: 1px; }
-.ui-li.ui-btn, .ui-li.ui-field-contain, .ui-li-divider, .ui-li-static { margin: 0; }
-.ui-listview-inset .ui-li { border-right-width: 1px; border-left-width: 1px; }
-.ui-li.ui-last-child, .ui-li.ui-field-contain.ui-last-child { border-bottom-width: 1px; }
-.ui-collapsible-content > .ui-listview:not(.ui-listview-inset) > .ui-li.ui-first-child { border-top-width: 0; }
-.ui-collapsible-themed-content .ui-listview:not(.ui-listview-inset) > .ui-li.ui-last-child { border-bottom-width: 0; }
-.ui-li .ui-btn-text a.ui-link-inherit { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.ui-li-static { background-image: none; }
-.ui-li-divider { padding: .5em 15px; font-size: 14px; font-weight: bold; }
-ol.ui-listview .ui-link-inherit:before, ol.ui-listview .ui-li-static:before, .ui-li-dec { font-size: .8em; display: inline-block; padding-right: .3em; font-weight: normal; counter-increment: listnumbering; content: counter(listnumbering) ". "; }
-ol.ui-listview .ui-li-jsnumbering:before { content: "" !important; } /* to avoid chance of duplication */
-.ui-listview .ui-li > .ui-btn-text {
-	-webkit-border-radius: inherit;	
+.ui-field-contain .ui-rangeslider input.ui-slider-input,
+.ui-field-contain .ui-rangeslider.ui-mini input.ui-slider-input,
+.ui-field-contain .ui-rangeslider .ui-rangeslider-sliders,
+.ui-field-contain .ui-rangeslider.ui-mini .ui-rangeslider-sliders {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.ui-input-text,
+.ui-input-search {
+	margin: -.5em -.5em 1.5em -.5em;
+	background-image: none;
+	border-width: 1px;
+	border-style: solid;
+}
+.ui-input-inset,
+textarea.ui-input-text {
+	margin: .5em 0;
+}
+.ui-input-text input,
+.ui-input-search input,
+textarea.ui-input-text {
+	padding: .4em;
+	min-height: 2.2em;
+	line-height: 1.4em;
+	display: block;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	outline: 0;
+}
+.ui-input-text input,
+.ui-input-search input {
+	margin: 0;
+	text-align: left; /* Opera aligns type="date" right by default */
+	border: 0;
+	background: transparent none;
+	-webkit-appearance: none;
+	-webkit-border-radius: inherit;
 	border-radius: inherit;
 }
-.ui-listview > .ui-li.ui-first-child,
-.ui-listview .ui-btn.ui-first-child > .ui-li > .ui-btn-text > .ui-link-inherit {
-	-webkit-border-top-right-radius: inherit;	
-	border-top-right-radius: inherit;
-	-webkit-border-top-left-radius: inherit;
-	border-top-left-radius: inherit;
+textarea.ui-input-text {
+	height: 3.125em;
+	overflow: auto;
+	resize: vertical;
 }
-.ui-listview > .ui-li.ui-last-child,
-.ui-listview .ui-btn.ui-last-child > .ui-li > .ui-btn-text > .ui-link-inherit,
-.ui-collapsible-content > .ui-listview:not(.ui-listview-inset),
-.ui-collapsible-content > .ui-listview:not(.ui-listview-inset) .ui-li.ui-last-child {
-	-webkit-border-bottom-right-radius: inherit;
-	border-bottom-right-radius: inherit;
-	-webkit-border-bottom-left-radius: inherit;
-	border-bottom-left-radius: inherit;
-}
-.ui-listview > .ui-li.ui-first-child .ui-li-link-alt {
-	-webkit-border-top-right-radius: inherit;	
-	border-top-right-radius: inherit;	
-}
-.ui-listview > .ui-li.ui-last-child .ui-li-link-alt {
-	-webkit-border-bottom-right-radius: inherit;
-	border-bottom-right-radius: inherit;	
-}
-.ui-listview > .ui-li.ui-first-child .ui-li-thumb:not(.ui-li-icon) {
-	-webkit-border-top-left-radius: inherit;
-	border-top-left-radius: inherit;	
-}
-.ui-listview > .ui-li.ui-last-child .ui-li-thumb:not(.ui-li-icon) {
-	-webkit-border-bottom-left-radius: inherit;
-	border-bottom-left-radius: inherit;	
-}
-.ui-li>.ui-btn-inner { display: block; position: relative; padding: 0; }
-.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li { padding: .7em 15px; display: block; }
-.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb  { min-height: 59px; padding-left: 100px; }
-.ui-li-has-icon .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-icon { min-height: 20px; padding-left: 40px; }
-.ui-li-has-count .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-count, .ui-li-divider.ui-li-has-count { padding-right: 45px; }
-.ui-li-has-arrow .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-arrow { padding-right: 40px; }
-.ui-li-has-arrow.ui-li-has-count .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-arrow.ui-li-has-count { padding-right: 75px; }
-.ui-li-heading { font-size: 16px; font-weight: bold; display: block; margin: .6em 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-.ui-li-desc { font-size: 12px; font-weight: normal; display: block; margin: -.5em 0 .6em; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-ol.ui-listview > .ui-li .ui-li-heading { display: inline-block; width: 100%; margin-left: -1.3em; text-indent: 1.3em; vertical-align: middle; }
-ol.ui-listview > .ui-li .ui-li-desc:not(.ui-li-aside) { text-indent: 1.55em; }
-.ui-li-thumb, .ui-listview .ui-li-icon { position: absolute; left: 1px; top: 0; max-height: 80px; max-width: 80px; }
-.ui-listview .ui-li-icon { max-height: 16px; max-width: 16px; left: 10px; top: .9em; }
-.ui-li-thumb, .ui-listview .ui-li-icon, .ui-li-content { float: left; margin-right: 10px; }
-.ui-li-aside { float: right; width: 50%; text-align: right; margin: .3em 0; }
-@media all and (min-width: 480px){
-	 .ui-li-aside { width: 45%; }
-}	 
-.ui-li-divider { cursor: default; }
-.ui-li-has-alt .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-alt { padding-right: 53px; }
-.ui-li-has-alt.ui-li-has-count .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-alt.ui-li-has-count { padding-right: 88px; }
-.ui-li-has-count .ui-li-count { position: absolute; font-size: 11px; font-weight: bold; padding: .2em .5em; top: 50%; margin-top: -.9em; right: 10px; }
-.ui-li-has-count.ui-li-divider .ui-li-count, .ui-li-has-count .ui-link-inherit .ui-li-count { margin-top: -.95em; }
-.ui-li-has-arrow.ui-li-has-count .ui-li-count { right: 40px; }
-.ui-li-has-alt.ui-li-has-count .ui-li-count { right: 53px; }
-.ui-li-link-alt { position: absolute; width: 40px; height: 100%; border-width: 0; border-left-width: 1px; top: 0; right: 0; margin: 0; padding: 0; z-index: 2; }
-.ui-li-link-alt .ui-btn { overflow: hidden; position: absolute; right: 8px; top: 50%; margin: -13px 0 0 0; border-bottom-width: 1px; z-index: -1;}
-.ui-li-link-alt .ui-btn-inner { padding: 0; height: 100%; position: absolute; width: 100%; top: 0; left: 0;}
-.ui-li-link-alt .ui-btn .ui-icon { right: 50%; margin-right: -9px; }
-.ui-li-link-alt .ui-btn-icon-notext .ui-btn-inner .ui-icon { position: absolute; top: 50%; margin-top: -9px; }
-.ui-listview * .ui-btn-inner > .ui-btn > .ui-btn-inner { border-top: 0; }
-.ui-listview-filter { border-width: 0; overflow: hidden; margin: -15px -15px 15px -15px; }
-.ui-collapsible-content .ui-listview-filter { margin: -10px -15px 10px -15px; border-bottom: inherit; }
-.ui-listview-filter-inset { margin: -15px -5px; background: transparent; }
-.ui-collapsible-content .ui-listview-filter-inset { margin: -5px; border-bottom-width: 0; }
-.ui-listview-filter .ui-input-search { margin: 5px; width: auto; display: block; }
-.ui-li.ui-screen-hidden{ display:none; }
-/* Odd iPad positioning issue. */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-    .ui-li .ui-btn-text { overflow:  visible; }
-}
-label.ui-slider {
-	font-size: 16px;
-	line-height: 1.4;
-	font-weight: normal;
-	margin: 0;
-	display: block;
-}
-.ui-field-contain label.ui-slider {
-	margin-bottom: .4em;
-}
-div.ui-slider {
-	height: 30px;
-	margin: .5em 0;
-	zoom: 1;
-}
-div.ui-slider.ui-mini {
-	margin: .25em 0;
-}
-.ui-field-contain div.ui-slider,
-.ui-field-contain div.ui-slider.ui-mini {
-	margin: 0;
-}
-div.ui-slider:before, div.ui-slider:after {
-	content: "";
-	display: table;
-}
-div.ui-slider:after {
-	clear: both;
-}
-/* High level of specificity to override Textinput CSS. */
-input.ui-input-text.ui-slider-input {
-	display: block;
-	float: left;
-	margin: 0;
-	padding: 4px;
-	width: 40px;
-	height: 22px;
-	line-height: 22px;
+.ui-mini .ui-input-text input,
+.ui-mini .ui-input-search input,
+.ui-input-text.ui-mini input,
+.ui-input-search.ui-mini input,
+.ui-mini textarea.ui-input-text,
+textarea.ui-mini {
 	font-size: 14px;
-	border-width: 0;
-	background-image: none;
-	font-weight: bold;
-	text-align: center;
-	vertical-align: text-bottom;
-	outline: 0;
-	-webkit-box-sizing: content-box;
-	-moz-box-sizing: content-box;
-	-ms-box-sizing: content-box;
-	box-sizing: content-box;
 }
-.ui-slider-input::-webkit-outer-spin-button,
-.ui-slider-input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+/* Same margin for mini textareas as other mini sized widgets (12.5/14 * 0.5em) */
+.ui-mini textarea.ui-input-text,
+textarea.ui-mini {
+	margin: .446em 0;
 }
-.ui-slider-track,
-.ui-slider-switch {
+.ui-input-has-clear,
+.ui-input-search {
 	position: relative;
-	overflow: visible;
-	height: 15px;
-	margin: 0 15px 0 68px;
-	top: 6px;
 }
-.ui-slider-track.ui-mini {
-	height: 12px;
-	top: 8px;
+/* Padding on the div instead of input because of browser spinners etc. */
+.ui-input-has-clear {
+	padding-right: 2.25em;
 }
-.ui-slider-bg {
-	border: none;
-	height: 100%;
+.ui-input-has-clear input {
+	padding-right: 0;
+	/* Autofill on Chrome has bg color so we unset corners right as well. */
+	-webkit-border-top-right-radius: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-right-radius: 0;
 }
-/* High level of specificity to override button margins in grids */
-.ui-slider-track .ui-btn.ui-slider-handle,
-.ui-slider-switch .ui-btn.ui-slider-handle {
+/* Search icon */
+.ui-input-search input {
+	padding-left: 1.75em;
+}
+.ui-input-search:after {
 	position: absolute;
-	z-index: 1;
+	left: .3125em;
 	top: 50%;
-	width: 28px;
-	height: 28px;
-	margin: -15px 0 0 -15px;
-	outline: 0;
-}
-.ui-slider-track.ui-mini .ui-slider-handle {
-	height: 14px;
+	margin-top: -7px;
+	content: "";
+	background-position: center center;
+	background-repeat: no-repeat;
 	width: 14px;
-	margin: -8px 0 0 -7px;
+	height: 14px;
+	filter: Alpha(Opacity=50);
+	opacity: .5;
 }
-.ui-slider-handle .ui-btn-inner {
-	padding: 0;
-	height: 100%;
-}
-.ui-slider-track.ui-mini .ui-slider-handle .ui-btn-inner {
-	height: 30px;
-	width: 30px;
-	padding: 0;
-	margin: -9px 0 0 -9px;
-	border-top: none;
-}
-select.ui-slider-switch {
-	display: none;
-}
-div.ui-slider-switch {
-	display: inline-block;
-	height: 32px;
-	width: 5.8em;
-	margin: .5em 0;
-	top: 0;
-}
-/* reset the clearfix */
-div.ui-slider-switch:before, div.ui-slider-switch:after {
-	display: none;
-	clear: none;
-}
-div.ui-slider-switch.ui-mini {
-	width: 5em;
-	height: 29px;
-	margin: .25em 0;
-	top: 0;
-}
-.ui-field-contain .ui-slider-switch,
-.ui-field-contain .ui-slider-switch.ui-mini {
-	margin: 0;
-}
-.ui-slider-inneroffset {
-	margin: 0 16px;
-	position: relative;
-	z-index: 1;
-}
-.ui-slider-switch.ui-mini .ui-slider-inneroffset {
-	margin: 0 15px 0 14px;
-}
-.ui-slider-switch .ui-btn.ui-slider-handle {
-	margin: 1px 0 0 -15px;
-}
-.ui-slider-switch.ui-mini .ui-slider-handle {
-	width: 25px;
-	height: 25px;
-	margin: 1px 0 0 -13px;
-	padding: 0;
-}
-.ui-slider-handle-snapping {
-	-webkit-transition: left 70ms linear;
-	-moz-transition: left 70ms linear;
-}
-.ui-slider-switch.ui-mini .ui-slider-handle .ui-btn-inner {
-	height: 30px;
-	width: 30px;
-	padding: 0;
-	margin: 0;
-	border-top: none;
-}
-.ui-slider-switch .ui-slider-label {
+.ui-input-search.ui-input-has-clear .ui-btn.ui-input-clear,
+.ui-input-text.ui-input-has-clear .ui-btn.ui-input-clear {
 	position: absolute;
-	text-align: center;
-	width: 100%;
+	right: 0;
+	top: 50%;
+	margin: -15px .3125em 0;
+	border: 0;
+	background-color: transparent;
+}
+.ui-input-search .ui-input-clear-hidden,
+.ui-input-text .ui-input-clear-hidden {
+	display: none;
+}
+/* Resolves issue #5166: Added to support issue introduced in Firefox 15. We can likely remove this in the future. */
+.ui-input-text input::-moz-placeholder,
+.ui-input-search input::-moz-placeholder,
+textarea.ui-input-text::-moz-placeholder {
+	color: #aaa;
+}
+/* Same for IE10 */
+.ui-input-text input:-ms-input-placeholder,
+.ui-input-search input:-ms-input-placeholder,
+textarea.ui-input-text:-ms-input-placeholder {
+	color: #aaa;
+}
+/* Resolves issue #5131: Width of textinput depends on its type,
+for Android 4.1 */
+.ui-input-text input[type=number]::-webkit-outer-spin-button {
+	margin: 0;
+}
+/* Resolves issue #5756: Textinput in IE10 has a default clear button */
+.ui-input-text input::-ms-clear,
+.ui-input-search input::-ms-clear {
+	display: none;
+}
+.ui-input-text input:focus,
+.ui-input-search input:focus {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+.ui-flipswitch {
+	display: inline-block;
+	vertical-align: middle;
+	width: 5.875em; /* Override this and padding-left in next rule if you use labels other than "on/off" and need more space */
+	height: 1.875em;
+	border-width: 1px;
+	border-style: solid;
+	margin: .5em 0;
 	overflow: hidden;
-	font-size: 16px;
-	top: 0;
-	line-height: 2;
-	min-height: 100%;
-	border-width: 0;
-	white-space: nowrap;
+	-webkit-transition-property: padding, width, background-color, color, border-color;
+	-moz-transition-property: padding, width, background-color, color, border-color;
+	-o-transition-property: padding, width, background-color, color, border-color;
+	transition-property: padding, width, background-color, color, border-color;
+	-webkit-transition-duration: 100ms;
+	-moz-transition-duration: 100ms;
+	-o-transition-duration: 100ms;
+	transition-duration: 100ms;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 	cursor: pointer;
 }
-.ui-slider-switch.ui-mini .ui-slider-label {
-	font-size: 14px;
+.ui-flipswitch.ui-flipswitch-active {
+	padding-left: 4em;  /* Override this and width in previous rule if you use labels other than "on/off" and need more space */
+	width: 1.875em;
 }
-.ui-slider-switch .ui-slider-label-a {
-	z-index: 1;
-	left: 0;
-	text-indent: -1.5em;
+.ui-flipswitch-input {
+	position: absolute;
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(1px,1px,1px,1px);
+	border: 0;
+	outline: 0;
+	filter: Alpha(Opacity=0);
+	opacity: 0;
 }
-.ui-slider-switch .ui-slider-label-b {
-	z-index: 0;
-	right: 0;
-	text-indent: 1.5em;
+.ui-flipswitch .ui-btn.ui-flipswitch-on,
+.ui-flipswitch .ui-flipswitch-off {
+	float: left;
+	height: 1.75em;
+	margin: .0625em;
+	line-height: 1.65em;
 }
-@media all and (min-width: 28em){
-	.ui-field-contain label.ui-slider {
-		vertical-align: top;
+.ui-flipswitch .ui-btn.ui-flipswitch-on {
+	width: 1.75em;
+	padding: 0;
+	text-indent: -2.6em; /* Override this to center text if you use a label other than "on" */
+	text-align: left;
+	border-width: 1px;
+	border-style: solid;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: inherit;
+	overflow: visible;
+	color: inherit;
+	text-shadow: inherit;
+}
+.ui-flipswitch .ui-flipswitch-off {
+	padding: 1px;
+	text-indent: 1em; /* Override this to center text if you use a label other than "off" */
+}
+@media (min-width: 28em) {
+	.ui-field-contain > label + .ui-flipswitch {
 		display: inline-block;
-		width: 20%;
-		margin: 0 2% 0 0;
+		width: 5.875em; /* If you override the width for .ui-flipswitch you should repeat the same value here */
+		-webkit-box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		-ms-box-sizing: content-box;
+		box-sizing: content-box;
 	}
-	.ui-field-contain div.ui-slider {
-		display: inline-block;
-		width: 78%;
-	}
-	.ui-field-contain.ui-hide-label div.ui-slider {
-		display: block;
-		width: auto;
-	}
-	.ui-field-contain div.ui-slider-switch,
-	.ui-field-contain.ui-hide-label div.ui-slider-switch {
-		display: inline-block;
-		width: 5.8em;
-	}
-	.ui-field-contain div.ui-slider-switch.ui-mini {
-		width: 5em;
+	.ui-field-contain .ui-flipswitch.ui-flipswitch-active {
+		width: 1.875em;
 	}
 }	
 .ui-table {
-   border: 0;
-   border-collapse: collapse;
-   padding: 0;
-   width: 100%;
+	border: 0;
+	border-collapse: collapse;
+	padding: 0;
+	width: 100%;
 }
 .ui-table th,
 .ui-table td {
-  line-height: 1.5em;
-  text-align: left;
-  padding: .4em .5em;
-  vertical-align:top;
+	line-height: 1.5em;
+	text-align: left;
+	padding: .4em .5em;
+	vertical-align:top;
 }
 .ui-table th .ui-btn,
 .ui-table td .ui-btn {
 	line-height: normal;
 }
 .ui-table th {
-  font-weight: bold;
+	font-weight: bold;
 }
 .ui-table caption {
-  text-align:left;
-  margin-bottom:1.4em;
-  opacity: .5;
+	text-align: left;
+	margin-bottom: 1.4em;
+	opacity: .5;
 }
 /* Add strokes between each row */
 .table-stroke thead th {
-  border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
+	border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 .table-stroke tbody th,
 .table-stroke tbody td {
-  border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
-  border-bottom: 1px solid rgba(0, 0, 0, .05);
+	border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+	border-bottom: 1px solid rgba(0, 0, 0, .05);
 }
 /* Add alternating row stripes */
 .table-stripe tbody tr:nth-child(odd) td,
@@ -1928,7 +3043,7 @@ div.ui-slider-switch.ui-mini {
 */
 .ui-table-columntoggle-btn {
 	float: right;
-	margin-bottom:.8em;
+	margin-bottom: .8em;
 }
 /* Remove top/bottom margins around the fieldcontain on check list */
 .ui-table-columntoggle-popup fieldset {
@@ -2107,36 +3222,42 @@ div.ui-slider-switch.ui-mini {
 	bottom: -1px; /* fixes gap on Chrome for Android */
 	padding-bottom: 1px;
 }
-.ui-panel-display-overlay {
-	z-index: 1001; /* fixed toolbars have z-index 1000 */
-}
 .ui-panel-display-reveal {
 	z-index: 0;
 }
 .ui-panel-display-push {
 	z-index: 999;
 }
-.ui-panel-inner {
-	padding: 15px;
+.ui-panel-display-overlay {
+	z-index: 1001; /* fixed toolbars have z-index 1000 */
 }
-/* content-wrap */
-.ui-panel-content-wrap {
+.ui-panel-inner {
+	padding: 1em;
+}
+/* container and page */
+.ui-panel-page-container {
+	-webkit-transform: translate3d(0,0,0);
+}
+.ui-panel-page-container .ui-page-active {
+	background: none;
+}
+/* wrapper */
+.ui-panel-wrapper {
 	position: relative;
-	left: 0;
 	min-height: inherit;
-	border: none;
+	border: 0;
+	overflow-x: hidden;
 	z-index: 999;
 }
-.ui-panel-content-wrap-display-overlay,
-.ui-panel-animate.ui-panel-content-wrap > .ui-header, /* ios4 fix */
-.ui-panel-content-wrap-closed {
-	position: static;
+/* fiixed toolbars */
+.ui-panel-fixed-toolbar {
+	overflow-x: hidden;
 }
 /* dismiss */
 .ui-panel-dismiss {
 	position: absolute;
 	top: 0;
-	left:0;
+	left: 0;
 	height: 100%;
 	width: 100%;
 	z-index: 1002;
@@ -2147,16 +3268,12 @@ div.ui-slider-switch.ui-mini {
 }
 /* animate class is added to panel, wrapper and fixed toolbars */
 .ui-panel-animate {
-	-webkit-transition: -webkit-transform 350ms ease;
-	-moz-transition: -moz-transform 350ms ease;
-	transition: transform 350ms ease;
+	-webkit-transition: -webkit-transform 300ms ease;
+	-moz-transition: -moz-transform 300ms ease;
+	transition: transform 300ms ease;
 }
 /* hardware acceleration for smoother transitions on WebKit browsers */
-.ui-panel-animate.ui-panel:not(.ui-panel-display-reveal),
-.ui-panel-animate.ui-panel:not(.ui-panel-display-reveal) > div,
-.ui-panel-animate.ui-panel-closed.ui-panel-display-reveal > div,
-.ui-panel-animate.ui-panel-content-wrap,
-.ui-panel-animate.ui-panel-content-fixed-toolbar {
+.ui-panel-animate.ui-panel:not(.ui-panel-display-reveal) {
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translate3d(0,0,0);
 }
@@ -2209,19 +3326,16 @@ div.ui-slider-switch.ui-mini {
 	transform: translate3d(0,0,0);
 	-moz-transform: none;
 }
-/* positioning: content wrap, fixed toolbars and dismiss */
+/* positioning: pages, fixed toolbars and dismiss */
 /* panel left open */
-.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open,
-.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open,
+.ui-panel-page-content-position-left.ui-panel-page-content-open,
 .ui-panel-dismiss-position-left.ui-panel-dismiss-open {
 	left: 17em;
 	right: -17em;
 }
 /* animated: panel left open (for reveal and push) */
-.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal,
-.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push,
-.ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal,
-.ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-push {
+.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-open.ui-panel-page-content-display-reveal,
+.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-open.ui-panel-page-content-display-push {
 	left: 0;
 	right: 0;
 	-webkit-transform: translate3d(17em,0,0);
@@ -2229,17 +3343,14 @@ div.ui-slider-switch.ui-mini {
 	transform: translate3d(17em,0,0);
 }
 /* panel right open */
-.ui-panel-content-fixed-toolbar-position-right.ui-panel-content-fixed-toolbar-open,
-.ui-panel-content-wrap-position-right.ui-panel-content-wrap-open,
+.ui-panel-page-content-position-right.ui-panel-page-content-open,
 .ui-panel-dismiss-position-right.ui-panel-dismiss-open {
 	left: -17em;
 	right: 17em;
 }
 /* animated: panel right open (for reveal and push) */
-.ui-panel-animate.ui-panel-content-fixed-toolbar-position-right.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal, 
-.ui-panel-animate.ui-panel-content-fixed-toolbar-position-right.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push,
-.ui-panel-animate.ui-panel-content-wrap-position-right.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal, 
-.ui-panel-animate.ui-panel-content-wrap-position-right.ui-panel-content-wrap-open.ui-panel-content-wrap-display-push {
+.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-open.ui-panel-page-content-display-reveal, 
+.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-open.ui-panel-page-content-display-push {
 	left: 0;
 	right: 0;
 	-webkit-transform: translate3d(-17em,0,0);
@@ -2247,13 +3358,8 @@ div.ui-slider-switch.ui-mini {
 	transform: translate3d(-17em,0,0);
 }
 /* negate "panel left/right open" for overlay */
-.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-overlay,
-.ui-panel-content-wrap-open.ui-panel-content-wrap-display-overlay {
+.ui-panel-page-content-open.ui-panel-page-content-display-overlay {
 	left: 0;
-}
-/* always disable overflow-x to prevent zoom issue on Android */
-.ui-page-active.ui-page-panel {
-	overflow-x: hidden;
 }
 /* shadows and borders */
 .ui-panel-display-reveal {
@@ -2280,35 +3386,38 @@ div.ui-slider-switch.ui-mini {
 	border-right-width: 1px;
 	margin-right: -1px;
 }
-.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push {
+.ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-push {
 	margin-left: 1px;
+	width: auto;
 }
 .ui-panel-display-push.ui-panel-open.ui-panel-position-right {
 	border-left-width: 1px;
 	margin-left: -1px;
 }
-.ui-panel-animate.ui-panel-content-fixed-toolbar-position-right.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push {
+.ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-push {
 	margin-right: 1px;
+	width: auto;
 }
 /* wrap on wide viewports once open */
 @media (min-width:55em){
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-push.ui-panel-content-fixed-toolbar-position-left,
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-reveal.ui-panel-content-fixed-toolbar-position-left,
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-display-push.ui-panel-content-wrap-position-left,
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-display-reveal.ui-panel-content-wrap-position-left {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-push,
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal,
+	.ui-responsive-panel.ui-panel-fixed-toolbar.ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-push,
+	.ui-responsive-panel.ui-panel-fixed-toolbar.ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal {
 		margin-right: 17em;
 	}
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-push.ui-panel-content-fixed-toolbar-position-right,
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-reveal.ui-panel-content-fixed-toolbar-position-right,
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-display-push.ui-panel-content-wrap-position-right,
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-display-reveal.ui-panel-content-wrap-position-right {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-push,
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal,
+	.ui-responsive-panel.ui-panel-fixed-toolbar.ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-push,
+	.ui-responsive-panel.ui-panel-fixed-toolbar.ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal {
 		margin-left: 17em;
 	}
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-push,
-	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-display-push,
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-display-reveal {
 		width: auto;	
 	}
 	.ui-responsive-panel .ui-panel-dismiss-display-push {
 		display: none;
 	}	
 }
+@import url( "jquery.mobile.filterable.css" );
