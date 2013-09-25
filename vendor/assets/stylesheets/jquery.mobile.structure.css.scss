@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.4.0-alpha.1
-* Git HEAD hash: d17d2ba7a10af43dac930d1ee65b6b46268bb08d <> Date: Thu Jul 25 2013 22:32:20 UTC
+* jQuery Mobile 1.4.0-beta.1
+* Git HEAD hash: f39417f72a5c14fc039a626dfa2419d41c9c4a72 <> Date: Tue Sep 24 2013 20:03:42 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2013 jQuery Foundation, Inc. and other contributors
@@ -31,6 +31,7 @@
 @-moz-document url-prefix() {
 	.ui-mobile fieldset {
 		display: table-column;
+		vertical-align: middle;
 	}
 }
 /* Viewport */
@@ -182,6 +183,10 @@ div.ui-mobile-viewport {
 	border-style: solid;
 	position: relative;
 }
+.ui-header:empty,
+.ui-footer:empty {
+	min-height: 2.6875em;
+}
 .ui-header .ui-title,
 .ui-footer .ui-title {
 	font-size: 1em;
@@ -251,9 +256,6 @@ div.ui-mobile-viewport {
 .ui-mini .ui-btn {
 	font-size: inherit;
 }
-.ui-mini .ui-controlgroup-label {
-	font-size: 16px;
-}
 /* Make buttons in toolbars default to mini and inline. */
 .ui-header .ui-btn,
 .ui-footer .ui-btn {
@@ -281,8 +283,7 @@ div.ui-mobile-viewport {
 .ui-btn-icon-left {
 	padding-left: 2.5em;
 }
-.ui-btn-icon-right,
-.ui-listview > li > .ui-btn[class*="ui-icon-"] {
+.ui-btn-icon-right {
 	padding-right: 2.5em;
 }
 .ui-btn-icon-top {
@@ -298,7 +299,11 @@ div.ui-mobile-viewport {
 	padding-left: .3125em;
 	padding-right: .3125em;
 }
-.ui-btn[class*="ui-icon-"]:after {
+.ui-btn-icon-left:after,
+.ui-btn-icon-right:after,
+.ui-btn-icon-top:after,
+.ui-btn-icon-bottom:after,
+.ui-btn-icon-notext:after {
 	content: "";
 	position: absolute;
 	display: block;
@@ -307,16 +312,14 @@ div.ui-mobile-viewport {
 }
 .ui-btn-icon-notext:after,
 .ui-btn-icon-left:after,
-.ui-btn-icon-right:after,
-.ui-listview > li > .ui-btn[class*="ui-icon-"]:after {
+.ui-btn-icon-right:after {
 	top: 50%;
 	margin-top: -11px;
 }
 .ui-btn-icon-left:after {
 	left: .5625em;
 }
-.ui-btn-icon-right:after,
-.ui-listview > li > .ui-btn[class*="ui-icon-"]:after {
+.ui-btn-icon-right:after {
 	right: .5625em;
 }
 .ui-mini.ui-btn-icon-left:after,
@@ -370,6 +373,30 @@ div.ui-mobile-viewport {
 	top: .3125em;
 	right: .3125em;
 }
+/* Button elements */
+button.ui-btn,
+.ui-controlgroup-controls button.ui-btn-icon-notext {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	width: 100%;
+}
+button.ui-btn-inline {
+	width: auto;
+}
+/* Firefox adds a 1px border in a button element. We negate this to make sure they have the same height as other buttons in controlgroups. */
+button.ui-btn::-moz-focus-inner {
+	border: 0;
+}
+button.ui-btn-icon-notext,
+.ui-controlgroup-horizontal .ui-controlgroup-controls button.ui-btn {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	width: 1.75em;
+}
 /* Form labels */
 .ui-mobile label,
 .ui-controlgroup-label {
@@ -377,6 +404,7 @@ div.ui-mobile-viewport {
 	margin: 0 0 .4em;
 }
 /* Accessible content hiding */
+/* ui-hide-label deprecated in 1.4. TODO: Remove in 1.5 */
 .ui-hide-label > label,
 .ui-hide-label .ui-controlgroup-label,
 .ui-hide-label .ui-rangeslider label,
@@ -1199,12 +1227,17 @@ div.ui-mobile-viewport {
 		-ms-box-sizing: border-box;
 		box-sizing: border-box;
 	}
+	/* ui-hide-label deprecated in 1.4. TODO: Remove in 1.5 */
 	.ui-hide-label > label + [class*="ui-"],
 	.ui-hide-label .ui-controlgroup-controls,
 	.ui-popup .ui-field-contain > label + [class*="ui-"],
 	.ui-popup .ui-field-contain .ui-controlgroup-controls {
 		float: none;
 		width: 100%;
+	}
+	.ui-field-contain > label + .ui-btn-inline {
+		width: auto;
+		margin-right: .625em;
 	}
 }
 /* content configurations. */
@@ -1248,9 +1281,17 @@ li.ui-block-e {
 	padding: 0;
 	list-style: none;
 }
-[class*="ui-grid-"] .ui-btn,
-[class*="ui-grid-"] button.ui-btn-inline,
-[class*="ui-grid-"] button.ui-btn-icon-notext {
+/* No margin in grids for 100% width button elements until we can use max-width: fill-available; */
+[class*="ui-block-"] > button.ui-btn {
+	margin-right: 0;
+	margin-left: 0;
+}
+[class*="ui-block-"] > .ui-btn,
+[class*="ui-block-"] > .ui-select,
+[class*="ui-block-"] > .ui-checkbox,
+[class*="ui-block-"] > .ui-radio,
+[class*="ui-block-"] > button.ui-btn-inline,
+[class*="ui-block-"] > button.ui-btn-icon-notext {
 	margin-right: .3125em;
 	margin-left: .3125em;
 }
@@ -1336,11 +1377,12 @@ li.ui-block-e {
 	filter: Alpha(Opacity=90);
 	opacity: .9;
 }
+/* updatePagePadding() will update the padding to actual height of header and footer. */
 .ui-page-header-fixed {
-	padding-top: 2.6875em;
+	padding-top: 2.8125em;
 }
 .ui-page-footer-fixed {
-	padding-bottom: 2.6875em;
+	padding-bottom: 2.8125em;
 }
 .ui-page-header-fullscreen > .ui-content,
 .ui-page-footer-fullscreen > .ui-content {
@@ -1446,33 +1488,6 @@ li.ui-block-e {
 .ui-footer .ui-title ~ .ui-navbar .ui-grid-duo .ui-block-a:first-child + .ui-block-b .ui-btn {
 	border-top-width: 1px;
 }
-/* TODO: This file only contains CSS for the button widget and should be renamed to jquery.mobile.forms.button.css */
-button.ui-btn {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	width: 100%;
-}
-/* Firefox adds a 1px border in a button element. We negate this to make sure they have the same height as other buttons in controlgroups. */
-button.ui-btn::-moz-focus-inner {
-	border: 0;
-}
-button.ui-btn-inline {
-	width: auto;
-}
-button.ui-btn-icon-notext {
-	-webkit-box-sizing: content-box;
-	-moz-box-sizing: content-box;
-	box-sizing: content-box;
-	width: 1.75em;
-}
-/* No margin in grids for 100% width button elements until we can use max-width: fill-available; */
-[class*="ui-grid-"] button.ui-btn {
-	margin-right: 0;
-	margin-left: 0;
-}
 /* Hide the native input element */
 .ui-input-btn input {
 	position: absolute;
@@ -1505,14 +1520,11 @@ button.ui-btn-icon-notext {
 	clip: rect(1px,1px,1px,1px);
 }
 .ui-collapsible {
-	margin: .5em -1em;
+	margin: 0 -1em;
 }
 .ui-collapsible-inset,
 .ui-collapsible-set {
 	margin: .5em 0;
-}
-.ui-collapsible + .ui-collapsible {
-	margin-top: -.5em;
 }
 .ui-collapsible-heading {
 	display: block;
@@ -1550,16 +1562,21 @@ button.ui-btn-icon-notext {
 .ui-collapsible-content {
 	display: block;
 	margin: 0;	
-	padding: .625em 1em;
+	padding: .5em 1em;
+}
+.ui-collapsible-themed-content .ui-collapsible-content {
 	border-left-width: 0;
 	border-right-width: 0;
 	border-top-width: 0;
-	background-image: none;
+	border-bottom-width: 1px;
+	border-style: solid;
+}
+.ui-collapsible-inset.ui-collapsible-themed-content .ui-collapsible-content {
+	border-left-width: 1px;
+	border-right-width: 1px;
 }
 .ui-collapsible-inset .ui-collapsible-content {
 	margin: 0;
-	border-right-width: 1px;
-	border-left-width: 1px;
 }
 .ui-collapsible-content-collapsed {
 	display: none;
@@ -1609,6 +1626,13 @@ fieldset.ui-controlgroup {
 .ui-field-contain .ui-controlgroup,
 .ui-field-contain fieldset.ui-controlgroup {
 	margin: 0;
+}
+.ui-mini .ui-controlgroup-label {
+	font-size: 16px;
+}
+.ui-controlgroup.ui-mini .ui-btn-icon-notext,
+.ui-controlgroup .ui-mini.ui-btn-icon-notext {
+	font-size: inherit;
 }
 .ui-controlgroup-controls .ui-btn,
 .ui-controlgroup-controls .ui-checkbox,
@@ -1924,109 +1948,114 @@ fieldset.ui-controlgroup {
  * arrow positioning code as to which range of values is acceptable for the
  * arrow container's top/left coordinate.
  **/
-.ui-popup.ui-corner-all > .arrow-guide {
-	left: .6em /*{global-radii-blocks}*/;
-	right: .6em /*{global-radii-blocks}*/;
-	top: .6em /*{global-radii-blocks}*/;
-	bottom: .6em /*{global-radii-blocks}*/;
-}
-.arrow-container {
+.ui-popup-arrow-container {
 	width: 20px;
 	height: 20px;
 }
 /* aside from the "infinities" (-1000,2000), triangle height is used */
-.arrow-container.l {
+.ui-popup-arrow-container.ui-popup-arrow-l {
 	left: -10px;
 	clip: rect(-1000px,10px,2000px,-1000px);
 }
-.arrow-container.ie.l {
-	clip: rect(-1000px 10px 2000px -1000px);
-}
-.arrow-container.t {
+.ui-popup-arrow-container.ui-popup-arrow-t {
 	top: -10px;
 	clip: rect(-1000px,2000px,10px,-1000px);
 }
-.arrow-container.ie.t {
-	clip: rect(-1000px 2000px 10px -1000px);
-}
-.arrow-container.r {
+.ui-popup-arrow-container.ui-popup-arrow-r {
 	right: -10px;
 	clip: rect(-1000px,2000px,2000px,10px);
 }
-.arrow-container.ie.r {
-	clip: rect(-1000px 2000px 2000px 10px);
-}
-.arrow-container.b {
+.ui-popup-arrow-container.ui-popup-arrow-b {
 	bottom: -10px;
 	clip: rect(10px,2000px,1000px,-1000px);
 }
-.arrow-container.ie.b {
-	clip: rect(10px 2000px 1000px -1000px);
-}
 /**
- * The arrow needs to be centred inside the arrow container such that, when
- * rotated 45 degrees, its corners touch, but do not break through, the sides
- * of the arrow container:
- *
- * +----------+
- * |    /\    |
- * |   /  \  <------ arrow container
- * |  /    \  |
- * | /      \ |
- * |/  arrow \|
- * |\        /|
- * | \      / |
- * |  \    /  |
- * |   \  /   |
- * |    \/    |
- * +----------+
+ * For each side, the arrow is twice the desired size and its corner is aligned
+ * with the edge of the container:
+ *                                           
+ *           /\         /\                +----+	     /\
+ *          /  \       /  \ 					    | /\ |top   /  \
+ *      +----+  \     /  +----+       +-->|/  \|     /    \
+ *  left| /  |   \   /   |  \ |right  |   |    |    /      \
+ *      |/   |    \ /    |   \| 			|  /|    |\  /        \
+ *      |\   |    / \    |   /| 			| / +----+ \ \ +----+ /
+ *      | \  |   /   \   |  / |       | \        /  \|    |/
+ *      +----+  /     \  +----+       |  \      /    |    |
+ *       ^  \  /       \  /  ^        |   \    /  +->|\  /|
+ *       |   \/         \/   |        |    \  /   |  | \/ |bottom
+ *       |                   |        |     \/    |  +----+
+ *       +-------------------+--------+-----------+
+ *                           |
+ *                    arrow container
+ *                     (clips arrow)
  **/
-.arrow {
-	/* (2*desired triangle height)/sqrt(2) - does not account for border - centred within the outer rectangle */
-	width: 14.142135624px;
-	height: 14.142135624px;
-	/* ( (2*desired triangle height) - (above width/height) ) / 2 */
-	left: 2.928932188px;
-	top: 2.928932188px;
+.ui-popup-arrow-container .ui-popup-arrow {
+	/* (4*desired triangle height)/sqrt(2) - does not account for border - centred within the outer rectangle */
+	width: 28.284271247px;
+	height: 28.284271247px;
+	border-width: 1px;
+	border-style: solid;
 }
-.arrow-container.ie .arrow {
-	/* Fix rotation center  - see http://www.useragentman.com/IETransformsTranslator/ */
-	margin-left: -3px;
-	margin-top: -3px;
+.ui-popup-arrow-container.ui-popup-arrow-t .ui-popup-arrow {
+	left: -4.142135623px;
+	top: 5.857864376px;
 }
-.arrow-background {
+.ui-popup-arrow-container.ui-popup-arrow-b .ui-popup-arrow {
+	left: -4.142135623px;
+	top: -14.142135623px;
+}
+.ui-popup-arrow-container.ui-popup-arrow-l .ui-popup-arrow {
+	left: 5.857864376px;
+	top: -4.142135623px;
+}
+.ui-popup-arrow-container.ui-popup-arrow-r .ui-popup-arrow {
+	left: -14.142135623px;
+	top: -4.142135623px;
+}
+/* Fix rotation center for oldIE - see http://www.useragentman.com/IETransformsTranslator/ */
+.ui-popup-arrow-container.ui-popup-arrow-t.ie .ui-popup-arrow {
+    margin-left: -5.857864376269049px;
+    margin-top: -7.0710678118654755px;
+}
+.ui-popup-arrow-container.ui-popup-arrow-b.ie .ui-popup-arrow {
+    margin-left: -5.857864376269049px;
+    margin-top: -4.142135623730951px;
+}
+ 
+.ui-popup-arrow-container.ui-popup-arrow-l.ie .ui-popup-arrow {
+    margin-left: -7.0710678118654755px;
+    margin-top: -5.857864376269049px;
+}
+.ui-popup-arrow-container.ui-popup-arrow-r.ie .ui-popup-arrow {
+    margin-left: -4.142135623730951px;
+    margin-top: -5.857864376269049px;
+}
+.ui-popup-arrow-background {
 	/* desired triangle height is used here */
 	width: 20px;
 	height: 20px;
 }
-.arrow-container.t .arrow-background {
-	/* 0px triangle height */
+.ui-popup-arrow-container.ui-popup-arrow-t .ui-popup-arrow-background
+.ui-popup-arrow-container.ui-popup-arrow-b .ui-popup-arrow-background {
 	background-position: 0 10px;
 }
-.arrow-container.l .arrow-background {
-	/* triangle height 0px */
+.ui-popup-arrow-container.ui-popup-arrow-l .ui-popup-arrow-background,
+.ui-popup-arrow-container.ui-popup-arrow-r .ui-popup-arrow-background {
 	background-position: 10px 0;
 }
-/* For some reason (probably because of all the decimal places) there's a
-   rounding error in the background position, so push it over by one */
-.arrow-container.b .arrow-background {
-	background-position: 0 11px;
-}
-.arrow-container.r .arrow-background {
-	background-position: 11px 0;
-}
-.ui-popup > .arrow-guide {
+/* structure */
+.ui-popup > .ui-popup-arrow-guide {
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
-	pointer-events: none;
+	visibility: hidden;
 }
-.arrow-container {
+.ui-popup-arrow-container {
 	position: absolute;
 }
-.arrow {
+.ui-popup-arrow {
 	-webkit-transform: rotate(45deg);
 	-moz-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
@@ -2035,7 +2064,7 @@ fieldset.ui-controlgroup {
 	overflow: hidden;
 	box-sizing: border-box;
 }
-.arrow-container.ie .arrow {
+.ui-popup-arrow-container.ie .ui-popup-arrow {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865474, M12=-0.7071067811865477, M21=0.7071067811865477, M22=0.7071067811865474, SizingMethod='auto expand')";
 	filter: progid:DXImageTransform.Microsoft.Matrix(
 	      	M11=0.7071067811865474,
@@ -2044,23 +2073,23 @@ fieldset.ui-controlgroup {
         	M22=0.7071067811865474,
         	SizingMethod='auto expand');
 }
-.arrow-background {
+.ui-popup-arrow-background {
 	position: absolute;
 	border: 0;
 }
-.arrow-container.ie .arrow-background {
+.ui-popup-arrow-container.ie .ui-popup-arrow-background {
 	background: none;
 }
-.arrow-container.t .arrow-background,
-.arrow-container.b .arrow-background {
+.ui-popup-arrow-container.ui-popup-arrow-t .ui-popup-arrow-background,
+.ui-popup-arrow-container.ui-popup-arrow-b .ui-popup-arrow-background {
 	/* Undo rotation and reflect in x axis */
 	-webkit-transform: rotate(-45deg) scale(1, -1);
 	-moz-transform: rotate(-45deg) scale(1, -1);
 	-ms-transform: rotate(-45deg) scale(1, -1);
 	transform: rotate(-45deg) scale(1, -1);
 }
-.arrow-container.t.ie .arrow-background,
-.arrow-container.b.ie .arrow-background {
+.ui-popup-arrow-container.ui-popup-arrow-t.ie .ui-popup-arrow-background,
+.ui-popup-arrow-container.ui-popup-arrow-b.ie .ui-popup-arrow-background {
    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865483, M12=-0.7071067811865467, M21=-0.7071067811865467, M22=-0.7071067811865483, SizingMethod='auto expand')";
    filter: progid:DXImageTransform.Microsoft.Matrix(
             M11=0.7071067811865483,
@@ -2069,16 +2098,16 @@ fieldset.ui-controlgroup {
             M22=-0.7071067811865483,
             SizingMethod='auto expand');
 }
-.arrow-container.l .arrow-background,
-.arrow-container.r .arrow-background {
+.ui-popup-arrow-container.ui-popup-arrow-l .ui-popup-arrow-background,
+.ui-popup-arrow-container.ui-popup-arrow-r .ui-popup-arrow-background {
 	/* Undo rotation and reflect in y axis */
 	-webkit-transform: rotate(-45deg) scale(-1, 1);
 	-moz-transform: rotate(-45deg) scale(-1, 1);
 	-ms-transform: rotate(-45deg) scale(-1, 1);
 	transform: rotate(-45deg) scale(-1, 1);
 }
-.arrow-container.l.ie .arrow-background,
-.arrow-container.r.ie .arrow-background {
+.ui-popup-arrow-container.ui-popup-arrow-l.ie .ui-popup-arrow-background,
+.ui-popup-arrow-container.ui-popup-arrow-r.ie .ui-popup-arrow-background {
    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.7071067811865483, M12=0.7071067811865467, M21=0.7071067811865467, M22=0.7071067811865483, SizingMethod='auto expand')";
    filter: progid:DXImageTransform.Microsoft.Matrix(
             M11=-0.7071067811865483,
@@ -2205,7 +2234,7 @@ fieldset.ui-controlgroup {
 	padding-right: 4.6875em;
 }
 .ui-select .ui-btn-icon-right .ui-li-count {
-	right: 3.636em;
+	right: 3.2em;
 }
 /* We set the rules for the span as well to fix an issue on Chrome with text-overflow ellipsis for the button in combination with text-align center. */
 .ui-select .ui-btn > span:not(.ui-li-count) {
@@ -2223,7 +2252,7 @@ fieldset.ui-controlgroup {
 .ui-selectmenu .ui-header {
 	margin: 0;
 	padding: 0;
-	border: 0;
+	border-width: 0;
 }
 .ui-selectmenu.ui-dialog .ui-header {
 	z-index: 1;
@@ -2280,21 +2309,23 @@ fieldset.ui-controlgroup {
 .ui-panel-inner > .ui-listview {
 	margin: -1em;
 }
-.ui-collapsible-content > .ui-listview {
-	margin: -.625em -1em;
-}
 .ui-content .ui-listview-inset,
-.ui-panel-inner > .ui-listview-inset,
-.ui-collapsible-content > .ui-listview-inset {
+.ui-panel-inner > .ui-listview-inset {
 	margin: 1em 0;
+}
+.ui-collapsible-content > .ui-listview {
+	margin: -.5em -1em;
+}
+.ui-collapsible-content > .ui-listview-inset {
+	margin: .5em 0;
 }
 .ui-listview > li {
 	display: block;
 	position: relative;
 	overflow: visible;
 }
-.ui-listview .ui-li-static,
-.ui-listview .ui-li-divider,
+.ui-listview > .ui-li-static,
+.ui-listview > .ui-li-divider,
 .ui-listview > li > a.ui-btn {
 	margin: 0;
 	display: block;
@@ -2307,20 +2338,20 @@ fieldset.ui-controlgroup {
 .ui-listview > li > .ui-btn:focus {
 	z-index: 1;
 }
-.ui-listview .ui-li-static,
-.ui-listview .ui-li-divider,
+.ui-listview > .ui-li-static,
+.ui-listview > .ui-li-divider,
 .ui-listview > li > a.ui-btn {
 	border-width: 1px 0 0 0;
 	border-style: solid;
 }
-.ui-listview-inset .ui-li-static,
-.ui-listview-inset .ui-li-divider,
+.ui-listview-inset > .ui-li-static,
+.ui-listview-inset > .ui-li-divider,
 .ui-listview-inset > li > a.ui-btn {
 	border-right-width: 1px;
 	border-left-width: 1px;
 }
-.ui-listview .ui-li-static.ui-last-child,
-.ui-listview .ui-li-divider.ui-last-child,
+.ui-listview > .ui-li-static.ui-last-child,
+.ui-listview > .ui-li-divider.ui-last-child,
 .ui-listview > li.ui-last-child > a.ui-btn {
 	border-bottom-width: 1px;
 }
@@ -2376,63 +2407,66 @@ fieldset.ui-controlgroup {
 	-webkit-border-radius: inherit;
 	border-bottom-radius: inherit;	
 }
-.ui-listview .ui-li-static {
+.ui-listview > .ui-li-static {
 	padding: .7em 1em;
 }
-.ui-listview .ui-li-divider {
+.ui-listview > .ui-li-divider {
 	padding: .5em 1.143em;
 	font-size: 14px;
 	font-weight: bold;
 	cursor: default;
 	outline: 0; /* Dividers in custom selectmenus have tabindex */
 }
-.ui-listview .ui-li-has-count > .ui-btn,
-.ui-listview .ui-li-static.ui-li-has-count,
-.ui-listview .ui-li-divider.ui-li-has-count {
+.ui-listview > .ui-li-has-count > .ui-btn,
+.ui-listview > .ui-li-static.ui-li-has-count,
+.ui-listview > .ui-li-divider.ui-li-has-count {
 	padding-right: 2.8125em;
 }
-.ui-listview .ui-li-has-count > .ui-btn[class*="ui-icon-"] {
+.ui-listview > .ui-li-has-count > .ui-btn-icon-right {
 	padding-right: 4.6875em;
 }
-.ui-listview .ui-li-has-thumb > .ui-btn,
-.ui-listview .ui-li-static.ui-li-has-thumb {
+.ui-listview > .ui-li-has-thumb > .ui-btn,
+.ui-listview > .ui-li-static.ui-li-has-thumb {
 	min-height: 3.625em;
 	padding-left: 6.25em;
 }
-.ui-listview .ui-li-has-icon > .ui-btn,
-.ui-listview .ui-li-static.ui-li-has-icon {
+/* ui-li-has-icon deprecated in 1.4. TODO: remove in 1.5 */
+.ui-listview > .ui-li-has-icon > .ui-btn,
+.ui-listview > .ui-li-static.ui-li-has-icon {
 	min-height: 1.25em;
 	padding-left: 2.5em;
 }
 /* Used by both listview and custom multiple select button */
 .ui-li-count {
 	position: absolute;
-	font-size: 12px;
+	font-size: 12.5px;
 	font-weight: bold;
 	text-align: center;
 	border-width: 1px;
 	border-style: solid;
-	padding: 0 .5em;
-	line-height: 1.666em;
-	min-height: 1.666em;
-	min-width: .666em;
-	right: .833em;
+	padding: 0 .48em;
+	line-height: 1.6em;
+	min-height: 1.6em;
+	min-width: .64em;
+	right: .8em;
 	top: 50%;
-	margin-top: -.916em;
+	margin-top: -.88em;
 }
-.ui-listview .ui-btn[class*="ui-icon-"] .ui-li-count {
-	right: 3.636em;
+.ui-listview .ui-btn-icon-right .ui-li-count {
+	right: 3.2em;
 }
 .ui-listview .ui-li-has-thumb > img:first-child,
-.ui-listview .ui-li-has-thumb > .ui-btn > img:first-child {
+.ui-listview .ui-li-has-thumb > .ui-btn > img:first-child,
+.ui-listview .ui-li-has-thumb .ui-li-thumb {
 	position: absolute;
 	left: 0;
 	top: 0;
 	max-height: 5em;
 	max-width: 5em;
 }
-.ui-listview .ui-li-has-icon > img:first-child,
-.ui-listview .ui-li-has-icon > .ui-btn > img:first-child {
+/* ui-li-has-icon deprecated in 1.4. TODO: remove in 1.5 */
+.ui-listview > .ui-li-has-icon > img:first-child,
+.ui-listview > .ui-li-has-icon > .ui-btn > img:first-child {
 	position: absolute;
 	left: .625em;
 	top: .9em;
@@ -2495,7 +2529,7 @@ fieldset.ui-controlgroup {
 	z-index: 3;
 }
 ol.ui-listview,
-ol.ui-listview .ui-li-divider {
+ol.ui-listview > .ui-li-divider {
 	counter-reset: listnumbering;
 }
 ol.ui-listview > li > .ui-btn,
@@ -2542,6 +2576,22 @@ ol.ui-listview > li img:first-child + * ~ * {
 	margin-top: 0;
 	text-indent: 2.04em; /* (1.4em + .3em) * .9em / .75em */
 }
+html .ui-filterable + .ui-listview,
+html .ui-filterable.ui-listview {
+	margin-top: .5em;
+}
+.ui-collapsible-content > form.ui-filterable {
+	margin-top: -.5em;
+}
+.ui-collapsible-content > .ui-input-search.ui-filterable {
+	margin-top: 0;
+}
+.ui-collapsible-content > .ui-filterable + .ui-listview:not(.ui-listview-inset) > li.ui-first-child,
+.ui-collapsible-content > .ui-filterable + .ui-listview:not(.ui-listview-inset) > li.ui-first-child > a.ui-btn,
+.ui-collapsible-content > .ui-filterable.ui-listview:not(.ui-listview-inset) > li.ui-first-child,
+.ui-collapsible-content > .ui-filterable.ui-listview:not(.ui-listview-inset) > li.ui-first-child > a.ui-btn {
+	border-top-width: 1px;
+}
 div.ui-slider {
 	height: 30px;
 	margin: .5em 0;
@@ -2566,7 +2616,6 @@ input.ui-slider-input {
 	width: 40px;
 	height: 20px;
 	line-height: 20px;
-	background-image: none;
 	border-width: 1px;
 	border-style: solid;
 	outline: 0;
@@ -2660,6 +2709,7 @@ div.ui-slider-switch.ui-mini {
 .ui-slider-handle-snapping {
 	-webkit-transition: left 70ms linear;
 	-moz-transition: left 70ms linear;
+	transition: left 70ms linear;
 }
 .ui-slider-switch .ui-slider-label {
 	position: absolute;
@@ -2698,6 +2748,7 @@ div.ui-slider-switch.ui-mini {
 	margin: 0;
 }
 @media (min-width: 28em) {
+	/* ui-hide-label deprecated in 1.4. TODO: Remove in 1.5 */
 	.ui-field-contain div.ui-slider-switch,
 	.ui-field-contain.ui-hide-label div.ui-slider-switch {
 		display: inline-block;
@@ -2786,20 +2837,14 @@ div.ui-rangeslider label {
 }
 .ui-input-text,
 .ui-input-search {
-	margin: -.5em -.5em 1.5em -.5em;
-	background-image: none;
+	margin: .5em 0;
 	border-width: 1px;
 	border-style: solid;
-}
-.ui-input-inset,
-textarea.ui-input-text {
-	margin: .5em 0;
 }
 .ui-input-text input,
 .ui-input-search input,
 textarea.ui-input-text {
 	padding: .4em;
-	min-height: 2.2em;
 	line-height: 1.4em;
 	display: block;
 	width: 100%;
@@ -2812,6 +2857,7 @@ textarea.ui-input-text {
 .ui-input-text input,
 .ui-input-search input {
 	margin: 0;
+	min-height: 2.2em;
 	text-align: left; /* Opera aligns type="date" right by default */
 	border: 0;
 	background: transparent none;
@@ -2820,7 +2866,6 @@ textarea.ui-input-text {
 	border-radius: inherit;
 }
 textarea.ui-input-text {
-	height: 3.125em;
 	overflow: auto;
 	resize: vertical;
 }
@@ -2875,7 +2920,7 @@ textarea.ui-mini {
 	position: absolute;
 	right: 0;
 	top: 50%;
-	margin: -15px .3125em 0;
+	margin: -14px .3125em 0;
 	border: 0;
 	background-color: transparent;
 }
@@ -2910,6 +2955,12 @@ for Android 4.1 */
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
+}
+.ui-textinput-autogrow-resize {
+	-webkit-transition: height 0.25s;
+	-o-transition: height 0.25s;
+	-moz-transition: height 0.25s;
+	transition: height 0.25s;
 }
 .ui-flipswitch {
 	display: inline-block;
@@ -3015,28 +3066,6 @@ for Android 4.1 */
 	text-align: left;
 	margin-bottom: 1.4em;
 	opacity: .5;
-}
-/* Add strokes between each row */
-.table-stroke thead th {
-	border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
-	border-bottom: 1px solid rgba(0, 0, 0, .1);
-}
-.table-stroke tbody th,
-.table-stroke tbody td {
-	border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
-	border-bottom: 1px solid rgba(0, 0, 0, .05);
-}
-/* Add alternating row stripes */
-.table-stripe tbody tr:nth-child(odd) td,
-.table-stripe tbody tr:nth-child(odd) th {
-  background-color: #eeeeee; /* non-RGBA fallback  */
-  background-color: rgba(0,0,0,0.04);
-}
-/* Add stroke to the header and last item */
-.table-stripe thead th,
-.table-stripe tbody tr:last-child {
-  border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback  */
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 /*
  Styles for the table columntoggle mode
@@ -3223,7 +3252,7 @@ for Android 4.1 */
 	padding-bottom: 1px;
 }
 .ui-panel-display-reveal {
-	z-index: 0;
+	z-index: 1;
 }
 .ui-panel-display-push {
 	z-index: 999;
@@ -3234,11 +3263,12 @@ for Android 4.1 */
 .ui-panel-inner {
 	padding: 1em;
 }
-/* container and page */
+/* container */
 .ui-panel-page-container {
-	-webkit-transform: translate3d(0,0,0);
+	overflow-x: visible;
 }
-.ui-panel-page-container .ui-page-active {
+/* page */
+.ui-panel-page-container-themed .ui-page-active {
 	background: none;
 }
 /* wrapper */
@@ -3249,7 +3279,7 @@ for Android 4.1 */
 	overflow-x: hidden;
 	z-index: 999;
 }
-/* fiixed toolbars */
+/* fixed toolbars */
 .ui-panel-fixed-toolbar {
 	overflow-x: hidden;
 }
@@ -3273,6 +3303,7 @@ for Android 4.1 */
 	transition: transform 300ms ease;
 }
 /* hardware acceleration for smoother transitions on WebKit browsers */
+.ui-panel-animate.ui-panel-page-container,
 .ui-panel-animate.ui-panel:not(.ui-panel-display-reveal) {
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translate3d(0,0,0);
@@ -3292,12 +3323,12 @@ for Android 4.1 */
 }
 /* panel left open */
 .ui-panel-position-left.ui-panel-display-reveal, /* negate "panel left" for reveal */
-.ui-panel-position-left.ui-panel-open {
+.ui-panel-open.ui-panel-position-left {
 	left: 0;
 }
 /* animated: panel left open (for overlay and push) */
-.ui-panel-animate.ui-panel-position-left.ui-panel-open.ui-panel-display-overlay,
-.ui-panel-animate.ui-panel-position-left.ui-panel-open.ui-panel-display-push {
+.ui-panel-animate.ui-panel-open.ui-panel-position-left.ui-panel-display-overlay,
+.ui-panel-animate.ui-panel-open.ui-panel-position-left.ui-panel-display-push {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-moz-transform: none;
@@ -3320,22 +3351,22 @@ for Android 4.1 */
 	right: 0;
 }
 /* animated: panel right open (for overlay and push) */
-.ui-panel-animate.ui-panel-position-right.ui-panel-open.ui-panel-display-overlay,
-.ui-panel-animate.ui-panel-position-right.ui-panel-open.ui-panel-display-push {
+.ui-panel-animate.ui-panel-open.ui-panel-position-right.ui-panel-display-overlay,
+.ui-panel-animate.ui-panel-open.ui-panel-position-right.ui-panel-display-push {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-moz-transform: none;
 }
 /* positioning: pages, fixed toolbars and dismiss */
 /* panel left open */
-.ui-panel-page-content-position-left.ui-panel-page-content-open,
-.ui-panel-dismiss-position-left.ui-panel-dismiss-open {
+.ui-panel-page-content-position-left,
+.ui-panel-dismiss-open.ui-panel-dismiss-position-left {
 	left: 17em;
 	right: -17em;
 }
 /* animated: panel left open (for reveal and push) */
-.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-open.ui-panel-page-content-display-reveal,
-.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-open.ui-panel-page-content-display-push {
+.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal,
+.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-display-push {
 	left: 0;
 	right: 0;
 	-webkit-transform: translate3d(17em,0,0);
@@ -3343,14 +3374,14 @@ for Android 4.1 */
 	transform: translate3d(17em,0,0);
 }
 /* panel right open */
-.ui-panel-page-content-position-right.ui-panel-page-content-open,
-.ui-panel-dismiss-position-right.ui-panel-dismiss-open {
+.ui-panel-page-content-position-right,
+.ui-panel-dismiss-open.ui-panel-dismiss-position-right {
 	left: -17em;
 	right: 17em;
 }
 /* animated: panel right open (for reveal and push) */
-.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-open.ui-panel-page-content-display-reveal, 
-.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-open.ui-panel-page-content-display-push {
+.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal, 
+.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-display-push {
 	left: 0;
 	right: 0;
 	-webkit-transform: translate3d(-17em,0,0);
@@ -3358,7 +3389,7 @@ for Android 4.1 */
 	transform: translate3d(-17em,0,0);
 }
 /* negate "panel left/right open" for overlay */
-.ui-panel-page-content-open.ui-panel-page-content-display-overlay {
+.ui-panel-page-content-display-overlay {
 	left: 0;
 }
 /* shadows and borders */
@@ -3382,42 +3413,42 @@ for Android 4.1 */
 	-moz-box-shadow: -5px 0 5px rgba(0,0,0,.15);
 	box-shadow: -5px 0 5px rgba(0,0,0,.15);
 }
-.ui-panel-display-push.ui-panel-open.ui-panel-position-left {
+.ui-panel-open.ui-panel-position-left.ui-panel-display-push {
 	border-right-width: 1px;
 	margin-right: -1px;
 }
-.ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-push {
+.ui-panel-page-content-position-left.ui-panel-page-content-display-push {
 	margin-left: 1px;
 	width: auto;
 }
-.ui-panel-display-push.ui-panel-open.ui-panel-position-right {
+.ui-panel-open.ui-panel-position-right.ui-panel-display-push {
 	border-left-width: 1px;
 	margin-left: -1px;
 }
-.ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-push {
+.ui-panel-page-content-position-right.ui-panel-page-content-display-push {
 	margin-right: 1px;
 	width: auto;
 }
 /* wrap on wide viewports once open */
-@media (min-width:55em){
+@media (min-width:55em) {
 	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-push,
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal,
-	.ui-responsive-panel.ui-panel-fixed-toolbar.ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-push,
-	.ui-responsive-panel.ui-panel-fixed-toolbar.ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal {
 		margin-right: 17em;
 	}
 	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-push,
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal,
-	.ui-responsive-panel.ui-panel-fixed-toolbar.ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-push,
-	.ui-responsive-panel.ui-panel-fixed-toolbar.ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal {
 		margin-left: 17em;
 	}
 	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-display-push,
 	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-display-reveal {
 		width: auto;	
 	}
-	.ui-responsive-panel .ui-panel-dismiss-display-push {
+	.ui-responsive-panel .ui-panel-dismiss-display-push,
+	.ui-responsive-panel.ui-page-active ~ .ui-panel-dismiss-display-push {
 		display: none;
-	}	
+	}
 }
-@import url( "jquery.mobile.filterable.css" );
+.ui-tabs {
+	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+	padding: .2em;
+}

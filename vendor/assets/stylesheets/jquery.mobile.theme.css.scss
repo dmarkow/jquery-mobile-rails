@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.4.0-alpha.1
-* Git HEAD hash: d17d2ba7a10af43dac930d1ee65b6b46268bb08d <> Date: Thu Jul 25 2013 22:32:20 UTC
+* jQuery Mobile 1.4.0-beta.1
+* Git HEAD hash: f39417f72a5c14fc039a626dfa2419d41c9c4a72 <> Date: Tue Sep 24 2013 20:03:42 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2013 jQuery Foundation, Inc. and other contributors
@@ -38,13 +38,36 @@ div.ui-controlgroup-label {
 	font-weight: normal;
 	font-size: 16px;
 }
-/* Field contain separator (< 28em)
+/* Separators
 -----------------------------------------------------------------------------------------------------------*/
+/* Field contain separator (< 28em) */
 .ui-field-contain {
 	border-bottom-color: #828282;
 	border-bottom-color: rgba(0,0,0,.15);
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
+}
+/* Table opt-in classes: strokes between each row, and alternating row stripes */
+/* Classes table-stroke and table-stripe are deprecated in 1.4. */
+.table-stroke thead th,
+.table-stripe thead th,
+.table-stripe tbody tr:last-child {
+	border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+	border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.table-stroke tbody th,
+.table-stroke tbody td {
+	border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+	border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.table-stripe.table-stroke tbody tr:last-child th,
+.table-stripe.table-stroke tbody tr:last-child td {
+	border-bottom: 0;
+}
+.table-stripe tbody tr:nth-child(odd) td,
+.table-stripe tbody tr:nth-child(odd) th {
+	background-color: #eeeeee; /* non-RGBA fallback  */
+	background-color: rgba(0,0,0,.04);
 }
 /* Buttons
 -----------------------------------------------------------------------------------------------------------*/
@@ -64,26 +87,26 @@ label.ui-btn {
 -----------------------------------------------------------------------------------------------------------*/
 /* Class ui-btn-corner-all deprecated in 1.4 */
 .ui-corner-all {
-	-webkit-border-radius: 				.6em /*{global-radii-blocks}*/;
-	border-radius: 						.6em /*{global-radii-blocks}*/;
+	-webkit-border-radius: 				.3125em /*{global-radii-blocks}*/;
+	border-radius: 						.3125em /*{global-radii-blocks}*/;
 }
 /* Buttons */
 .ui-btn-corner-all,
 .ui-btn.ui-corner-all,
 /* Slider track */
 .ui-slider-track.ui-corner-all,
-/*flipswitch*/
-.ui-flipswitch.ui-corner-all {
+/* Flipswitch */
+.ui-flipswitch.ui-corner-all,
+/* Count bubble */
+.ui-li-count {
 	-webkit-border-radius: 				.3125em /*{global-radii-buttons}*/;
 	border-radius: 						.3125em /*{global-radii-buttons}*/;
 }
 /* Icon-only buttons */
 .ui-btn-icon-notext.ui-btn-corner-all,
-.ui-btn-icon-notext.ui-corner-all,
-/* Count bubbles */
-.ui-li-count {
-	-webkit-border-radius: 				1em /*{global-radii-icononly}*/;
-	border-radius: 						1em /*{global-radii-icononly}*/;
+.ui-btn-icon-notext.ui-corner-all {
+	-webkit-border-radius: 1em;
+	border-radius: 1em;
 }
 /* Radius clip workaround for cleaning up corner trapping */
 .ui-btn-corner-all,
@@ -91,17 +114,24 @@ label.ui-btn {
 	-webkit-background-clip: padding;
 	background-clip: padding-box;
 }
+/* Popup arrow */
+.ui-popup.ui-corner-all > .ui-popup-arrow-guide {
+	left: .6em /*{global-radii-blocks}*/;
+	right: .6em /*{global-radii-blocks}*/;
+	top: .6em /*{global-radii-blocks}*/;
+	bottom: .6em /*{global-radii-blocks}*/;
+}
 /* Shadow
 -----------------------------------------------------------------------------------------------------------*/
 .ui-shadow {
 	-webkit-box-shadow: 0 1px 3px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.15) /*{global-box-shadow-color}*/;
 	-moz-box-shadow: 0 1px 3px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.15) /*{global-box-shadow-color}*/;
-	box-shadow: 0 1px 3px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.15) /*{global-box-shadow-color}*/
+	box-shadow: 0 1px 3px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.15) /*{global-box-shadow-color}*/;
 }
 .ui-shadow-inset {
 	-webkit-box-shadow: inset 0 1px 3px /*{global-box-shadow-size}*/ 	rgba(0,0,0,.2) /*{global-box-shadow-color}*/;
 	-moz-box-shadow: inset 0 1px 3px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.2) /*{global-box-shadow-color}*/;
-	box-shadow: inset 0 1px 3px 0 1px 3px /*{global-box-shadow-size}*/ 	rgba(0,0,0,.2) /*{global-box-shadow-color}*/;
+	box-shadow: inset 0 1px 3px /*{global-box-shadow-size}*/ 	rgba(0,0,0,.2) /*{global-box-shadow-color}*/;
 }
 .ui-overlay-shadow {
 	-webkit-box-shadow: 0 0 12px 		rgba(0,0,0,.6);
@@ -110,30 +140,33 @@ label.ui-btn {
 }
 /* Icons
 -----------------------------------------------------------------------------------------------------------*/
-.ui-btn:after,
+.ui-btn-icon-left:after,
+.ui-btn-icon-right:after,
+.ui-btn-icon-top:after,
+.ui-btn-icon-bottom:after,
+.ui-btn-icon-notext:after,
 html .ui-btn.ui-icon-checkbox-off:after,
 html .ui-btn.ui-icon-radio-off:after {
-	background-color: 					#999 /*{global-icon-color}*/;
+	background-color: 					#666 /*{global-icon-color}*/;
 	background-color: 					rgba(0,0,0,.3) /*{global-icon-disc}*/;
 	background-position: center center;
 	background-repeat: no-repeat;
 	-webkit-border-radius: 1em;
 	border-radius: 1em;
-	display: none;
 }
 /* Alt icons */
-.ui-icon-alt.ui-btn:after,
-.ui-icon-alt .ui-btn:after,
-html .ui-icon-alt.ui-icon-checkbox-off:after,
-html .ui-icon-alt.ui-icon-radio-off:after,
-html .ui-icon-alt .ui-icon-checkbox-off:after,
-html .ui-icon-alt .ui-icon-radio-off:after {
-	background-color: 					#999 /*{global-icon-color}*/;
-	background-color: 					rgba(255,255,255,.3) /*{global-icon-disc-alt}*/;
+.ui-alt-icon.ui-btn:after,
+.ui-alt-icon .ui-btn:after,
+html .ui-alt-icon.ui-icon-checkbox-off:after,
+html .ui-alt-icon.ui-icon-radio-off:after,
+html .ui-alt-icon .ui-icon-checkbox-off:after,
+html .ui-alt-icon .ui-icon-radio-off:after {
+	background-color: 					#666 /*{global-icon-color}*/;
+	background-color: 					rgba(0,0,0,.15) /*{global-icon-disc-alt}*/;
 }
 /* No disc */
-.ui-icon-nodisc.ui-btn:after,
-.ui-icon-nodisc .ui-btn:after {
+.ui-nodisc-icon.ui-btn:after,
+.ui-nodisc-icon .ui-btn:after {
 	background-color: transparent;
 }
 /* Icon shadow */
@@ -142,9 +175,6 @@ html .ui-icon-alt .ui-icon-radio-off:after {
 	-webkit-box-shadow: 0 1px 0 			rgba(255,255,255,.3) /*{global-icon-shadow}*/;
 	-moz-box-shadow: 0 1px 0 				rgba(255,255,255,.3) /*{global-icon-shadow}*/;
 	box-shadow: 0 1px 0 					rgba(255,255,255,.3) /*{global-icon-shadow}*/;
-}
-.ui-icon-action:after, .ui-icon-arrow-d-l:after, .ui-icon-arrow-d-r:after, .ui-icon-arrow-d:after, .ui-icon-arrow-l:after, .ui-icon-arrow-r:after, .ui-icon-arrow-u-l:after, .ui-icon-arrow-u-r:after, .ui-icon-arrow-u:after, .ui-icon-audio:after, .ui-icon-calendar:after, .ui-icon-camera:after, .ui-icon-carat-d:after, .ui-icon-carat-l:after, .ui-icon-carat-r:after, .ui-icon-carat-u:after, .ui-icon-check:after, .ui-icon-clock:after, .ui-icon-cloud:after, .ui-icon-grid:after, .ui-icon-mail:after, .ui-icon-eye:after, .ui-icon-gear:after, .ui-icon-heart:after, .ui-icon-home:after, .ui-icon-info:after, .ui-icon-bullets:after, .ui-icon-bars:after, .ui-icon-navigation:after, .ui-icon-lock:after, .ui-icon-search:after, .ui-icon-location:after, .ui-icon-minus:after, .ui-icon-forbidden:after, .ui-icon-edit:after, .ui-icon-user:after, .ui-icon-phone:after, .ui-icon-plus:after, .ui-icon-power:after, .ui-icon-recycle:after, .ui-icon-forward:after, .ui-icon-refresh:after, .ui-icon-shop:after, .ui-icon-comment:after, .ui-icon-star:after, .ui-icon-tag:after, .ui-icon-back:after, .ui-icon-video:after, .ui-icon-alert:after, .ui-icon-delete:after {
-	display: block;
 }
 /* Checkbox and radio */
 html .ui-btn.ui-icon-checkbox-off:after,
@@ -162,8 +192,8 @@ html .ui-btn.ui-icon-radio-on:after {
 	filter: Alpha(Opacity=30);
 	opacity: .3;
 }
-.ui-btn.ui-icon-checkbox-off:after,
-.ui-btn.ui-icon-checkbox-on:after {
+html .ui-btn.ui-icon-checkbox-off:after,
+html .ui-btn.ui-icon-checkbox-on:after {
 	-webkit-border-radius: .1875em;
 	border-radius: .1875em;
 }
@@ -175,8 +205,8 @@ html .ui-btn.ui-icon-radio-on:after {
 	border-width: 5px;
 	border-style: solid; 
 }
-.ui-icon-alt.ui-btn.ui-icon-radio-on:after,
-.ui-icon-alt .ui-btn.ui-icon-radio-on:after {
+.ui-alt-icon.ui-btn.ui-icon-radio-on:after,
+.ui-alt-icon .ui-btn.ui-icon-radio-on:after {
 	background-color: #000;
 }
 /* Loader */
@@ -203,22 +233,14 @@ html body .ui-group-theme-a .ui-bar-inherit {
 	border-width: 1px;
 	border-style: solid;
 }
-/* Page background */
+/* Page and overlay */
+.ui-overlay-a,
 .ui-page-theme-a,
-.ui-page-theme-a .ui-panel-wrapper,
-/* Count bubble */
-.ui-page-theme-a .ui-li-count,
-html .ui-bar-a .ui-li-count,
-html .ui-body-a .ui-li-count,
-html body .ui-group-theme-a .ui-li-count,
-.ui-btn.ui-btn-a > .ui-li-count,
-.ui-li-static.ui-body-a > .ui-li-count,
-.ui-li-divider.ui-bar-a > .ui-li-count,
-.ui-listview li .ui-li-count.ui-body-a {
+.ui-page-theme-a .ui-panel-wrapper {
 	background: 			#f9f9f9 /*{a-page-background-color}*/;
 	border-color:	 		#bbb /*{a-page-border}*/;
 	color: 					#111 /*{a-page-color}*/;
-	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ 	#eee /*{a-body-shadow-color}*/;
+	text-shadow: 0 /*{a-page-shadow-x}*/ 1px /*{a-page-shadow-y}*/ 0 /*{a-page-shadow-radius}*/ 	#eee /*{a-page-shadow-color}*/;
 }
 /* Body: Read-only lists, text inputs, collapsible content */
 .ui-body-a,
@@ -226,7 +248,7 @@ html body .ui-group-theme-a .ui-li-count,
 html .ui-bar-a .ui-body-inherit,
 html .ui-body-a .ui-body-inherit,
 html body .ui-group-theme-a .ui-body-inherit,
-.ui-overlay-a {
+html .ui-panel-page-container-a {
 	background: 			#fff /*{a-body-background-color}*/;
 	border-color:	 		#ddd /*{a-body-border}*/;
 	color: 					#111 /*{a-body-color}*/;
@@ -266,16 +288,14 @@ html body .ui-group-theme-a a:active {
 .ui-page-theme-a .ui-btn,
 html .ui-bar-a .ui-btn,
 html .ui-body-a .ui-btn,
-html body .ui-btn.ui-btn-a,
 html body .ui-group-theme-a .ui-btn,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-a,
+html head + body .ui-btn.ui-btn-a,
 /* Button visited */
 .ui-page-theme-a .ui-btn:visited,
 html .ui-bar-a .ui-btn:visited,
 html .ui-body-a .ui-btn:visited,
-html body .ui-btn.ui-btn-a:visited,
 html body .ui-group-theme-a .ui-btn:visited,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-a:visited {
+html head + body .ui-btn.ui-btn-a:visited {
 	background: 			#f6f6f6 /*{a-bup-background-color}*/;
 	border-color:	 		#ddd /*{a-bup-border}*/;
 	color: 					#111 /*{a-bup-color}*/;
@@ -285,9 +305,8 @@ html body .ui-group-theme-a .ui-btn:visited,
 .ui-page-theme-a .ui-btn:hover,
 html .ui-bar-a .ui-btn:hover,
 html .ui-body-a .ui-btn:hover,
-html body .ui-btn.ui-btn-a:hover,
 html body .ui-group-theme-a .ui-btn:hover,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-a:hover {
+html head + body .ui-btn.ui-btn-a:hover {
 	background: 			#ededed /*{a-bhover-background-color}*/;
 	border-color:	 		#ddd /*{a-bhover-border}*/;
 	color: 					#111 /*{a-bhover-color}*/;
@@ -297,9 +316,8 @@ html body .ui-group-theme-a .ui-btn:hover,
 .ui-page-theme-a .ui-btn:active,
 html .ui-bar-a .ui-btn:active,
 html .ui-body-a .ui-btn:active,
-html body .ui-btn.ui-btn-a:active,
 html body .ui-group-theme-a .ui-btn:active,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-a:active {
+html head + body .ui-btn.ui-btn-a:active {
 	background: 			#e8e8e8 /*{a-bdown-background-color}*/;
 	border-color:	 		#ddd /*{a-bdown-border}*/;
 	color: 					#111 /*{a-bdown-color}*/;
@@ -309,9 +327,8 @@ html body .ui-group-theme-a .ui-btn:active,
 .ui-page-theme-a .ui-btn.ui-btn-active,
 html .ui-bar-a .ui-btn.ui-btn-active,
 html .ui-body-a .ui-btn.ui-btn-active,
-html body .ui-btn.ui-btn-a.ui-btn-active,
 html body .ui-group-theme-a .ui-btn.ui-btn-active,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-a.ui-btn-active,
+html head + body .ui-btn.ui-btn-a.ui-btn-active,
 /* Active checkbox icon */
 .ui-page-theme-a .ui-icon-checkbox-on:after,
 html .ui-bar-a .ui-icon-checkbox-on:after,
@@ -347,18 +364,15 @@ html body .ui-group-theme-a .ui-icon-radio-on:after,
 .ui-page-theme-a .ui-btn:focus,
 html .ui-bar-a .ui-btn:focus,
 html .ui-body-a .ui-btn:focus,
-html body .ui-btn.ui-btn-a:focus,
 html body .ui-group-theme-a .ui-btn:focus,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-a:focus,
+html head + body .ui-btn.ui-btn-a:focus,
 /* Focus buttons and text inputs with div wrap */
 .ui-page-theme-a .ui-focus,
 html .ui-bar-a .ui-focus,
 html .ui-body-a .ui-focus,
-html body .ui-btn-a.ui-focus,
-html body .ui-body-a.ui-focus,
 html body .ui-group-theme-a .ui-focus,
-[class*="ui-group-theme-"] .ui-btn-a.ui-focus,
-[class*="ui-group-theme-"] .ui-body-a.ui-focus {
+html head + body .ui-btn-a.ui-focus,
+html head + body .ui-body-a.ui-focus {
 	-webkit-box-shadow: 0 0 12px 	#0066ff /*{a-active-background-color}*/;
 	-moz-box-shadow: 0 0 12px 		#0066ff /*{a-active-background-color}*/;
 	box-shadow: 0 0 12px 			#0066ff /*{a-active-background-color}*/;
@@ -381,22 +395,14 @@ html body .ui-group-theme-b .ui-bar-inherit {
 	border-width: 1px;
 	border-style: solid;
 }
-/* Page */
+/* Page and overlay */
+.ui-overlay-b,
 .ui-page-theme-b,
-.ui-page-theme-b .ui-panel-wrapper,
-/* Count bubble */
-.ui-page-theme-b .ui-li-count,
-html .ui-bar-b .ui-li-count,
-html .ui-body-b .ui-li-count,
-html body .ui-group-theme-b .ui-li-count,
-.ui-btn.ui-btn-b > .ui-li-count,
-.ui-li-static.ui-body-b > .ui-li-count,
-.ui-li-divider.ui-bar-b > .ui-li-count,
-.ui-listview li .ui-li-count.ui-body-b {
+.ui-page-theme-b .ui-panel-wrapper {
 	background: 			#252525 /*{b-page-background-color}*/;
 	border-color:	 		#454545 /*{b-page-border}*/;
 	color: 					#fff /*{b-page-color}*/;
-	text-shadow: 0 /*{b-body-shadow-x}*/ 1px /*{b-body-shadow-y}*/ 0 /*{b-body-shadow-radius}*/ 	#111 /*{b-body-shadow-color}*/;
+	text-shadow: 0 /*{b-page-shadow-x}*/ 1px /*{b-page-shadow-y}*/ 0 /*{b-page-shadow-radius}*/ 	#111 /*{b-page-shadow-color}*/;
 }
 /* Body: Read-only lists, text inputs, collapsible content */
 .ui-body-b,
@@ -404,7 +410,7 @@ html body .ui-group-theme-b .ui-li-count,
 html .ui-bar-b .ui-body-inherit,
 html .ui-body-b .ui-body-inherit,
 html body .ui-group-theme-b .ui-body-inherit,
-.ui-overlay-b {
+html .ui-panel-page-container-b {
 	background: 			#2a2a2a /*{b-body-background-color}*/;
 	border-color:	 		#1d1d1d /*{b-body-border}*/;
 	color: 					#fff /*{b-body-color}*/;
@@ -444,16 +450,14 @@ html body .ui-group-theme-b a:active {
 .ui-page-theme-b .ui-btn,
 html .ui-bar-b .ui-btn,
 html .ui-body-b .ui-btn,
-html body .ui-btn.ui-btn-b,
 html body .ui-group-theme-b .ui-btn,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-b,
+html head + body .ui-btn.ui-btn-b,
 /* Button visited */
 .ui-page-theme-b .ui-btn:visited,
 html .ui-bar-b .ui-btn:visited,
 html .ui-body-b .ui-btn:visited,
-html body .ui-btn.ui-btn-b:visited,
 html body .ui-group-theme-b .ui-btn:visited,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-b:visited {
+html head + body .ui-btn.ui-btn-b:visited {
 	background: 			#333 /*{b-bup-background-color}*/;
 	border-color:	 		#1f1f1f /*{b-bup-border}*/;
 	color: 					#fff /*{b-bup-color}*/;
@@ -463,9 +467,8 @@ html body .ui-group-theme-b .ui-btn:visited,
 .ui-page-theme-b .ui-btn:hover,
 html .ui-bar-b .ui-btn:hover,
 html .ui-body-b .ui-btn:hover,
-html body .ui-btn.ui-btn-b:hover,
 html body .ui-group-theme-b .ui-btn:hover,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-b:hover {
+html head + body .ui-btn.ui-btn-b:hover {
 	background: 			#373737 /*{b-bhover-background-color}*/;
 	border-color:	 		#1f1f1f /*{b-bhover-border}*/;
 	color: 					#fff /*{b-bhover-color}*/;
@@ -475,9 +478,8 @@ html body .ui-group-theme-b .ui-btn:hover,
 .ui-page-theme-b .ui-btn:active,
 html .ui-bar-b .ui-btn:active,
 html .ui-body-b .ui-btn:active,
-html body .ui-btn.ui-btn-b:active,
 html body .ui-group-theme-b .ui-btn:active,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-b:active {
+html head + body .ui-btn.ui-btn-b:active {
 	background: 			#404040 /*{b-bdown-background-color}*/;
 	border-color:	 		#1f1f1f /*{b-bdown-border}*/;
 	color: 					#fff /*{b-bdown-color}*/;
@@ -487,9 +489,8 @@ html body .ui-group-theme-b .ui-btn:active,
 .ui-page-theme-b .ui-btn.ui-btn-active,
 html .ui-bar-b .ui-btn.ui-btn-active,
 html .ui-body-b .ui-btn.ui-btn-active,
-html body .ui-btn.ui-btn-b.ui-btn-active,
 html body .ui-group-theme-b .ui-btn.ui-btn-active,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-b.ui-btn-active,
+html head + body .ui-btn.ui-btn-b.ui-btn-active,
 /* Active checkbox icon */
 .ui-page-theme-b .ui-icon-checkbox-on:after,
 html .ui-bar-b .ui-icon-checkbox-on:after,
@@ -525,27 +526,25 @@ html body .ui-group-theme-b .ui-icon-radio-on:after,
 .ui-page-theme-b .ui-btn:focus,
 html .ui-bar-b .ui-btn:focus,
 html .ui-body-b .ui-btn:focus,
-html body .ui-btn.ui-btn-b:focus,
 html body .ui-group-theme-b .ui-btn:focus,
-[class*="ui-group-theme-"] .ui-btn.ui-btn-b:focus,
+html head + body .ui-btn.ui-btn-b:focus,
 /* Focus buttons and text inputs with div wrap */
 .ui-page-theme-b .ui-focus,
 html .ui-bar-b .ui-focus,
 html .ui-body-b .ui-focus,
-html body .ui-btn-b.ui-focus,
-html body .ui-body-b.ui-focus,
 html body .ui-group-theme-b .ui-focus,
-[class*="ui-group-theme-"] .ui-btn-b.ui-focus,
-[class*="ui-group-theme-"] .ui-body-b.ui-focus {
+html head + body .ui-btn-b.ui-focus,
+html head + body .ui-body-b.ui-focus {
 	-webkit-box-shadow: 0 0 12px 	#33ccff /*{b-active-background-color}*/;
 	-moz-box-shadow: 0 0 12px 		#33ccff /*{b-active-background-color}*/;
 	box-shadow: 0 0 12px 			#33ccff /*{b-active-background-color}*/;
 }
 /* Disabled
 -----------------------------------------------------------------------------------------------------------*/
-/* Class ui-disabled deprecated in 1.4 */
+/* Class ui-disabled deprecated in 1.4. :disabled not supported by IE8 so we use [disabled] */
 .ui-disabled,
 .ui-state-disabled,
+button[disabled],
 .ui-select .ui-btn.ui-state-disabled {
 	filter: Alpha(Opacity=30);
 	opacity: .3;
@@ -559,7 +558,15 @@ html body .ui-group-theme-b .ui-focus,
 	outline: 0;
 }
 /* Unset box-shadow in browsers that don't do it right */
-.ui-noboxshadow * {
+.ui-noboxshadow .ui-shadow,
+.ui-noboxshadow .ui-shadow-inset,
+.ui-noboxshadow .ui-overlay-shadow,
+.ui-noboxshadow .ui-shadow-icon.ui-btn:after,
+.ui-noboxshadow .ui-shadow-icon .ui-btn:after,
+.ui-noboxshadow .ui-focus,
+.ui-noboxshadow .ui-btn:focus,
+.ui-noboxshadow  input:focus,
+.ui-noboxshadow .ui-panel {
 	-webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
 	box-shadow: none !important;
