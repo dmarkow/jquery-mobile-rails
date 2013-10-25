@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.4.0-beta.1
-* Git HEAD hash: f39417f72a5c14fc039a626dfa2419d41c9c4a72 <> Date: Tue Sep 24 2013 20:03:42 UTC
+* jQuery Mobile 1.4.0-rc.1
+* Git HEAD hash: 4b6462bccfe0e4fc3337bd24f17c76c6b5cb0e62 <> Date: Thu Oct 24 2013 20:08:54 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2013 jQuery Foundation, Inc. and other contributors
@@ -1282,7 +1282,8 @@ li.ui-block-e {
 	list-style: none;
 }
 /* No margin in grids for 100% width button elements until we can use max-width: fill-available; */
-[class*="ui-block-"] > button.ui-btn {
+[class*="ui-block-"] > button.ui-btn,
+.ui-grid-solo > button.ui-btn {
 	margin-right: 0;
 	margin-left: 0;
 }
@@ -1291,7 +1292,8 @@ li.ui-block-e {
 [class*="ui-block-"] > .ui-checkbox,
 [class*="ui-block-"] > .ui-radio,
 [class*="ui-block-"] > button.ui-btn-inline,
-[class*="ui-block-"] > button.ui-btn-icon-notext {
+[class*="ui-block-"] > button.ui-btn-icon-notext,
+.ui-grid-solo > [class*="ui-"] {
 	margin-right: .3125em;
 	margin-left: .3125em;
 }
@@ -1390,6 +1392,13 @@ li.ui-block-e {
 }
 .ui-fixed-hidden {
 	position: absolute;
+}
+/* Tap toggle: hide external fixed footer. See issue #6604 */
+.ui-footer-fixed.ui-fixed-hidden {
+  display: none;
+}
+.ui-page .ui-footer-fixed.ui-fixed-hidden {
+  display: block
 }
 .ui-page-header-fullscreen .ui-fixed-hidden,
 .ui-page-footer-fullscreen .ui-fixed-hidden {
@@ -2405,7 +2414,7 @@ fieldset.ui-controlgroup {
 }
 .ui-collapsible-content > .ui-listview:not(.ui-listview-inset) {
 	-webkit-border-radius: inherit;
-	border-bottom-radius: inherit;	
+	border-radius: inherit;	
 }
 .ui-listview > .ui-li-static {
 	padding: .7em 1em;
@@ -3078,6 +3087,9 @@ for Android 4.1 */
 .ui-table-columntoggle-popup fieldset {
 	margin:0;
 }
+.ui-table-columntoggle {
+	clear: both;
+}
 /* Hide all prioritized columns by default */
 @media only all {
 	th.ui-table-priority-6,
@@ -3230,7 +3242,7 @@ for Android 4.1 */
 		clear: left;
 	}
 }
-/* panel */
+/* Panel */
 .ui-panel {
 	width: 17em;
 	min-height: 100%;
@@ -3248,7 +3260,7 @@ for Android 4.1 */
 }
 .ui-panel-fixed {
 	position: fixed;
-	bottom: -1px; /* fixes gap on Chrome for Android */
+	bottom: -1px; /* Fixes gap on Chrome for Android */
 	padding-bottom: 1px;
 }
 .ui-panel-display-reveal {
@@ -3258,20 +3270,18 @@ for Android 4.1 */
 	z-index: 999;
 }
 .ui-panel-display-overlay {
-	z-index: 1001; /* fixed toolbars have z-index 1000 */
+	z-index: 1001; /* Fixed toolbars have z-index 1000 */
 }
 .ui-panel-inner {
 	padding: 1em;
 }
-/* container */
+/* Container, page and wrapper */
 .ui-panel-page-container {
 	overflow-x: visible;
 }
-/* page */
 .ui-panel-page-container-themed .ui-page-active {
 	background: none;
 }
-/* wrapper */
 .ui-panel-wrapper {
 	position: relative;
 	min-height: inherit;
@@ -3279,41 +3289,53 @@ for Android 4.1 */
 	overflow-x: hidden;
 	z-index: 999;
 }
-/* fixed toolbars */
+/* Fixed toolbars */
 .ui-panel-fixed-toolbar {
 	overflow-x: hidden;
 }
-/* dismiss */
+/* Dismiss */
 .ui-panel-dismiss {
 	position: absolute;
 	top: 0;
 	left: 0;
+	right: 0;
 	height: 100%;
-	width: 100%;
 	z-index: 1002;
 	display: none;
 }
 .ui-panel-dismiss-open {
 	display: block;
 }
-/* animate class is added to panel, wrapper and fixed toolbars */
+/* Animate class is added to panel, wrapper and fixed toolbars */
 .ui-panel-animate {
 	-webkit-transition: -webkit-transform 300ms ease;
 	-moz-transition: -moz-transform 300ms ease;
 	transition: transform 300ms ease;
 }
-/* hardware acceleration for smoother transitions on WebKit browsers */
-.ui-panel-animate.ui-panel-page-container,
+/* Fix for Windows Phone issue #6349: unset the transition for transforms in case of fixed toolbars. */
+@media screen and ( max-device-width: 768px ) {
+	.ui-page-header-fixed .ui-panel-animate.ui-panel-wrapper,
+	.ui-page-footer-fixed .ui-panel-animate.ui-panel-wrapper,
+	.ui-panel-animate.ui-panel-fixed-toolbar {
+		-ms-transition: none;
+	}
+	/* We need a transitionend event ... */
+	.ui-panel-animate.ui-panel-fixed-toolbar {
+		-ms-transition: -ms-transform 1ms;
+		-ms-transform: rotate(0deg);
+	}
+}
+/* Hardware acceleration for smoother transitions on WebKit browsers */
 .ui-panel-animate.ui-panel:not(.ui-panel-display-reveal) {
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translate3d(0,0,0);
 }
-/* positioning: panel */
-/* panel left  */
+/* Panel positioning (for overlay and push) */
+/* Panel left closed */
 .ui-panel-position-left {
 	left: -17em;
 }
-/* animated: panel left (for overlay and push) */
+/* Panel left closed animated */
 .ui-panel-animate.ui-panel-position-left.ui-panel-display-overlay,
 .ui-panel-animate.ui-panel-position-left.ui-panel-display-push {
 	left: 0;
@@ -3321,23 +3343,23 @@ for Android 4.1 */
 	-moz-transform: translate3d(-17em,0,0);
 	transform: translate3d(-17em,0,0);
 }
-/* panel left open */
-.ui-panel-position-left.ui-panel-display-reveal, /* negate "panel left" for reveal */
+/* Panel left open */
+.ui-panel-position-left.ui-panel-display-reveal, /* Unset "panel left closed" for reveal */
 .ui-panel-open.ui-panel-position-left {
 	left: 0;
 }
-/* animated: panel left open (for overlay and push) */
+/* Panel left open animated */
 .ui-panel-animate.ui-panel-open.ui-panel-position-left.ui-panel-display-overlay,
 .ui-panel-animate.ui-panel-open.ui-panel-position-left.ui-panel-display-push {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-moz-transform: none;
 }
-/* panel right */
+/* Panel right closed */
 .ui-panel-position-right {
 	right: -17em;
 }
-/* animated: panel right (for overlay and push) */
+/* Panel right closed animated */
 .ui-panel-animate.ui-panel-position-right.ui-panel-display-overlay,
 .ui-panel-animate.ui-panel-position-right.ui-panel-display-push {
 	right: 0;
@@ -3345,54 +3367,53 @@ for Android 4.1 */
 	-moz-transform: translate3d(17em,0,0);
 	transform: translate3d(17em,0,0);
 }
-/* panel right open */
-.ui-panel-position-right.ui-panel-display-reveal,  /* negate "panel right" for reveal */
+/* Panel right open */
+.ui-panel-position-right.ui-panel-display-reveal, /* Unset "panel right closed" for reveal */
 .ui-panel-position-right.ui-panel-open {
 	right: 0;
 }
-/* animated: panel right open (for overlay and push) */
+/* Panel right open animated */
 .ui-panel-animate.ui-panel-open.ui-panel-position-right.ui-panel-display-overlay,
 .ui-panel-animate.ui-panel-open.ui-panel-position-right.ui-panel-display-push {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-moz-transform: none;
 }
-/* positioning: pages, fixed toolbars and dismiss */
-/* panel left open */
-.ui-panel-page-content-position-left,
-.ui-panel-dismiss-open.ui-panel-dismiss-position-left {
+/* Wrapper and fixed toolbars positioning (for reveal and push) */
+/* Panel left open */
+.ui-panel-page-content-position-left {
 	left: 17em;
 	right: -17em;
 }
-/* animated: panel left open (for reveal and push) */
-.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal,
-.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-display-push {
+/* Panel left open animated */
+.ui-panel-animate.ui-panel-page-content-position-left {
 	left: 0;
 	right: 0;
 	-webkit-transform: translate3d(17em,0,0);
 	-moz-transform: translate3d(17em,0,0);
 	transform: translate3d(17em,0,0);
 }
-/* panel right open */
-.ui-panel-page-content-position-right,
-.ui-panel-dismiss-open.ui-panel-dismiss-position-right {
+/* Panel right open */
+.ui-panel-page-content-position-right {
 	left: -17em;
 	right: 17em;
 }
-/* animated: panel right open (for reveal and push) */
-.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal, 
-.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-display-push {
+/* Panel right open animated */
+.ui-panel-animate.ui-panel-page-content-position-right {
 	left: 0;
 	right: 0;
 	-webkit-transform: translate3d(-17em,0,0);
 	-moz-transform: translate3d(-17em,0,0);
 	transform: translate3d(-17em,0,0);
 }
-/* negate "panel left/right open" for overlay */
-.ui-panel-page-content-display-overlay {
-	left: 0;
+/* Dismiss model open */
+.ui-panel-dismiss-open.ui-panel-dismiss-position-left {
+	left: 17em;
 }
-/* shadows and borders */
+.ui-panel-dismiss-open.ui-panel-dismiss-position-right {
+	right: 17em;
+}
+/* Shadows and borders */
 .ui-panel-display-reveal {
 	-webkit-box-shadow: inset -5px 0 5px rgba(0,0,0,.15);
 	-moz-box-shadow: inset -5px 0 5px rgba(0,0,0,.15);
@@ -3429,18 +3450,15 @@ for Android 4.1 */
 	margin-right: 1px;
 	width: auto;
 }
-/* wrap on wide viewports once open */
+/* Responsive: wrap on wide viewports once open */
 @media (min-width:55em) {
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-push,
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left {
 		margin-right: 17em;
 	}
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-push,
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right {
 		margin-left: 17em;
 	}
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-display-push,
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open {
 		width: auto;	
 	}
 	.ui-responsive-panel .ui-panel-dismiss-display-push,

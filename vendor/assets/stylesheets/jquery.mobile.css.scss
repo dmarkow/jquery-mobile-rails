@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.4.0-beta.1
-* Git HEAD hash: f39417f72a5c14fc039a626dfa2419d41c9c4a72 <> Date: Tue Sep 24 2013 20:03:42 UTC
+* jQuery Mobile 1.4.0-rc.1
+* Git HEAD hash: 4b6462bccfe0e4fc3337bd24f17c76c6b5cb0e62 <> Date: Thu Oct 24 2013 20:08:54 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2013 jQuery Foundation, Inc. and other contributors
@@ -60,7 +60,8 @@
 	background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2212px%22%20height%3D%228px%22%20viewBox%3D%220%200%2012%208%22%20style%3D%22enable-background%3Anew%200%200%2012%208%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20fill%3D%22%23FFF%22%20points%3D%226%2C0%200%2C6%202%2C8%206%2C4%2010%2C8%2012%2C6%20%22%2F%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3C%2Fsvg%3E');
 }
 .ui-icon-check:after,
-html .ui-btn.ui-checkbox-on.ui-icon-checkbox-on:after {
+/* Used ui-checkbox-on twice to increase specificity. If active state has background-image for gradient this rule overrides. */
+html .ui-btn.ui-checkbox-on.ui-checkbox-on:after {
 	background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2214px%22%20height%3D%2212px%22%20viewBox%3D%220%200%2014%2012%22%20style%3D%22enable-background%3Anew%200%200%2014%2012%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20fill%3D%22%23FFF%22%20points%3D%2214%2C3%2011%2C0%205.003%2C5.997%203%2C4%200%2C7%204.966%2C12%204.983%2C11.983%205%2C12%20%22%2F%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3C%2Fsvg%3E');
 }
 .ui-icon-clock:after {
@@ -229,8 +230,8 @@ html .ui-btn.ui-checkbox-on.ui-icon-checkbox-on:after {
 }
 .ui-alt-icon.ui-icon-check:after,
 .ui-alt-icon .ui-icon-check:after,
-.ui-alt-icon.ui-btn.ui-checkbox-on.ui-icon-checkbox-on:after,
-.ui-alt-icon .ui-btn.ui-checkbox-on.ui-icon-checkbox-on:after {
+html .ui-alt-icon.ui-btn.ui-checkbox-on:after,
+html .ui-alt-icon .ui-btn.ui-checkbox-on:after {
 	background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2214px%22%20height%3D%2212px%22%20viewBox%3D%220%200%2014%2012%22%20style%3D%22enable-background%3Anew%200%200%2014%2012%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20points%3D%2214%2C3%2011%2C0%205.003%2C5.997%203%2C4%200%2C7%204.966%2C12%204.983%2C11.983%205%2C12%20%22%2F%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3C%2Fsvg%3E');
 }
 .ui-alt-icon.ui-icon-clock:after,
@@ -416,7 +417,7 @@ html .ui-btn.ui-checkbox-on.ui-icon-checkbox-on:after {
 	background-image: image-url("jquery-mobile/icons-png/carat-u-white.png");
 }
 .ui-nosvg .ui-icon-check:after,
-.ui-nosvg .ui-btn.ui-checkbox-on.ui-icon-checkbox-on:after {
+html.ui-nosvg .ui-btn.ui-checkbox-on:after {
 	background-image: image-url("jquery-mobile/icons-png/check-white.png");
 }
 .ui-nosvg .ui-icon-clock:after {
@@ -585,8 +586,8 @@ html .ui-btn.ui-checkbox-on.ui-icon-checkbox-on:after {
 }
 .ui-nosvg .ui-alt-icon.ui-icon-check:after,
 .ui-nosvg .ui-alt-icon .ui-icon-check:after,
-.ui-nosvg .ui-alt-icon.ui-btn.ui-icon-checkbox-on:after,
-.ui-nosvg .ui-alt-icon .ui-btn.ui-icon-checkbox-on:after {
+.ui-nosvg .ui-alt-icon.ui-btn.ui-checkbox-on:after,
+.ui-nosvg .ui-alt-icon .ui-btn.ui-checkbox-on:after {
 	background-image: image-url("jquery-mobile/icons-png/check-black.png");
 }
 .ui-nosvg .ui-alt-icon.ui-icon-clock:after,
@@ -856,9 +857,7 @@ label.ui-btn {
 .ui-btn-icon-right:after,
 .ui-btn-icon-top:after,
 .ui-btn-icon-bottom:after,
-.ui-btn-icon-notext:after,
-html .ui-btn.ui-icon-checkbox-off:after,
-html .ui-btn.ui-icon-radio-off:after {
+.ui-btn-icon-notext:after {
 	background-color: 					#666 /*{global-icon-color}*/;
 	background-color: 					rgba(0,0,0,.3) /*{global-icon-disc}*/;
 	background-position: center center;
@@ -869,10 +868,10 @@ html .ui-btn.ui-icon-radio-off:after {
 /* Alt icons */
 .ui-alt-icon.ui-btn:after,
 .ui-alt-icon .ui-btn:after,
-html .ui-alt-icon.ui-icon-checkbox-off:after,
-html .ui-alt-icon.ui-icon-radio-off:after,
-html .ui-alt-icon .ui-icon-checkbox-off:after,
-html .ui-alt-icon .ui-icon-radio-off:after {
+html .ui-alt-icon.ui-checkbox-off:after,
+html .ui-alt-icon.ui-radio-off:after,
+html .ui-alt-icon .ui-checkbox-off:after,
+html .ui-alt-icon .ui-radio-off:after {
 	background-color: 					#666 /*{global-icon-color}*/;
 	background-color: 					rgba(0,0,0,.15) /*{global-icon-disc-alt}*/;
 }
@@ -889,27 +888,26 @@ html .ui-alt-icon .ui-icon-radio-off:after {
 	box-shadow: 0 1px 0 					rgba(255,255,255,.3) /*{global-icon-shadow}*/;
 }
 /* Checkbox and radio */
-html .ui-btn.ui-icon-checkbox-off:after,
-html .ui-btn.ui-icon-checkbox-on:after,
-html .ui-btn.ui-icon-radio-off:after,
-html .ui-btn.ui-icon-radio-on:after {
+.ui-btn.ui-checkbox-off:after,
+.ui-btn.ui-checkbox-on:after,
+.ui-btn.ui-radio-off:after,
+.ui-btn.ui-radio-on:after {
 	display: block;
 	width: 18px;
 	height: 18px;
 	margin: -9px 2px 0 2px;
 }
-.ui-btn.ui-icon-checkbox-off:after,
-.ui-btn.ui-icon-radio-off:after {
-	background-image: none;
+.ui-checkbox-off:after,
+.ui-btn.ui-radio-off:after {
 	filter: Alpha(Opacity=30);
 	opacity: .3;
 }
-html .ui-btn.ui-icon-checkbox-off:after,
-html .ui-btn.ui-icon-checkbox-on:after {
+.ui-btn.ui-checkbox-off:after,
+.ui-btn.ui-checkbox-on:after {
 	-webkit-border-radius: .1875em;
 	border-radius: .1875em;
 }
-.ui-radio .ui-btn.ui-icon-radio-on:after {
+.ui-radio .ui-btn.ui-radio-on:after {
 	background-image: none;
 	background-color: #fff;
 	width: 8px;
@@ -917,8 +915,8 @@ html .ui-btn.ui-icon-checkbox-on:after {
 	border-width: 5px;
 	border-style: solid; 
 }
-.ui-alt-icon.ui-btn.ui-icon-radio-on:after,
-.ui-alt-icon .ui-btn.ui-icon-radio-on:after {
+.ui-alt-icon.ui-btn.ui-radio-on:after,
+.ui-alt-icon .ui-btn.ui-radio-on:after {
 	background-color: #000;
 }
 /* Loader */
@@ -935,9 +933,9 @@ html .ui-btn.ui-icon-checkbox-on:after {
 html .ui-bar-a .ui-bar-inherit,
 html .ui-body-a .ui-bar-inherit,
 html body .ui-group-theme-a .ui-bar-inherit {
-	background: 			#f1f1f1 /*{a-bar-background-color}*/;
+	background: 			#e9e9e9 /*{a-bar-background-color}*/;
 	border-color:	 		#ddd /*{a-bar-border}*/;
-	color: 					#111 /*{a-bar-color}*/;
+	color: 					#333 /*{a-bar-color}*/;
 	text-shadow: 0 /*{a-bar-shadow-x}*/ 1px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ 	#eee /*{a-bar-shadow-color}*/;
 	font-weight: bold;
 }
@@ -951,8 +949,8 @@ html body .ui-group-theme-a .ui-bar-inherit {
 .ui-page-theme-a .ui-panel-wrapper {
 	background: 			#f9f9f9 /*{a-page-background-color}*/;
 	border-color:	 		#bbb /*{a-page-border}*/;
-	color: 					#111 /*{a-page-color}*/;
-	text-shadow: 0 /*{a-page-shadow-x}*/ 1px /*{a-page-shadow-y}*/ 0 /*{a-page-shadow-radius}*/ 	#eee /*{a-page-shadow-color}*/;
+	color: 					#333 /*{a-page-color}*/;
+	text-shadow: 0 /*{a-page-shadow-x}*/ 1px /*{a-page-shadow-y}*/ 0 /*{a-page-shadow-radius}*/ 	#f3f3f3 /*{a-page-shadow-color}*/;
 }
 /* Body: Read-only lists, text inputs, collapsible content */
 .ui-body-a,
@@ -963,8 +961,8 @@ html body .ui-group-theme-a .ui-body-inherit,
 html .ui-panel-page-container-a {
 	background: 			#fff /*{a-body-background-color}*/;
 	border-color:	 		#ddd /*{a-body-border}*/;
-	color: 					#111 /*{a-body-color}*/;
-	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ 	#eee /*{a-body-shadow-color}*/;
+	color: 					#333 /*{a-body-color}*/;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ 	#f3f3f3 /*{a-body-shadow-color}*/;
 }
 .ui-body-a {
 	border-width: 1px;
@@ -975,26 +973,26 @@ html .ui-panel-page-container-a {
 html .ui-bar-a a,
 html .ui-body-a a,
 html body .ui-group-theme-a a {
-	color: #0066ff /*{a-link-color}*/;
+	color: #3388cc /*{a-link-color}*/;
 	font-weight: bold;
 }
 .ui-page-theme-a a:visited,
 html .ui-bar-a a:visited,
 html .ui-body-a a:visited,
 html body .ui-group-theme-a a:visited {
-    color: #0066ff /*{a-link-visited}*/;
+    color: #3388cc /*{a-link-visited}*/;
 }
 .ui-page-theme-a a:hover,
 html .ui-bar-a a:hover,
 html .ui-body-a a:hover,
 html body .ui-group-theme-a a:hover {
-	color: #0033ff /*{a-link-hover}*/;
+	color: #005599 /*{a-link-hover}*/;
 }
 .ui-page-theme-a a:active,
 html .ui-bar-a a:active,
 html .ui-body-a a:active,
 html body .ui-group-theme-a a:active {
-	color: #0033ff /*{a-link-active}*/;
+	color: #005599 /*{a-link-active}*/;
 }
 /* Button up */
 .ui-page-theme-a .ui-btn,
@@ -1010,8 +1008,8 @@ html body .ui-group-theme-a .ui-btn:visited,
 html head + body .ui-btn.ui-btn-a:visited {
 	background: 			#f6f6f6 /*{a-bup-background-color}*/;
 	border-color:	 		#ddd /*{a-bup-border}*/;
-	color: 					#111 /*{a-bup-color}*/;
-	text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #eee /*{a-bup-shadow-color}*/;
+	color: 					#333 /*{a-bup-color}*/;
+	text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/;
 }
 /* Button hover */
 .ui-page-theme-a .ui-btn:hover,
@@ -1021,8 +1019,8 @@ html body .ui-group-theme-a .ui-btn:hover,
 html head + body .ui-btn.ui-btn-a:hover {
 	background: 			#ededed /*{a-bhover-background-color}*/;
 	border-color:	 		#ddd /*{a-bhover-border}*/;
-	color: 					#111 /*{a-bhover-color}*/;
-	text-shadow: 0 /*{a-bhover-shadow-x}*/ 1px /*{a-bhover-shadow-y}*/ 0 /*{a-bhover-shadow-radius}*/ #eee /*{a-bhover-shadow-color}*/;
+	color: 					#333 /*{a-bhover-color}*/;
+	text-shadow: 0 /*{a-bhover-shadow-x}*/ 1px /*{a-bhover-shadow-y}*/ 0 /*{a-bhover-shadow-radius}*/ #f3f3f3 /*{a-bhover-shadow-color}*/;
 }
 /* Button down */
 .ui-page-theme-a .ui-btn:active,
@@ -1032,8 +1030,8 @@ html body .ui-group-theme-a .ui-btn:active,
 html head + body .ui-btn.ui-btn-a:active {
 	background: 			#e8e8e8 /*{a-bdown-background-color}*/;
 	border-color:	 		#ddd /*{a-bdown-border}*/;
-	color: 					#111 /*{a-bdown-color}*/;
-	text-shadow: 0 /*{a-bdown-shadow-x}*/ 1px /*{a-bdown-shadow-y}*/ 0 /*{a-bdown-shadow-radius}*/ #eee /*{a-bdown-shadow-color}*/;
+	color: 					#333 /*{a-bdown-color}*/;
+	text-shadow: 0 /*{a-bdown-shadow-x}*/ 1px /*{a-bdown-shadow-y}*/ 0 /*{a-bdown-shadow-radius}*/ #f3f3f3 /*{a-bdown-shadow-color}*/;
 }
 /* Active button */
 .ui-page-theme-a .ui-btn.ui-btn-active,
@@ -1042,11 +1040,11 @@ html .ui-body-a .ui-btn.ui-btn-active,
 html body .ui-group-theme-a .ui-btn.ui-btn-active,
 html head + body .ui-btn.ui-btn-a.ui-btn-active,
 /* Active checkbox icon */
-.ui-page-theme-a .ui-icon-checkbox-on:after,
-html .ui-bar-a .ui-icon-checkbox-on:after,
-html .ui-body-a .ui-icon-checkbox-on:after,
-html body .ui-group-theme-a .ui-icon-checkbox-on:after,
-.ui-btn.ui-icon-checkbox-on.ui-btn-a:after,
+.ui-page-theme-a .ui-checkbox-on:after,
+html .ui-bar-a .ui-checkbox-on:after,
+html .ui-body-a .ui-checkbox-on:after,
+html body .ui-group-theme-a .ui-checkbox-on:after,
+.ui-btn.ui-checkbox-on.ui-btn-a:after,
 /* Active flipswitch background */
 .ui-page-theme-a .ui-flipswitch-active,
 html .ui-bar-a .ui-flipswitch-active,
@@ -1059,18 +1057,18 @@ html .ui-bar-a .ui-slider-track .ui-btn-active,
 html .ui-body-a .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-a .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-a .ui-btn-active {
-	background-color: 		#0066ff /*{a-active-background-color}*/;
-	border-color:	 		#0033ff /*{a-active-border}*/;
+	background-color: 		#3388cc /*{a-active-background-color}*/;
+	border-color:	 		#3388cc /*{a-active-border}*/;
 	color: 					#fff /*{a-active-color}*/;
-	text-shadow: 0 /*{a-active-shadow-x}*/ 1px /*{a-active-shadow-y}*/ 0 /*{a-active-shadow-radius}*/ #0033ff /*{a-active-shadow-color}*/;
+	text-shadow: 0 /*{a-active-shadow-x}*/ 1px /*{a-active-shadow-y}*/ 0 /*{a-active-shadow-radius}*/ #005599 /*{a-active-shadow-color}*/;
 }
 /* Active radio button icon */
-.ui-page-theme-a .ui-icon-radio-on:after,
-html .ui-bar-a .ui-icon-radio-on:after,
-html .ui-body-a .ui-icon-radio-on:after,
-html body .ui-group-theme-a .ui-icon-radio-on:after,
-.ui-btn.ui-icon-radio-on.ui-btn-a:after {
-	border-color:			#0066ff /*{a-active-background-color}*/;
+.ui-page-theme-a .ui-radio-on:after,
+html .ui-bar-a .ui-radio-on:after,
+html .ui-body-a .ui-radio-on:after,
+html body .ui-group-theme-a .ui-radio-on:after,
+.ui-btn.ui-radio-on.ui-btn-a:after {
+	border-color:			#3388cc /*{a-active-background-color}*/;
 }
 /* Focus */
 .ui-page-theme-a .ui-btn:focus,
@@ -1085,9 +1083,9 @@ html .ui-body-a .ui-focus,
 html body .ui-group-theme-a .ui-focus,
 html head + body .ui-btn-a.ui-focus,
 html head + body .ui-body-a.ui-focus {
-	-webkit-box-shadow: 0 0 12px 	#0066ff /*{a-active-background-color}*/;
-	-moz-box-shadow: 0 0 12px 		#0066ff /*{a-active-background-color}*/;
-	box-shadow: 0 0 12px 			#0066ff /*{a-active-background-color}*/;
+	-webkit-box-shadow: 0 0 12px 	#3388cc /*{a-active-background-color}*/;
+	-moz-box-shadow: 0 0 12px 		#3388cc /*{a-active-background-color}*/;
+	box-shadow: 0 0 12px 			#3388cc /*{a-active-background-color}*/;
 }
 /* B
 -----------------------------------------------------------------------------------------------------------*/
@@ -1137,26 +1135,26 @@ html .ui-panel-page-container-b {
 html .ui-bar-b a,
 html .ui-body-b a,
 html body .ui-group-theme-b a {
-	color: #33ccff /*{b-link-color}*/;
+	color: #22aadd /*{b-link-color}*/;
 	font-weight: bold;
 }
 .ui-page-theme-b a:visited,
 html .ui-bar-b a:visited,
 html .ui-body-b a:visited,
 html body .ui-group-theme-b a:visited {
-    color: #33ccff /*{b-link-visited}*/;
+    color: #22aadd /*{b-link-visited}*/;
 }
 .ui-page-theme-b a:hover,
 html .ui-bar-b a:hover,
 html .ui-body-b a:hover,
 html body .ui-group-theme-b a:hover {
-	color: #3399ff /*{b-link-hover}*/;
+	color: #0088bb /*{b-link-hover}*/;
 }
 .ui-page-theme-b a:active,
 html .ui-bar-b a:active,
 html .ui-body-b a:active,
 html body .ui-group-theme-b a:active {
-	color: #3399ff /*{b-link-active}*/;
+	color: #0088bb /*{b-link-active}*/;
 }
 /* Button up */
 .ui-page-theme-b .ui-btn,
@@ -1204,11 +1202,11 @@ html .ui-body-b .ui-btn.ui-btn-active,
 html body .ui-group-theme-b .ui-btn.ui-btn-active,
 html head + body .ui-btn.ui-btn-b.ui-btn-active,
 /* Active checkbox icon */
-.ui-page-theme-b .ui-icon-checkbox-on:after,
-html .ui-bar-b .ui-icon-checkbox-on:after,
-html .ui-body-b .ui-icon-checkbox-on:after,
-html body .ui-group-theme-b .ui-icon-checkbox-on:after,
-.ui-btn.ui-icon-checkbox-on.ui-btn-b:after,
+.ui-page-theme-b .ui-checkbox-on:after,
+html .ui-bar-b .ui-checkbox-on:after,
+html .ui-body-b .ui-checkbox-on:after,
+html body .ui-group-theme-b .ui-checkbox-on:after,
+.ui-btn.ui-checkbox-on.ui-btn-b:after,
 /* Active flipswitch background */
 .ui-page-theme-b .ui-flipswitch-active,
 html .ui-bar-b .ui-flipswitch-active,
@@ -1221,18 +1219,18 @@ html .ui-bar-b .ui-slider-track .ui-btn-active,
 html .ui-body-b .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-b .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-b .ui-btn-active {
-	background-color: 		#33ccff /*{b-active-background-color}*/;
-	border-color:	 		#3399ff /*{b-active-border}*/;
+	background-color: 		#22aadd /*{b-active-background-color}*/;
+	border-color:	 		#22aadd /*{b-active-border}*/;
 	color: 					#fff /*{b-active-color}*/;
-	text-shadow: 0 /*{b-active-shadow-x}*/ 1px /*{b-active-shadow-y}*/ 0 /*{b-active-shadow-radius}*/ #3399ff /*{b-active-shadow-color}*/;
+	text-shadow: 0 /*{b-active-shadow-x}*/ 1px /*{b-active-shadow-y}*/ 0 /*{b-active-shadow-radius}*/ #0088bb /*{b-active-shadow-color}*/;
 }
 /* Active radio button icon */
-.ui-page-theme-b .ui-icon-radio-on:after,
-html .ui-bar-b .ui-icon-radio-on:after,
-html .ui-body-b .ui-icon-radio-on:after,
-html body .ui-group-theme-b .ui-icon-radio-on:after,
-.ui-btn.ui-icon-radio-on.ui-btn-b:after {
-	border-color:			#33ccff /*{b-active-background-color}*/;
+.ui-page-theme-b .ui-radio-on:after,
+html .ui-bar-b .ui-radio-on:after,
+html .ui-body-b .ui-radio-on:after,
+html body .ui-group-theme-b .ui-radio-on:after,
+.ui-btn.ui-radio-on.ui-btn-b:after {
+	border-color:			#22aadd /*{b-active-background-color}*/;
 }
 /* Focus */
 .ui-page-theme-b .ui-btn:focus,
@@ -1247,9 +1245,9 @@ html .ui-body-b .ui-focus,
 html body .ui-group-theme-b .ui-focus,
 html head + body .ui-btn-b.ui-focus,
 html head + body .ui-body-b.ui-focus {
-	-webkit-box-shadow: 0 0 12px 	#33ccff /*{b-active-background-color}*/;
-	-moz-box-shadow: 0 0 12px 		#33ccff /*{b-active-background-color}*/;
-	box-shadow: 0 0 12px 			#33ccff /*{b-active-background-color}*/;
+	-webkit-box-shadow: 0 0 12px 	#22aadd /*{b-active-background-color}*/;
+	-moz-box-shadow: 0 0 12px 		#22aadd /*{b-active-background-color}*/;
+	box-shadow: 0 0 12px 			#22aadd /*{b-active-background-color}*/;
 }
 /* Disabled
 -----------------------------------------------------------------------------------------------------------*/
@@ -2560,7 +2558,8 @@ li.ui-block-e {
 	list-style: none;
 }
 /* No margin in grids for 100% width button elements until we can use max-width: fill-available; */
-[class*="ui-block-"] > button.ui-btn {
+[class*="ui-block-"] > button.ui-btn,
+.ui-grid-solo > button.ui-btn {
 	margin-right: 0;
 	margin-left: 0;
 }
@@ -2569,7 +2568,8 @@ li.ui-block-e {
 [class*="ui-block-"] > .ui-checkbox,
 [class*="ui-block-"] > .ui-radio,
 [class*="ui-block-"] > button.ui-btn-inline,
-[class*="ui-block-"] > button.ui-btn-icon-notext {
+[class*="ui-block-"] > button.ui-btn-icon-notext,
+.ui-grid-solo > [class*="ui-"] {
 	margin-right: .3125em;
 	margin-left: .3125em;
 }
@@ -2668,6 +2668,13 @@ li.ui-block-e {
 }
 .ui-fixed-hidden {
 	position: absolute;
+}
+/* Tap toggle: hide external fixed footer. See issue #6604 */
+.ui-footer-fixed.ui-fixed-hidden {
+  display: none;
+}
+.ui-page .ui-footer-fixed.ui-fixed-hidden {
+  display: block
 }
 .ui-page-header-fullscreen .ui-fixed-hidden,
 .ui-page-footer-fullscreen .ui-fixed-hidden {
@@ -3683,7 +3690,7 @@ fieldset.ui-controlgroup {
 }
 .ui-collapsible-content > .ui-listview:not(.ui-listview-inset) {
 	-webkit-border-radius: inherit;
-	border-bottom-radius: inherit;	
+	border-radius: inherit;	
 }
 .ui-listview > .ui-li-static {
 	padding: .7em 1em;
@@ -4356,6 +4363,9 @@ for Android 4.1 */
 .ui-table-columntoggle-popup fieldset {
 	margin:0;
 }
+.ui-table-columntoggle {
+	clear: both;
+}
 /* Hide all prioritized columns by default */
 @media only all {
 	th.ui-table-priority-6,
@@ -4508,7 +4518,7 @@ for Android 4.1 */
 		clear: left;
 	}
 }
-/* panel */
+/* Panel */
 .ui-panel {
 	width: 17em;
 	min-height: 100%;
@@ -4526,7 +4536,7 @@ for Android 4.1 */
 }
 .ui-panel-fixed {
 	position: fixed;
-	bottom: -1px; /* fixes gap on Chrome for Android */
+	bottom: -1px; /* Fixes gap on Chrome for Android */
 	padding-bottom: 1px;
 }
 .ui-panel-display-reveal {
@@ -4536,20 +4546,18 @@ for Android 4.1 */
 	z-index: 999;
 }
 .ui-panel-display-overlay {
-	z-index: 1001; /* fixed toolbars have z-index 1000 */
+	z-index: 1001; /* Fixed toolbars have z-index 1000 */
 }
 .ui-panel-inner {
 	padding: 1em;
 }
-/* container */
+/* Container, page and wrapper */
 .ui-panel-page-container {
 	overflow-x: visible;
 }
-/* page */
 .ui-panel-page-container-themed .ui-page-active {
 	background: none;
 }
-/* wrapper */
 .ui-panel-wrapper {
 	position: relative;
 	min-height: inherit;
@@ -4557,41 +4565,53 @@ for Android 4.1 */
 	overflow-x: hidden;
 	z-index: 999;
 }
-/* fixed toolbars */
+/* Fixed toolbars */
 .ui-panel-fixed-toolbar {
 	overflow-x: hidden;
 }
-/* dismiss */
+/* Dismiss */
 .ui-panel-dismiss {
 	position: absolute;
 	top: 0;
 	left: 0;
+	right: 0;
 	height: 100%;
-	width: 100%;
 	z-index: 1002;
 	display: none;
 }
 .ui-panel-dismiss-open {
 	display: block;
 }
-/* animate class is added to panel, wrapper and fixed toolbars */
+/* Animate class is added to panel, wrapper and fixed toolbars */
 .ui-panel-animate {
 	-webkit-transition: -webkit-transform 300ms ease;
 	-moz-transition: -moz-transform 300ms ease;
 	transition: transform 300ms ease;
 }
-/* hardware acceleration for smoother transitions on WebKit browsers */
-.ui-panel-animate.ui-panel-page-container,
+/* Fix for Windows Phone issue #6349: unset the transition for transforms in case of fixed toolbars. */
+@media screen and ( max-device-width: 768px ) {
+	.ui-page-header-fixed .ui-panel-animate.ui-panel-wrapper,
+	.ui-page-footer-fixed .ui-panel-animate.ui-panel-wrapper,
+	.ui-panel-animate.ui-panel-fixed-toolbar {
+		-ms-transition: none;
+	}
+	/* We need a transitionend event ... */
+	.ui-panel-animate.ui-panel-fixed-toolbar {
+		-ms-transition: -ms-transform 1ms;
+		-ms-transform: rotate(0deg);
+	}
+}
+/* Hardware acceleration for smoother transitions on WebKit browsers */
 .ui-panel-animate.ui-panel:not(.ui-panel-display-reveal) {
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translate3d(0,0,0);
 }
-/* positioning: panel */
-/* panel left  */
+/* Panel positioning (for overlay and push) */
+/* Panel left closed */
 .ui-panel-position-left {
 	left: -17em;
 }
-/* animated: panel left (for overlay and push) */
+/* Panel left closed animated */
 .ui-panel-animate.ui-panel-position-left.ui-panel-display-overlay,
 .ui-panel-animate.ui-panel-position-left.ui-panel-display-push {
 	left: 0;
@@ -4599,23 +4619,23 @@ for Android 4.1 */
 	-moz-transform: translate3d(-17em,0,0);
 	transform: translate3d(-17em,0,0);
 }
-/* panel left open */
-.ui-panel-position-left.ui-panel-display-reveal, /* negate "panel left" for reveal */
+/* Panel left open */
+.ui-panel-position-left.ui-panel-display-reveal, /* Unset "panel left closed" for reveal */
 .ui-panel-open.ui-panel-position-left {
 	left: 0;
 }
-/* animated: panel left open (for overlay and push) */
+/* Panel left open animated */
 .ui-panel-animate.ui-panel-open.ui-panel-position-left.ui-panel-display-overlay,
 .ui-panel-animate.ui-panel-open.ui-panel-position-left.ui-panel-display-push {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-moz-transform: none;
 }
-/* panel right */
+/* Panel right closed */
 .ui-panel-position-right {
 	right: -17em;
 }
-/* animated: panel right (for overlay and push) */
+/* Panel right closed animated */
 .ui-panel-animate.ui-panel-position-right.ui-panel-display-overlay,
 .ui-panel-animate.ui-panel-position-right.ui-panel-display-push {
 	right: 0;
@@ -4623,54 +4643,53 @@ for Android 4.1 */
 	-moz-transform: translate3d(17em,0,0);
 	transform: translate3d(17em,0,0);
 }
-/* panel right open */
-.ui-panel-position-right.ui-panel-display-reveal,  /* negate "panel right" for reveal */
+/* Panel right open */
+.ui-panel-position-right.ui-panel-display-reveal, /* Unset "panel right closed" for reveal */
 .ui-panel-position-right.ui-panel-open {
 	right: 0;
 }
-/* animated: panel right open (for overlay and push) */
+/* Panel right open animated */
 .ui-panel-animate.ui-panel-open.ui-panel-position-right.ui-panel-display-overlay,
 .ui-panel-animate.ui-panel-open.ui-panel-position-right.ui-panel-display-push {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 	-moz-transform: none;
 }
-/* positioning: pages, fixed toolbars and dismiss */
-/* panel left open */
-.ui-panel-page-content-position-left,
-.ui-panel-dismiss-open.ui-panel-dismiss-position-left {
+/* Wrapper and fixed toolbars positioning (for reveal and push) */
+/* Panel left open */
+.ui-panel-page-content-position-left {
 	left: 17em;
 	right: -17em;
 }
-/* animated: panel left open (for reveal and push) */
-.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal,
-.ui-panel-animate.ui-panel-page-content-position-left.ui-panel-page-content-display-push {
+/* Panel left open animated */
+.ui-panel-animate.ui-panel-page-content-position-left {
 	left: 0;
 	right: 0;
 	-webkit-transform: translate3d(17em,0,0);
 	-moz-transform: translate3d(17em,0,0);
 	transform: translate3d(17em,0,0);
 }
-/* panel right open */
-.ui-panel-page-content-position-right,
-.ui-panel-dismiss-open.ui-panel-dismiss-position-right {
+/* Panel right open */
+.ui-panel-page-content-position-right {
 	left: -17em;
 	right: 17em;
 }
-/* animated: panel right open (for reveal and push) */
-.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal, 
-.ui-panel-animate.ui-panel-page-content-position-right.ui-panel-page-content-display-push {
+/* Panel right open animated */
+.ui-panel-animate.ui-panel-page-content-position-right {
 	left: 0;
 	right: 0;
 	-webkit-transform: translate3d(-17em,0,0);
 	-moz-transform: translate3d(-17em,0,0);
 	transform: translate3d(-17em,0,0);
 }
-/* negate "panel left/right open" for overlay */
-.ui-panel-page-content-display-overlay {
-	left: 0;
+/* Dismiss model open */
+.ui-panel-dismiss-open.ui-panel-dismiss-position-left {
+	left: 17em;
 }
-/* shadows and borders */
+.ui-panel-dismiss-open.ui-panel-dismiss-position-right {
+	right: 17em;
+}
+/* Shadows and borders */
 .ui-panel-display-reveal {
 	-webkit-box-shadow: inset -5px 0 5px rgba(0,0,0,.15);
 	-moz-box-shadow: inset -5px 0 5px rgba(0,0,0,.15);
@@ -4707,18 +4726,15 @@ for Android 4.1 */
 	margin-right: 1px;
 	width: auto;
 }
-/* wrap on wide viewports once open */
+/* Responsive: wrap on wide viewports once open */
 @media (min-width:55em) {
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-push,
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left.ui-panel-page-content-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-left {
 		margin-right: 17em;
 	}
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-push,
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right.ui-panel-page-content-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-position-right {
 		margin-left: 17em;
 	}
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-display-push,
-	.ui-responsive-panel .ui-panel-page-content-open.ui-panel-page-content-display-reveal {
+	.ui-responsive-panel .ui-panel-page-content-open {
 		width: auto;	
 	}
 	.ui-responsive-panel .ui-panel-dismiss-display-push,
