@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Tiago Scolari", "Dylan Markow"]
   s.email       = ["tscolari@gmail.com", "dylan@dylanmarkow.com"]
   s.homepage    = "https://github.com/tscolari/jquery-mobile-rails"
-  s.summary     = "JQuery Mobile files for Rails 3.1."
-  s.description = "JQuery Mobile files for Rails 3.1 assets pipeline"
+  s.summary     = "JQuery Mobile files for Rails."
+  s.description = "JQuery Mobile files for Rails' assets pipeline"
   s.license     = 'MIT'
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
