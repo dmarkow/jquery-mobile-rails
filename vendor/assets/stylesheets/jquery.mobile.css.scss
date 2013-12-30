@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.4.0-rc.1
-* Git HEAD hash: 4b6462bccfe0e4fc3337bd24f17c76c6b5cb0e62 <> Date: Thu Oct 24 2013 20:08:54 UTC
+* jQuery Mobile 1.4.0
+* Git HEAD hash: f09aae0e035d6805e461a7be246d04a0dbc98f69 <> Date: Thu Dec 19 2013 17:34:22 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2013 jQuery Foundation, Inc. and other contributors
@@ -873,7 +873,7 @@ html .ui-alt-icon.ui-radio-off:after,
 html .ui-alt-icon .ui-checkbox-off:after,
 html .ui-alt-icon .ui-radio-off:after {
 	background-color: 					#666 /*{global-icon-color}*/;
-	background-color: 					rgba(0,0,0,.15) /*{global-icon-disc-alt}*/;
+	background-color: 					rgba(0,0,0,.15);
 }
 /* No disc */
 .ui-nodisc-icon.ui-btn:after,
@@ -1249,6 +1249,7 @@ html head + body .ui-body-b.ui-focus {
 	-moz-box-shadow: 0 0 12px 		#22aadd /*{b-active-background-color}*/;
 	box-shadow: 0 0 12px 			#22aadd /*{b-active-background-color}*/;
 }
+/* Structure */
 /* Disabled
 -----------------------------------------------------------------------------------------------------------*/
 /* Class ui-disabled deprecated in 1.4. :disabled not supported by IE8 so we use [disabled] */

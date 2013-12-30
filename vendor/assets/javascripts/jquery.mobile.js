@@ -1,6 +1,6 @@
 /*!
-* jQuery Mobile 1.4.0-rc.1
-* Git HEAD hash: 4b6462bccfe0e4fc3337bd24f17c76c6b5cb0e62 <> Date: Thu Oct 24 2013 20:08:54 UTC
+* jQuery Mobile 1.4.0
+* Git HEAD hash: f09aae0e035d6805e461a7be246d04a0dbc98f69 <> Date: Thu Dec 19 2013 17:34:22 UTC
 * http://jquerymobile.com
 *
 * Copyright 2010, 2013 jQuery Foundation, Inc. and other contributors
@@ -30,7 +30,7 @@
 	$.extend( $.mobile, {
 
 		// Version of the jQuery Mobile Framework
-		version: "1.4.0-rc.1",
+		version: "1.4.0",
 
 		// Deprecated and no longer used in 1.4 remove in 1.5
 		// Define the url parameter used for referencing widget-generated sub-pages.
@@ -225,7 +225,7 @@
 })( jQuery, this );
 
 /*!
- * jQuery UI Core @VERSION
+ * jQuery UI Core c0ab71056b936627e8a7821f03c044aec6280a40
  * http://jqueryui.com
  *
  * Copyright 2013 jQuery Foundation and other contributors
@@ -243,7 +243,7 @@ var uuid = 0,
 $.ui = $.ui || {};
 
 $.extend( $.ui, {
-	version: "@VERSION",
+	version: "c0ab71056b936627e8a7821f03c044aec6280a40",
 
 	keyCode: {
 		BACKSPACE: 8,
@@ -792,7 +792,7 @@ $.ui.plugin = {
 
 
 /*!
- * jQuery UI Widget @VERSION
+ * jQuery UI Widget c0ab71056b936627e8a7821f03c044aec6280a40N
  * http://jqueryui.com
  *
  * Copyright 2013 jQuery Foundation and other contributors
@@ -6899,7 +6899,7 @@ $.widget( "mobile.collapsibleset", $.extend( {
 	initSelector: ":jqmData(role='collapsible-set'),:jqmData(role='collapsibleset')",
 
 	options: $.extend( {
-		enhanced: false,
+		enhanced: false
 	}, $.mobile.collapsible.defaults ),
 
 	_handleCollapsibleExpand: function( event ) {
@@ -13673,7 +13673,7 @@ $.widget( "mobile.filterable", $.mobile.filterable, {
 })( jQuery );
 
 /*!
- * jQuery UI Tabs @VERSION
+ * jQuery UI Tabs fadf2b312a05040436451c64bbfaf4814bc62c56
  * http://jqueryui.com
  *
  * Copyright 2013 jQuery Foundation and other contributors
@@ -13702,7 +13702,7 @@ function isLocal( anchor ) {
 }
 
 $.widget( "ui.tabs", {
-	version: "@VERSION",
+	version: "fadf2b312a05040436451c64bbfaf4814bc62c56",
 	delay: 300,
 	options: {
 		active: null,

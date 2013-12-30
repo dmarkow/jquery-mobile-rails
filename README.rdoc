@@ -6,13 +6,13 @@ This gem adds the jQuery Mobile files to Rails' asset pipeline.
 
 === Gem's jQuery Mobile Version
 
-1.4.0-beta.1 (gem 1.4.0.beta.1)
+1.4.0 (gem 1.4.0)
 
 === Installation
 
-The 1.4.0 branch is still in beta and has not been released. To use it, you'll need to reference this repository in your Gemfile:
+Add this gem to your Gemfile:
 
-    gem 'jquery_mobile_rails', :github => "tscolari/jquery-mobile-rails", :branch => "1.4.0"
+    gem 'jquery_mobile_rails'
 
 This will add jQuery Mobile's javascripts, stylesheets and images to your app.
 
@@ -32,7 +32,7 @@ And the same in your application.css manifest:
 
 I built this gem for using with the Mobylette gem, but it will work with your standalone application, or with any other gem that filters your mobile requests.
 
-Please refer to jQuery Mobile's documentation for information on laying out your app and using all of the jQuery Mobile features: http://view.jquerymobile.com/1.4.0-beta.1/dist/demos/
+Please refer to jQuery Mobile's documentation for information on laying out your app and using all of the jQuery Mobile features: http://view.jquerymobile.com/1.4.0/dist/demos/
 
 === Example
 
