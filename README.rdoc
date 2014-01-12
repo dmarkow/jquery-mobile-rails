@@ -1,5 +1,3 @@
-= Looking for new maintainer!! - please send message
-
 = jQuery Mobile for Rails
 
 This gem adds the jQuery Mobile files to Rails' asset pipeline.
@@ -62,3 +60,8 @@ Please make sure to follow these steps before submitting any pull requests:
 * jQuery Mobile Page: http://jquerymobile.com/
 * Mobylette Gem: https://github.com/tscolari/mobylette
 * Mobile_fu Gem: https://github.com/brendanlim/mobile-fu
+
+=== Authors
+
+* Tiago Scolari (https://github.com/tscolari)
+* Dylan Markow (https://github.com/dmarkow)
