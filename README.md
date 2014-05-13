@@ -26,6 +26,8 @@ And the same in your `application.css` manifest:
     *= require_tree .
     *= require jquery.mobile
 
+__NOTE:__ You should probably remove Turbolinks from your `application.js` manifest, as it likely won't work well with jQuery Mobile.
+
 ## Use
 
 I built this gem for using with the Mobylette gem, but it will work with your standalone application, or with any other gem that filters your mobile requests.
