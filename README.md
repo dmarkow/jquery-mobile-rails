@@ -28,6 +28,11 @@ And the same in your `application.css` manifest:
 
 __NOTE:__ You should probably remove Turbolinks from your `application.js` manifest, as it likely won't work well with jQuery Mobile.
 
+You'll also need to ensure that jQuery Mobile's PNG/GIF files are added to the asset pipeline, otherwise the images will not be precompiled and served in production (and in the latest Rails 4.1 release, you will also see errors in development).
+
+    # In config/initializers/assets.rb
+    Rails.application.config.assets.precompile += %w( jquery-mobile/icons-png/*.png jquery-mobile/*.gif )
+
 ## Use
 
 I built this gem for using with the Mobylette gem, but it will work with your standalone application, or with any other gem that filters your mobile requests.
