@@ -4,7 +4,7 @@ This gem adds the jQuery Mobile files to Rails' asset pipeline.
 
 ## Gem's jQuery Mobile Version
 
-1.4.4 (gem 1.4.4)
+1.4.4 (gem 1.4.4.1)
 
 ## Installation
 
@@ -12,7 +12,7 @@ Add this gem to your Gemfile:
 
     gem 'jquery_mobile_rails'
 
-This will add jQuery Mobile's javascripts, stylesheets and images to your app.
+This will add jQuery Mobile's javascripts, stylesheets and images to your app. It will also set up the asset pipeline to precompile these assets for production.
 
 Include jquery.mobile (or jquery.mobile.min) in your `application.js` manifest:
 
@@ -27,11 +27,6 @@ And the same in your `application.css` manifest:
     *= require jquery.mobile
 
 __NOTE:__ You should probably remove Turbolinks from your `application.js` manifest, as it likely won't work well with jQuery Mobile.
-
-You'll also need to ensure that jQuery Mobile's PNG/GIF files are added to the asset pipeline, otherwise the images will not be precompiled and served in production (and in the latest Rails 4.1 release, you will also see errors in development).
-
-    # In config/initializers/assets.rb
-    Rails.application.config.assets.precompile += %w( jquery-mobile/icons-png/*.png jquery-mobile/*.gif )
 
 ## Use
 
