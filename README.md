@@ -4,7 +4,7 @@ This gem adds the jQuery Mobile files to Rails' asset pipeline.
 
 ## Gem's jQuery Mobile Version
 
-1.4.4 (gem 1.4.4.1)
+1.4.5 (gem 1.4.5)
 
 ## Installation
 
