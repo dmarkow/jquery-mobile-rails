@@ -2633,9 +2633,16 @@ var createHandler = function( sequential ) {
 			maxTransitionOverride = $.mobile.maxTransitionWidth !== false && $( window ).width() > $.mobile.maxTransitionWidth,
 			none = !$.support.cssTransitions || maxTransitionOverride || !name || name === "none" || Math.max( $( window ).scrollTop(), toScroll ) > $.mobile.getMaxScrollForTransition(),
 			toPreClass = " ui-page-pre-in",
-			toggleViewportClass = function() {
-				$.mobile.pageContainer.toggleClass( "ui-mobile-viewport-transitioning viewport-" + name );
-			},
+			toggleViewportClass = function(mode) {
+				//$.mobile.pageContainer.toggleClass( "ui-mobile-viewport-transitioning viewport-" + name );
+                                var classes = "ui-mobile-viewport-transitioning viewport-" + name;
+                                if (mode === 'add') {
+                                  $.mobile.pageContainer.addClass(classes);
+                                }
+                                else {
+                                  $.mobile.pageContainer.removeClass(classes);
+                                }
+			}
 			scrollPage = function() {
 				// By using scrollTo instead of silentScroll, we can keep things better in order
 				// Just to be precautios, disable scrollstart listening like silentScroll would
@@ -2723,7 +2730,7 @@ var createHandler = function( sequential ) {
 					.removeClass( "out in reverse " + name )
 					.height( "" );
 
-				toggleViewportClass();
+				toggleViewportClass('remove');
 
 				// In some browsers (iOS5), 3D transitions block the ability to scroll to the desired location during transition
 				// This ensures we jump to that spot after the fact, if we aren't there already.
@@ -2734,7 +2741,7 @@ var createHandler = function( sequential ) {
 				deferred.resolve( name, reverse, $to, $from, true );
 			};
 
-		toggleViewportClass();
+		toggleViewportClass('add');
 
 		if ( $from && !none ) {
 			startOut();
